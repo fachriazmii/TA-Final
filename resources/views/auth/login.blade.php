@@ -1,66 +1,56 @@
-@extends('dashboard.authBase')
+<x-guest-layout>
 
-@section('content')
-
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-md-8">
-          <div class="card-group">
-            <div class="card p-4">
-              <div class="card-body">
-                <h1>Login</h1>
-                <p class="text-muted">Sign In to your account</p>
-                <form method="POST" action="{{ route('login') }}">
-                    @csrf
-                    <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">
-                        <svg class="c-icon">
-                          <use xlink:href="assets/icons/coreui/free-symbol-defs.svg#cui-user"></use>
-                        </svg>
-                      </span>
-                    </div>
-                    <input class="form-control" type="text" placeholder="{{ __('E-Mail Address') }}" name="email" value="{{ old('email') }}" required autofocus>
-                    </div>
-                    <div class="input-group mb-4">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">
-                        <svg class="c-icon">
-                          <use xlink:href="assets/icons/coreui/free-symbol-defs.svg#cui-lock-locked"></use>
-                        </svg>
-                      </span>
-                    </div>
-                    <input class="form-control" type="password" placeholder="{{ __('Password') }}" name="password" required>
-                    </div>
-                    <div class="row">
-                    <div class="col-6">
-                        <button class="btn btn-primary px-4" type="submit">{{ __('Login') }}</button>
-                    </div>
-                    </form>
-                    <div class="col-6 text-right">
-                        <a href="{{ route('password.request') }}" class="btn btn-link px-0">{{ __('Forgot Your Password?') }}</a>
-                    </div>
-                    </div>
-              </div>
-            </div>
-            <div class="card text-white bg-primary py-5 d-md-down-none" style="width:44%">
-              <div class="card-body text-center">
-                <div>
-                  <h2>Sign up</h2>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                  @if (Route::has('password.request'))
-                    <a href="{{ route('register') }}" class="btn btn-primary active mt-3">{{ __('Register') }}</a>
-                  @endif
-                </div>
-              </div>
-            </div>
-          </div>
+    <div id="auth-left">
+        <div class="auth-logo">
+            <a href="index.html"><img src="{{ asset('/images/logo/logo.png') }}" alt="Logo"></a>
         </div>
-      </div>
+        <h1 class="auth-title">Log in.</h1>
+        <p class="auth-subtitle mb-5">Log in with your data that you entered during registration.</p>
+
+        @if (session('status'))
+        <div class="mb-4 font-medium text-sm text-green-600">
+            {{ session('status') }}
+        </div>
+        @endif
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            {{ $errors->first() }}
+        </div>
+        @endif
+        <form action="{{ route('login') }}" method="POST">
+            @csrf
+            <div class="form-group position-relative has-icon-left mb-4">
+                <input class="form-control form-control-xl" type="email" name="email" placeholder="Email"
+                    value="{{ old('email') }}">
+                <div class="form-control-icon">
+                    <i class="bi bi-person"></i>
+                </div>
+            </div>
+            <div class="form-group position-relative has-icon-left mb-4">
+                <input type="password" class="form-control form-control-xl" name="password" placeholder="Password"
+                    placeholder="Password">
+                <div class="form-control-icon">
+                    <i class="bi bi-shield-lock"></i>
+                </div>
+            </div>
+            <div class="form-check form-check-lg d-flex align-items-end">
+                <input class="form-check-input me-2" type="checkbox" name="remember" id="flexCheckDefault">
+                <label class="form-check-label text-gray-600" for="flexCheckDefault">
+                    Keep me logged in
+                </label>
+            </div>
+            <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5">Log in</button>
+        </form>
+        <div class="text-center mt-5 text-lg fs-4">
+            @if (Route::has('register'))
+            <p class="text-gray-600">Don't have an account? <a href="{{route('register')}}" class="font-bold">Sign
+                    up</a>.</p>
+            @endif
+
+
+            @if (Route::has('password.request'))
+            <p><a class="font-bold" href="{{route('password.request')}}">Forgot password?</a>.</p>
+            @endif
+        </div>
     </div>
-
-@endsection
-
-@section('javascript')
-
-@endsection
+</x-guest-layout>
