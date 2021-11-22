@@ -13,7 +13,7 @@
           <img src="{{asset('admin-lte-3/dist/img/avatar.png')}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          <a href="#" class="d-block">{{ auth()->user()->name }}</a>
         </div>
       </div>
 
@@ -23,30 +23,32 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="#" class="nav-link {{ $title ='Dashboard' ? 'active' : '' }}">
+            <a href="{{route('/')}}" class="nav-link {{ $title=='Dashboard' ? 'active' : '' }}">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Dashboard
               </p>
             </a>
           </li>
+          @if (auth()->user()->level=="admin")
+            <li class="nav-item">
+              <a href="#" class="nav-link {{ $title=='Dosen' ? 'active' : '' }}">
+                <i class="nav-icon fas fa-th"></i>
+                <p>
+                  Dosen
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link {{ $title=='Mahasiswa' ? 'active' : '' }}">
+                <i class="nav-icon fas fa-th"></i>
+                <p>
+                  Mahasiswa
+                </p>
+              </a>
+            </li>
+          @endif
           <li class="nav-item">
-            <a href="#" class="nav-link {{ $title ='Dosen' ? 'active' : '' }}">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Dosen
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link {{ $title ='Mahasiswa' ? 'active' : '' }}">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Mahasiswa
-              </p>
-            </a>
-          </li>
-          <li class="nav-item menu-open">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
@@ -75,6 +77,14 @@
               <p>
                 Simple Link
                 <span class="right badge badge-danger">New</span>
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{route('logout')}}" class="nav-link">
+              <i class="nav-icon fas fa-sign-out-alt"></i>
+              <p>
+                Log out
               </p>
             </a>
           </li>

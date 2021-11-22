@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('dashboard');
+
+Route::get('/login', [LoginController::class,'index'])->name('login');
+Route::post('/postlogin', [LoginController::class,'postLogin'])->name('postlogin');
+Route::get('/logout', [LoginController::class,'logout'])->name('logout');
+
+Route::middleware(['auth','ceklevel:admin,mahasiswa,dosen'])->group(function () {
+    Route::get('/', [HomeController::class,'index'])->name('/');
+    
 });
