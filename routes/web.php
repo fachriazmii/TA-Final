@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\DosenController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +21,13 @@ Route::get('/login', [LoginController::class,'index'])->name('login');
 Route::post('/postlogin', [LoginController::class,'postLogin'])->name('postlogin');
 Route::get('/logout', [LoginController::class,'logout'])->name('logout');
 
-Route::middleware(['auth','ceklevel:admin,mahasiswa,dosen'])->group(function () {
+Route::middleware(['auth','ceklevel:admin'])->group(function () {
     Route::get('/', [HomeController::class,'index'])->name('/');
+    Route::get('/dosen', [DosenController::class,'index'])->name('/dosen');
+    Route::get('/dosen/create', [DosenController::class,'create'])->name('/dosen/create');
+    Route::post('/dosen/store', [DosenController::class,'store'])->name('/dosen/store');
+    Route::get('/dosen/edit/{id}', [DosenController::class,'edit']);
+    Route::get('/dosen/update/{id}', [DosenController::class,'update']);
+    Route::delete('/dosen/delete/{id}', [DosenController::class,'delete']);
     
 });

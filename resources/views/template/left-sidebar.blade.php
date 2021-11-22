@@ -32,7 +32,7 @@
           </li>
           @if (auth()->user()->level=="admin")
             <li class="nav-item">
-              <a href="#" class="nav-link {{ $title=='Dosen' ? 'active' : '' }}">
+              <a href="{{route('/dosen')}}" class="nav-link {{ $title=='Dosen' ? 'active' : '' }}">
                 <i class="nav-icon fas fa-th"></i>
                 <p>
                   Dosen
