@@ -48,9 +48,9 @@
             @endif
 
 
-            @if (Route::has('password.request'))
+            {{-- @if (Route::has('password.request'))
             <p><a class="font-bold" href="{{route('password.request')}}">Forgot password?</a>.</p>
-            @endif
+            @endif --}}
         </div>
     </div>
 </x-guest-layout>
