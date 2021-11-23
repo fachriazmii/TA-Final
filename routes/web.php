@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DosenController;
+use App\Http\Controllers\MahasiswaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,5 +30,12 @@ Route::middleware(['auth','ceklevel:admin'])->group(function () {
     Route::get('/dosen/edit/{id}', [DosenController::class,'edit']);
     Route::get('/dosen/update/{id}', [DosenController::class,'update']);
     Route::delete('/dosen/delete/{id}', [DosenController::class,'delete']);
+
+    Route::get('/mahasiswa', [MahasiswaController::class,'index'])->name('/mahasiswa');
+    Route::get('/mahasiswa/create', [MahasiswaController::class,'create'])->name('/mahasiswa/create');
+    Route::post('/mahasiswa/store', [MahasiswaController::class,'store'])->name('/mahasiswa/store');
+    Route::get('/mahasiswa/edit/{id}', [MahasiswaController::class,'edit']);
+    Route::get('/mahasiswa/update/{id}', [MahasiswaController::class,'update']);
+    Route::delete('/mahasiswa/delete/{id}', [MahasiswaController::class,'delete']);
     
 });

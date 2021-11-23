@@ -33,15 +33,15 @@
           @if (auth()->user()->level=="admin")
             <li class="nav-item">
               <a href="{{route('/dosen')}}" class="nav-link {{ $title=='Dosen' ? 'active' : '' }}">
-                <i class="nav-icon fas fa-th"></i>
+                <i class="nav-icon fas fa-chalkboard-teacher"></i>
                 <p>
                   Dosen
                 </p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link {{ $title=='Mahasiswa' ? 'active' : '' }}">
-                <i class="nav-icon fas fa-th"></i>
+              <a href="{{route('/mahasiswa')}}" class="nav-link {{ $title=='Mahasiswa' ? 'active' : '' }}">
+                <i class="nav-icon fas fa-user-graduate"></i>
                 <p>
                   Mahasiswa
                 </p>

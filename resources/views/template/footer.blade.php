@@ -18,6 +18,9 @@
 <!-- AdminLTE App -->
 <script src="{{asset('admin-lte-3/dist/js/adminlte.min.js')}}"></script>
 
+<!-- Select2 -->
+<script src="{{asset('admin-lte-3/plugins/select2/js/select2.full.min.js')}}"></script>
+
 <!-- DataTables  & Plugins -->
 <script src="{{asset('admin-lte-3/plugins/datatables/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('admin-lte-3/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
