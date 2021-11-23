@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LoginController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\MahasiswaController;
@@ -17,13 +16,15 @@ use App\Http\Controllers\MahasiswaController;
 |
 */
 
-
-Route::get('/login', [LoginController::class,'index'])->name('login');
-Route::post('/postlogin', [LoginController::class,'postLogin'])->name('postlogin');
-Route::get('/logout', [LoginController::class,'logout'])->name('logout');
+// Auth::routes();
+Route::get('/', [App\Http\Controllers\Auth\LoginController::class,'showLoginForm'])->name('login');
+Route::post('/', [App\Http\Controllers\Auth\LoginController::class,'login'])->name('login');
+Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class,'logout'])->name('logout');
+Route::get('/register', [App\Http\Controllers\Auth\RegisterController::class,'showRegisterForm'])->name('register');
+Route::post('/register/store', [App\Http\Controllers\Auth\RegisterController::class,'store'])->name('register/store');
 
 Route::middleware(['auth','ceklevel:admin'])->group(function () {
-    Route::get('/', [HomeController::class,'index'])->name('/');
+    Route::get('/dashboard', [HomeController::class,'index'])->name('/dashboard');
     Route::get('/dosen', [DosenController::class,'index'])->name('/dosen');
     Route::get('/dosen/create', [DosenController::class,'create'])->name('/dosen/create');
     Route::post('/dosen/store', [DosenController::class,'store'])->name('/dosen/store');

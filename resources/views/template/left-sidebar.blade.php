@@ -23,7 +23,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="{{route('/')}}" class="nav-link {{ $title=='Dashboard' ? 'active' : '' }}">
+            <a href="{{route('/dashboard')}}" class="nav-link {{ $title=='Dashboard' ? 'active' : '' }}">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Dashboard
@@ -81,12 +81,17 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('logout')}}" class="nav-link">
+            <a onclick="
+              event.preventDefault();
+              document.getElementById('logout').submit();" href="{{route('logout')}}" class="nav-link">
               <i class="nav-icon fas fa-sign-out-alt"></i>
               <p>
                 Log out
               </p>
             </a>
+            <form id="logout" action="{{route('logout')}}" method="post" class="d-inline border-0">
+              @csrf
+            </form>
           </li>
         </ul>
       </nav>
