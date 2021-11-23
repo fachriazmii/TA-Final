@@ -85,7 +85,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <td>{{$count}}</td>
                                 <td>{{ $d->nim}}</td>
                                 <td>{{ $d->nama}}</td>
-                                <td>{{ $d->jenkel}}</td>
+                                <td>{{ $d->jenkel=='L' ? 'Laki-laki' : 'Perempuan' }}</td>
                                 <td>{{ $d->email}}</td>
                                 <td>{{ $d->program_studi}}</td>
                                 <td>{{ $d->fakultas}}</td>
