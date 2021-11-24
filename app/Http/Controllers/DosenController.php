@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\ModelDosen;
 use Illuminate\Support\Facades\DB;
+
+use App\Models\ModelDosen;
 
 class DosenController extends Controller
 {
@@ -64,11 +65,7 @@ class DosenController extends Controller
      */
     public function edit($id)
     {
-        // $dosen = ModelDosen::all()->where('id', $id);
         $dosen = DB::table('dosen')->where('id', $id)->first();
-
-        // var_dump($dosen);exit();
-        
         return view('form.dosen.edit', ['data' => $dosen]);
     }
 

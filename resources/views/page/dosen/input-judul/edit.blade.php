@@ -1,5 +1,5 @@
 @php
-    $title ='Dosen';
+    $title ='Input Judul';
 @endphp
 <!DOCTYPE html>
 <!--
@@ -28,13 +28,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            {{-- <h1 class="m-0">Tambah Data Dosen</h1> --}}
+            {{-- <h1 class="m-0">Input Judul</h1> --}}
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item">Dashboard</li>
-              <li class="breadcrumb-item">Dosen</li>
-              <li class="breadcrumb-item active">Tambah Data</li>
+                <li class="breadcrumb-item">Dashboard</li>
+                <li class="breadcrumb-item">Input Judul</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -50,27 +49,31 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="col-lg-12">
             <div class="card card-primary card-outline">
               <div class="card-header">
-                  <h4 class="m-0">Tambah Data Dosen</h4>
                 <div class="col-sm-2">
+                  <h4 class="m-0">Edit Judul</h4>
                 </div>
               </div>
               <div class="card-body">
-                <form method="POST" action="{{ route('/dosen/store') }}">
+                <form method="POST" action="{{ url('/input-judul/update', $data->id) }}">
                   {{ csrf_field() }}
                     <div class="form-group">
-                      <label for="exampleInputEmail1">Nama Dosen</label>
-                      <input name="nama_dosen" type="text" class="form-control" id="exampleInputEmail1" placeholder="Nama lengkap dosen dengan gelar" required>
+                      <label for="exampleInputEmail1">Judul Penelitian</label>
+                      <input name="judul" type="text" value="{{$data->judul}}" class="form-control" id="exampleInputEmail1" placeholder="Judul penelitian">
                     </div>
                     <div class="form-group">
-                      <label for="exampleInputEmail1">Nomor Handphone</label>
-                      <input name="no_hp" type="number" class="form-control" id="exampleInputEmail1" placeholder="Masukan nomor handphone" required>
+                      <label for="exampleInputEmail1">Pembimbing 1</label>
+                      <input name="pbb1" type="text" value="{{$data->pbb1}}" class="form-control" id="exampleInputEmail1" placeholder="Dosen pembimbing satu">
                     </div>
                     <div class="form-group">
-                      <label for="exampleInputEmail1">Email</label>
-                      <input name="email" type="email" class="form-control" id="exampleInputEmail1" placeholder="Alamat email" required>
+                      <label for="exampleInputEmail1">Pembimbing 2</label>
+                      <input name="pbb2" type="pbb2" value="{{$data->pbb2}}" class="form-control" id="exampleInputEmail1" placeholder="Dosen pembimbing dua">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Kuota</label>
+                      <input name="kuota" type="number" value="{{$data->kuota}}" class="form-control" id="exampleInputEmail1" placeholder="Kuota">
                     </div>
                   <div class="float-right">
-                    <button type="submit" class="btn btn-primary"><i class="fas fa-save pr-2" aria-hidden="true"></i>Simpan</button>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-user-edit pr-2"></i>Edit Data</button>
                   </div>
                 </form>
               </div>
@@ -97,7 +100,5 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <!-- Main Footer -->
   @include('template.footer')
-  <script>
-  </script>
 </body>
 </html>

@@ -54,9 +54,20 @@ class RegisterController extends Controller
 
     public function store(Request $request)
     {
-        // $input = $request->all();
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'username' => 'required|min:5|unique:users',
+            'email' => 'required|email|unique:users',
+            'password' => 'required',
+            'jenkel' => 'required',
+            'no_hp' => 'required|numeric',
+            'program_studi' => 'required',
+            'fakultas' => 'required',
+        ], [
+            'name.required' => 'Name is required',
+            'password.required' => 'Password is required'
+        ]);
 
-        // User::create($input);
         $User = User::create([
             'name' => $request->input('name'),
             'username' => $request->input('username'),
@@ -66,13 +77,19 @@ class RegisterController extends Controller
             'remember_token' => Str::random(60),
         ]);
 
-        $Mahasiswa = ModelMahasiswa::create([
-            'nim' => $request->input('username'),
-            'nama' => $request->input('name'),
-            'email' => $request->input('email'),
-            'id_role' => $request->input('id'),
-        ]);
-        
+        if($User){
+            $user = DB::table('users')->where('username', $request->input('username'))->first();
+            $Mahasiswa = ModelMahasiswa::create([
+                'nim' => $request->input('username'),
+                'nama' => $request->input('name'),
+                'jenkel' => $request->input('jenkel'),
+                'no_hp' => $request->input('no_hp'),
+                'program_studi' => $request->input('program_studi'),
+                'fakultas' => $request->input('fakultas'),
+                'email' => $request->input('email'),
+                'id_role' => $user->id,
+            ]);
+        }
         return redirect('/')->with('success','Berhasil membuat akun, silakan Login.');
     }
 

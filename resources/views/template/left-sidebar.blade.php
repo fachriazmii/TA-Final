@@ -48,6 +48,32 @@
               </a>
             </li>
           @endif
+          @if (auth()->user()->level=="dosen")
+            <li class="nav-item">
+              <a href="{{route('input-judul')}}" class="nav-link {{ $title=='Input Judul' ? 'active' : '' }}">
+                <i class="nav-icon fas fa-th"></i>
+                <p>
+                  Input Judul
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{route('status-judul')}}" class="nav-link {{ $title=='Status Judul' ? 'active' : '' }}">
+                <i class="nav-icon fas fa-th"></i>
+                <p>
+                  Status Judul
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link {{ $title=='Revisi' ? 'active' : '' }}">
+                <i class="nav-icon fas fa-th"></i>
+                <p>
+                  Revisi
+                </p>
+              </a>
+            </li>
+          @endif
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -70,15 +96,6 @@
                 </a>
               </li>
             </ul>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Simple Link
-                <span class="right badge badge-danger">New</span>
-              </p>
-            </a>
           </li>
           <li class="nav-item">
             <a onclick="

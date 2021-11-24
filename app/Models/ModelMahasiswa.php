@@ -16,6 +16,7 @@ class ModelMahasiswa extends Model
         'nim',
         'nama',
         'email',
+        'no_hp',
         'jenkel',
         'program_studi',
         'fakultas',

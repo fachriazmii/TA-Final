@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Dosen\InputJudulController;
+use App\Http\Controllers\Dosen\StatusJudulController;
+
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\MahasiswaController;
@@ -38,5 +41,22 @@ Route::middleware(['auth','ceklevel:admin'])->group(function () {
     Route::get('/mahasiswa/edit/{id}', [MahasiswaController::class,'edit']);
     Route::get('/mahasiswa/update/{id}', [MahasiswaController::class,'update']);
     Route::delete('/mahasiswa/delete/{id}', [MahasiswaController::class,'delete']);
+});
+
+Route::middleware(['auth','ceklevel:dosen'])->group(function () {
+    Route::get('/dashboard', [HomeController::class,'index'])->name('/dashboard');
     
+    Route::get('/input-judul', [InputJudulController::class,'index'])->name('input-judul');
+    Route::get('/input-judul/create', [InputJudulController::class,'create'])->name('input-judul/create');
+    Route::post('/input-judul/store', [InputJudulController::class,'store'])->name('input-judul/store');
+    Route::get('/input-judul/edit/{id}', [InputJudulController::class,'edit']);
+    Route::post('/input-judul/update/{id}', [InputJudulController::class,'update']);
+    Route::delete('/input-judul/delete/{id}', [InputJudulController::class,'delete']);
+
+    Route::get('/status-judul', [StatusJudulController::class,'index'])->name('status-judul');
+    Route::get('/status-judul/create', [StatusJudulController::class,'create'])->name('status-judul/create');
+    Route::post('/status-judul/store', [StatusJudulController::class,'store'])->name('status-judul/store');
+    Route::get('/status-judul/edit/{id}', [StatusJudulController::class,'edit']);
+    Route::post('/status-judul/update/{id}', [StatusJudulController::class,'update']);
+    Route::delete('/status-judul/delete/{id}', [StatusJudulController::class,'delete']);
 });
