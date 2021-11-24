@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 23, 2021 at 03:44 AM
+-- Generation Time: Nov 24, 2021 at 05:53 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -29,8 +29,8 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `dosen` (
   `id` int(255) NOT NULL,
+  `no_induk` varchar(255) NOT NULL,
   `nama_dosen` text NOT NULL,
-  `no_hp` varchar(14) NOT NULL,
   `email` varchar(255) NOT NULL,
   `id_role` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -39,8 +39,9 @@ CREATE TABLE `dosen` (
 -- Dumping data for table `dosen`
 --
 
-INSERT INTO `dosen` (`id`, `nama_dosen`, `no_hp`, `email`, `id_role`) VALUES
-(2, 'Dadang Konelo', '082317657262', 'dadang@agmail.com', NULL);
+INSERT INTO `dosen` (`id`, `no_induk`, `nama_dosen`, `email`, `id_role`) VALUES
+(2, '', 'Dadang Konelo', 'dadang@agmail.com', 14),
+(3, '', 'Jan', 'jan@mail.com', NULL);
 
 -- --------------------------------------------------------
 
@@ -94,12 +95,20 @@ CREATE TABLE `jadwal_ta` (
 
 CREATE TABLE `judul_ta` (
   `id` int(11) NOT NULL,
-  `pbb1` varchar(255) NOT NULL,
-  `pbb2` varchar(255) NOT NULL,
-  `judul` text NOT NULL,
-  `kuota` int(3) NOT NULL,
-  `aktif` int(2) NOT NULL DEFAULT 1
+  `pbb1` varchar(255) DEFAULT NULL,
+  `pbb2` varchar(255) DEFAULT NULL,
+  `judul` text DEFAULT NULL,
+  `kuota` int(3) DEFAULT NULL,
+  `aktif` int(2) NOT NULL DEFAULT 1,
+  `id_dosen` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `judul_ta`
+--
+
+INSERT INTO `judul_ta` (`id`, `pbb1`, `pbb2`, `judul`, `kuota`, `aktif`, `id_dosen`) VALUES
+(4, 'Dospem satu', 'Dospem dua', 'Penelitian Satu Penelitian Satu Penelitian Satu Penelitian Satu Penelitian Satu Penelitian Satu', 1, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -111,11 +120,11 @@ CREATE TABLE `mahasiswa` (
   `id` int(11) NOT NULL,
   `nim` varchar(255) NOT NULL,
   `nama` text NOT NULL,
-  `no_hp` varchar(14) NOT NULL,
+  `no_hp` varchar(14) DEFAULT NULL,
   `email` varchar(255) NOT NULL,
-  `jenkel` varchar(255) NOT NULL,
-  `program_studi` varchar(255) NOT NULL,
-  `fakultas` varchar(255) NOT NULL,
+  `jenkel` varchar(255) DEFAULT NULL,
+  `program_studi` varchar(255) DEFAULT NULL,
+  `fakultas` varchar(255) DEFAULT NULL,
   `id_role` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -124,7 +133,10 @@ CREATE TABLE `mahasiswa` (
 --
 
 INSERT INTO `mahasiswa` (`id`, `nim`, `nama`, `no_hp`, `email`, `jenkel`, `program_studi`, `fakultas`, `id_role`) VALUES
-(2, '232323', 'Jojo', '08219312', 'jojo@gmail.com', 'L', 'Informatikas', 'Sainteks', NULL);
+(2, '232323', 'Jojo', '08219312', 'jojo@gmail.com', 'L', 'Informatikas', 'Sainteks', NULL),
+(6, '9901', 'Jojoba', NULL, 'jojoba@gmail.com', 'L', 'Informatika', 'Sains dan Teknologi', 11),
+(7, '9090', 'Mahasiswa1', NULL, 'mahasiswa@gmail.com', 'P', 'IF', 'IF', 12),
+(8, '180102021', 'odod', '12345678910213', 'odod@gmail.com', 'L', 'IF', 'IF', 13);
 
 -- --------------------------------------------------------
 
@@ -146,9 +158,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (1, '2014_10_12_000000_create_users_table', 1),
 (2, '2014_10_12_100000_create_password_resets_table', 1),
 (3, '2019_08_19_000000_create_failed_jobs_table', 1),
-(4, '2019_12_14_000001_create_personal_access_tokens_table', 1),
-(5, '2014_10_12_200000_add_two_factor_columns_to_users_table', 2),
-(6, '2021_11_22_105249_create_sessions_table', 2);
+(4, '2019_12_14_000001_create_personal_access_tokens_table', 1);
 
 -- --------------------------------------------------------
 
@@ -222,28 +232,6 @@ CREATE TABLE `proposal` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sessions`
---
-
-CREATE TABLE `sessions` (
-  `id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `user_id` bigint(20) UNSIGNED DEFAULT NULL,
-  `ip_address` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `user_agent` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `payload` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `last_activity` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `sessions`
---
-
-INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('unb3rQqiCI3TCyBMWe1wOr6BEXUd62sKy2sBujLE', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiTGZBOVFKa2FlTlJjTmpUamMzMHlrdzRjSDVnTzVjTk9ObWxwaWg1MSI7czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czoyNzoiaHR0cDovLzEyNy4wLjAuMTo4MDAwL2Rvc2VuIjt9czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9tYWhhc2lzd2EiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO30=', 1637634950);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `sidang`
 --
 
@@ -270,11 +258,10 @@ CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `level` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `two_factor_secret` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `two_factor_recovery_codes` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -284,9 +271,12 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `level`, `email`, `email_verified_at`, `password`, `two_factor_secret`, `two_factor_recovery_codes`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Admin Jaya Jaya Jaya', 'admin', 'admin@gmail.com', NULL, '$2y$10$7odR5wX4Hc7qBZl0e/bZ8OZRgH5rL.ubiNF1/ih6K9mVbwYafAjvC', NULL, NULL, 'KV9drMUBmlo1MbkiEWi6Ic3zDF1PhABCRDfLXirTGf0FMNEZhYFHc6rt0nRP', '2021-11-22 02:23:01', '2021-11-22 02:23:01'),
-(2, 'Jaya Siswa', 'dosen', 'dosen@gmail.com', NULL, '$2y$10$7odR5wX4Hc7qBZl0e/bZ8OZRgH5rL.ubiNF1/ih6K9mVbwYafAjvC', NULL, NULL, 'i0h8DsN6FSMFz0eBIW50fSHB6blJCsQFRClJRYax7bBZ0Wtgv2YAcIZM6JxA', NULL, NULL);
+INSERT INTO `users` (`id`, `name`, `level`, `username`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Admin Jaya Jaya Jaya', 'admin', '12345', 'admin@gmail.com', NULL, '$2y$10$bYF6I8jwLeDo/sq/knlwRO7.sfOWL/qlNdFO76ylEtfXe2KYjMIEi', 'XqScSXFgLjKRR0m50js165AcbR92fO5V31cTVSu8x2Q1uxfLYEDiqVTe9at5', '2021-11-23 02:33:27', '2021-11-23 02:33:27'),
+(11, 'Jojoba', 'mahasiswa', '9901', 'jojoba@gmail.com', NULL, '$2y$10$MN5GSu29zJTtD.uqIIvHjOQPEffGUns8W7HYmKURiLptp1aoTTy1a', NULL, '2021-11-23 18:02:26', '2021-11-23 18:02:26'),
+(12, 'Mahasiswa1', 'mahasiswa', '9090', 'mahasiswa@gmail.com', NULL, '$2y$10$aIhBpa2pw6L8qJDX9jW/e.qRTBwxoUjMNnLautKsiO2h6Ac/JoV3S', NULL, '2021-11-23 18:05:42', '2021-11-23 18:05:42'),
+(13, 'odod', 'mahasiswa', '180102021', 'odod@gmail.com', NULL, '$2y$10$LlreAfuPTTAQsvGXsC1T3OTZD3Aus20OGKXZrXv6JKumwkW4KDMHC', NULL, '2021-11-23 18:08:53', '2021-11-23 18:08:53'),
+(14, 'Dadang Konelo', 'dosen', 'dosen', 'dosen@gmail.com', NULL, '$2y$10$bYF6I8jwLeDo/sq/knlwRO7.sfOWL/qlNdFO76ylEtfXe2KYjMIEi', 'XqScSXFgLjKRR0m50js165AcbR92fO5V31cTVSu8x2Q1uxfLYEDiqVTe9at5', NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -366,18 +356,11 @@ ALTER TABLE `proposal`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `sessions`
---
-ALTER TABLE `sessions`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `sessions_user_id_index` (`user_id`),
-  ADD KEY `sessions_last_activity_index` (`last_activity`);
-
---
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `users_username_unique` (`username`),
   ADD UNIQUE KEY `users_email_unique` (`email`);
 
 --
@@ -388,7 +371,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `dosen`
 --
 ALTER TABLE `dosen`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -412,19 +395,19 @@ ALTER TABLE `jadwal_ta`
 -- AUTO_INCREMENT for table `judul_ta`
 --
 ALTER TABLE `judul_ta`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `mahasiswa`
 --
 ALTER TABLE `mahasiswa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `pendaftaran_sidang`
@@ -448,7 +431,7 @@ ALTER TABLE `proposal`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
