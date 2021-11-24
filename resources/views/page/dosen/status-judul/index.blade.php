@@ -49,12 +49,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="col-lg-12">
             <div class="card card-primary card-outline">
               <div class="card-header">
-                  <div class="row"></div>
-                <div class="col-sm-10">
-                    <h4 class="m-0"> Pengajuan Judul Mahasiswa</h4>
-                </div>
-                <div class="col-sm-2">
-                    <a href="{{route('status-judul/create')}}" class="btn btn-block btn-primary"><i class="fas fa-plus pr-2"></i>Tambah Data</a>
+                <div class="row">
+                  <div class="col-sm-10">
+                      <h4 class="m-0"> Pengajuan Judul Mahasiswa</h4>
+                  </div>
+                  <div class="col-sm-2">
+                      <a href="{{route('status-judul/create')}}" class="btn btn-block btn-primary"><i class="fas fa-plus pr-2"></i>Tambah Data</a>
+                  </div>
                 </div>
               </div>
               <div class="card-body">
@@ -72,8 +73,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <tr>
                           <th>No.</th>
                           <th>Judul Penelitian</th>
-                          <th>Kuota</th>
-                          <th>Aksi</th>
+                          <th>Mahasiswa</th>
+                          <th>Status</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -100,10 +101,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         </tbody>
                         <tfoot>
                         <tr>
-                            <th>No.</th>
-                            <th>Judul Penelitian</th>
-                            <th>Kuota</th>
-                            <th>Aksi</th>
+                          <th>No.</th>
+                          <th>Judul Penelitian</th>
+                          <th>Mahasiswa</th>
+                          <th>Status</th>
                         </tr>
                         </tfoot>
                     </table>
@@ -149,8 +150,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                           <thead>
                           <tr>
                             <th>No.</th>
-                            <th>Judul Penelitian</th>
-                            <th>Kuota</th>
+                            <th>Daftar Judul</th>
+                            <th>Mahasiswa</th>
                             <th>Aksi</th>
                           </tr>
                           </thead>
@@ -178,10 +179,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                           </tbody>
                           <tfoot>
                           <tr>
-                              <th>No.</th>
-                              <th>Judul Penelitian</th>
-                              <th>Kuota</th>
-                              <th>Aksi</th>
+                            <th>No.</th>
+                            <th>Daftar Judul</th>
+                            <th>Mahasiswa</th>
+                            <th>Aksi</th>
                           </tr>
                           </tfoot>
                       </table>

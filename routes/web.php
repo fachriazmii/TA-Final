@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dosen\InputJudulController;
 use App\Http\Controllers\Dosen\StatusJudulController;
+use App\Http\Controllers\Mahasiswa\PilihJudulController;
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DosenController;
@@ -59,4 +60,12 @@ Route::middleware(['auth','ceklevel:dosen'])->group(function () {
     Route::get('/status-judul/edit/{id}', [StatusJudulController::class,'edit']);
     Route::post('/status-judul/update/{id}', [StatusJudulController::class,'update']);
     Route::delete('/status-judul/delete/{id}', [StatusJudulController::class,'delete']);
+});
+
+Route::middleware(['auth','ceklevel:mahasiswa'])->group(function () {
+    Route::get('/dashboard', [HomeController::class,'index'])->name('/dashboard');
+
+    Route::get('/pilih-judul', [PilihJudulController::class,'index'])->name('pilih-judul');
+    Route::post('/pilih-judul/pilih', [PilihJudulController::class,'pilih_judul'])->name('pilih-judul/pilih');
+    
 });

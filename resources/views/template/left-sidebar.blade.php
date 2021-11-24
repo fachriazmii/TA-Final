@@ -47,11 +47,34 @@
                 </p>
               </a>
             </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p>
+                  Starter Pages
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Active Page</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Inactive Page</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
           @endif
           @if (auth()->user()->level=="dosen")
             <li class="nav-item">
               <a href="{{route('input-judul')}}" class="nav-link {{ $title=='Input Judul' ? 'active' : '' }}">
-                <i class="nav-icon fas fa-th"></i>
+                <i class="nav-icon far fa-circle nav-icon"></i>
                 <p>
                   Input Judul
                 </p>
@@ -59,7 +82,7 @@
             </li>
             <li class="nav-item">
               <a href="{{route('status-judul')}}" class="nav-link {{ $title=='Status Judul' ? 'active' : '' }}">
-                <i class="nav-icon fas fa-th"></i>
+                <i class="nav-icon far fa-circle nav-icon"></i>
                 <p>
                   Status Judul
                 </p>
@@ -67,36 +90,64 @@
             </li>
             <li class="nav-item">
               <a href="#" class="nav-link {{ $title=='Revisi' ? 'active' : '' }}">
-                <i class="nav-icon fas fa-th"></i>
+                <i class="nav-icon far fa-circle nav-icon"></i>
                 <p>
                   Revisi
                 </p>
               </a>
             </li>
           @endif
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Starter Pages
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Active Page</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Inactive Page</p>
-                </a>
-              </li>
-            </ul>
-          </li>
+          @if (auth()->user()->level=="mahasiswa")
+            <li class="nav-item">
+              <a href="{{route('pilih-judul')}}" class="nav-link {{ $title=='Pilih Judul' ? 'active' : '' }}">
+                <i class="nav-icon far fa-circle nav-icon"></i>
+                <p>
+                  Pilih Judul
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link {{ $title=='Status' ? 'active' : '' }}">
+                <i class="nav-icon far fa-circle nav-icon"></i>
+                <p>
+                  Status
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link {{ $title=='Daftar Sidang' ? 'active' : '' }}">
+                <i class="nav-icon far fa-circle nav-icon"></i>
+                <p>
+                  Daftar Sidang
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link {{ $title=='Jadwal' ? 'active' : '' }}">
+                <i class="nav-icon far fa-circle nav-icon"></i>
+                <p>
+                  Jadwal
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link {{ $title=='Lihat Revisi' ? 'active' : '' }}">
+                <i class="nav-icon far fa-circle nav-icon"></i>
+                <p>
+                  Lihat Revisi
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link {{ $title=='Hasil Sidang' ? 'active' : '' }}">
+                <i class="nav-icon far fa-circle nav-icon"></i>
+                <p>
+                  Hasil Sidang
+                </p>
+              </a>
+            </li>
+          @endif
+          
           <li class="nav-item">
             <a onclick="
               event.preventDefault();
