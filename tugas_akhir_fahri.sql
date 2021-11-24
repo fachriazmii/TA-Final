@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 24, 2021 at 05:53 AM
+-- Generation Time: Nov 24, 2021 at 02:15 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -223,11 +223,18 @@ CREATE TABLE `proposal` (
   `id` int(11) NOT NULL,
   `id_judul` int(11) NOT NULL,
   `nim` varchar(255) NOT NULL,
-  `id_repo` bigint(20) NOT NULL,
-  `approve_by` bigint(20) UNSIGNED NOT NULL,
+  `id_repo` bigint(20) DEFAULT NULL,
+  `approve_by` bigint(20) UNSIGNED DEFAULT NULL,
   `waktu_pengajuan` datetime NOT NULL,
   `status` enum('Pengajuan','Disetujui','Revisi','Selesai') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `proposal`
+--
+
+INSERT INTO `proposal` (`id`, `id_judul`, `nim`, `id_repo`, `approve_by`, `waktu_pengajuan`, `status`) VALUES
+(6, 4, '9090', NULL, NULL, '2021-11-24 12:38:58', 'Pengajuan');
 
 -- --------------------------------------------------------
 
@@ -272,11 +279,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `level`, `username`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Admin Jaya Jaya Jaya', 'admin', '12345', 'admin@gmail.com', NULL, '$2y$10$bYF6I8jwLeDo/sq/knlwRO7.sfOWL/qlNdFO76ylEtfXe2KYjMIEi', 'XqScSXFgLjKRR0m50js165AcbR92fO5V31cTVSu8x2Q1uxfLYEDiqVTe9at5', '2021-11-23 02:33:27', '2021-11-23 02:33:27'),
+(1, 'Admin Jaya Jaya Jaya', 'admin', '12345', 'admin@gmail.com', NULL, '$2y$10$bYF6I8jwLeDo/sq/knlwRO7.sfOWL/qlNdFO76ylEtfXe2KYjMIEi', 'N73adk9gsZpZrWFQy3ZSI1bt5ufE83tLmKU6pPxDllo2hQkDd9dGcP7rOdSx', '2021-11-23 02:33:27', '2021-11-23 02:33:27'),
 (11, 'Jojoba', 'mahasiswa', '9901', 'jojoba@gmail.com', NULL, '$2y$10$MN5GSu29zJTtD.uqIIvHjOQPEffGUns8W7HYmKURiLptp1aoTTy1a', NULL, '2021-11-23 18:02:26', '2021-11-23 18:02:26'),
 (12, 'Mahasiswa1', 'mahasiswa', '9090', 'mahasiswa@gmail.com', NULL, '$2y$10$aIhBpa2pw6L8qJDX9jW/e.qRTBwxoUjMNnLautKsiO2h6Ac/JoV3S', NULL, '2021-11-23 18:05:42', '2021-11-23 18:05:42'),
 (13, 'odod', 'mahasiswa', '180102021', 'odod@gmail.com', NULL, '$2y$10$LlreAfuPTTAQsvGXsC1T3OTZD3Aus20OGKXZrXv6JKumwkW4KDMHC', NULL, '2021-11-23 18:08:53', '2021-11-23 18:08:53'),
-(14, 'Dadang Konelo', 'dosen', 'dosen', 'dosen@gmail.com', NULL, '$2y$10$bYF6I8jwLeDo/sq/knlwRO7.sfOWL/qlNdFO76ylEtfXe2KYjMIEi', 'XqScSXFgLjKRR0m50js165AcbR92fO5V31cTVSu8x2Q1uxfLYEDiqVTe9at5', NULL, NULL);
+(14, 'Dadang Konelo', 'dosen', 'dosen', 'dosen@gmail.com', NULL, '$2y$10$bYF6I8jwLeDo/sq/knlwRO7.sfOWL/qlNdFO76ylEtfXe2KYjMIEi', 'VHewd1w9KA2WDSwJCaFfQloO3t4Q5BT62DxvWFGU9ilRAnWjMzviOetXY65h', NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -395,7 +402,7 @@ ALTER TABLE `jadwal_ta`
 -- AUTO_INCREMENT for table `judul_ta`
 --
 ALTER TABLE `judul_ta`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `mahasiswa`
@@ -425,7 +432,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `proposal`
 --
 ALTER TABLE `proposal`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `users`
