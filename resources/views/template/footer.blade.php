@@ -15,11 +15,14 @@
 <script src="{{asset('admin-lte-3/plugins/jquery/jquery.min.js')}}"></script>
 <!-- Bootstrap 4 -->
 <script src="{{asset('admin-lte-3/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<!-- Input File -->
+<script src="{{asset('admin-lte-3/plugins/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('admin-lte-3/dist/js/adminlte.min.js')}}"></script>
 
 <!-- Select2 -->
 <script src="{{asset('admin-lte-3/plugins/select2/js/select2.full.min.js')}}"></script>
+
 
 <!-- DataTables  & Plugins -->
 <script src="{{asset('admin-lte-3/plugins/datatables/jquery.dataTables.min.js')}}"></script>

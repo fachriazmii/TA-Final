@@ -8,12 +8,13 @@
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
+      <div class="user-panel mt-1 pb-0 mb-0 d-flex">
+        <div class="image mt-2">
           <img src="{{asset('admin-lte-3/dist/img/avatar.png')}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">{{ auth()->user()->name }}</a>
+          <a href="#" class="mt-0 d-block">{{ auth()->user()->name }}</a>
+          <p class="mt-0 text-white d-block">{{ auth()->user()->username }}</p>
         </div>
       </div>
 
@@ -89,7 +90,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link {{ $title=='Revisi' ? 'active' : '' }}">
+              <a href="{{route('revisi')}}" class="nav-link {{ $title=='Revisi' ? 'active' : '' }}">
                 <i class="nav-icon far fa-circle nav-icon"></i>
                 <p>
                   Revisi
@@ -107,7 +108,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link {{ $title=='Status' ? 'active' : '' }}">
+              <a href="{{route('status')}}" class="nav-link {{ $title=='Status' ? 'active' : '' }}">
                 <i class="nav-icon far fa-circle nav-icon"></i>
                 <p>
                   Status

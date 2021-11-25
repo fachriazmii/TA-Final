@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 
 use App\Models\Dosen\ModelInputJudul;
+use App\Models\Mahasiswa\ModelPilihJudul;
 
 class StatusJudulController extends Controller
 {
@@ -18,10 +19,60 @@ class StatusJudulController extends Controller
      */
     public function index()
     {
-        $judul = ModelInputJudul::all();
+        // $approve_judul = DB::table('proposal')->where('approve_by', 'NULL')->first();
+        $belum_approve_judul = DB::table('proposal')
+                        ->join('judul_ta', 'judul_ta.id', '=', 'proposal.id_judul')
+                        ->join('mahasiswa', 'mahasiswa.nim', '=', 'proposal.nim')
+                        ->where('proposal.approve_by', '=', NULL)
+                        ->get();
+        
+        $approve_judul = DB::table('proposal')
+                        ->join('judul_ta', 'judul_ta.id', '=', 'proposal.id_judul')
+                        ->join('mahasiswa', 'mahasiswa.nim', '=', 'proposal.nim')
+                        ->where('proposal.approve_by', '!=', NULL)
+                        ->get();
 
-        // dd($judul); exit();
-        return view('page.dosen.status-judul.index', ['data' => $judul]);
+        // dd($approve_judul); exit();
+        return view('page.dosen.status-judul.index', ['data_belum_setuju' => $belum_approve_judul,'data_setuju' => $approve_judul]);
+    }
+
+    public function approve_judul(Request $request)
+    {
+        $data = DB::table('judul_ta')->where('id', $request->id)->first();
+        $kuota_belum = DB::table('proposal')->where('id_judul', $request->id)->where('approve_by', '=', NULL)->count();
+        $kuota_ada = DB::table('proposal')->where('id_judul', $request->id)->where('approve_by', '!=', NULL)->count();
+        $kuotas = DB::table('proposal')->where('id_judul', $request->id)->first();
+        
+        //Cek Kuota Judul
+        if($kuota_ada>=($data->kuota)){
+            $msg =[
+                'penuh' => 1,
+                'kuota_penuh' => 'Kuota sudah terpenuhi',
+            ];
+            echo json_encode($msg);
+        }
+        else{
+            DB::table('proposal')->where('id', $kuotas->id)->update([
+                'approve_by' => auth()->user()->username,
+                'status' => 'Disetujui',
+            ]);
+            $msg =[
+                'tidak_penuh' => 1,
+                'setujui' => 'Judul disetujui'
+            ];
+            echo json_encode($msg);
+        }
+    }
+
+    public function unapprove_judul(Request $request)
+    {
+            DB::table('proposal')->where('nim', $request->id)->delete();
+            
+            $msg =[
+                'status' => 1,
+                'msg' => 'Judul tidak disetujui'
+            ];
+            echo json_encode($msg);
     }
 
     /**
@@ -31,7 +82,7 @@ class StatusJudulController extends Controller
      */
     public function create()
     {
-        return view('page.dosen.input-judul.create');
+        // return view('page.dosen.input-judul.create');
     }
 
     /**
@@ -42,21 +93,7 @@ class StatusJudulController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'judul' => 'required',
-            'pbb1' => 'required',
-            'pbb2' => 'required',
-            'kuota' => 'required|numeric',
-        ]);
-
-        $inputjudul = ModelInputJudul::create([
-            'judul' => $request->input('judul'),
-            'pbb1' => $request->input('pbb1'),
-            'pbb2' => $request->input('pbb2'),
-            'kuota' => $request->input('kuota')
-        ]);
-
-        return redirect('/input-judul')->with('success','Berhasil menambahkan judul');
+        
     }
 
     /**
@@ -78,8 +115,7 @@ class StatusJudulController extends Controller
      */
     public function edit($id)
     {
-        $data = DB::table('judul_ta')->where('id', $id)->first();
-        return view('page.dosen.input-judul.edit', ['data' => $data]);
+        
     }
 
     /**
@@ -91,20 +127,12 @@ class StatusJudulController extends Controller
      */
     public function update(Request $request, $id)
     {
-        DB::table('judul_ta')->where('id', $request->id)->update([
-            'judul' => $request->input('judul'),
-            'pbb1' => $request->input('pbb1'),
-            'pbb2' => $request->input('pbb2'),
-            'kuota' => $request->input('kuota')
-        ]);
-        return redirect('/input-judul')->with('success','Berhasil mengedit data.');
+        
     }
 
     public function delete($id)
     {
-        ModelInputJudul::destroy($id);
-
-        return redirect('/input-judul')->with('success','Berhasil menghapus data.');
+        
     }
 
     /**

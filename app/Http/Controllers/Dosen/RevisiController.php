@@ -1,17 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\Mahasiswa;
+namespace App\Http\Controllers\Dosen;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
-use Carbon\Carbon;
 
 use App\Models\Dosen\ModelInputJudul;
 use App\Models\Mahasiswa\ModelPilihJudul;
 
-class PilihJudulController extends Controller
+class RevisiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,33 +19,15 @@ class PilihJudulController extends Controller
      */
     public function index()
     {
-        $judul = ModelInputJudul::all();
+        $data = DB::table('proposal')
+                        ->select('file_repo.id as id_repo','proposal.id as id_proposal','judul_ta.judul','mahasiswa.nim','mahasiswa.nama','file_repo.nama as nama_file','file_repo.local_path','proposal.status')
+                        ->join('judul_ta', 'judul_ta.id', '=', 'proposal.id_judul')
+                        ->join('mahasiswa', 'mahasiswa.nim', '=', 'proposal.nim')
+                        ->join('file_repo', 'proposal.id_repo', '=', 'file_repo.id')
+                        ->where('proposal.approve_by', auth()->user()->username)
+                        ->get();
 
-        // Cek apakah mahasiswa sudah mengajukan judul
-        $proposal = DB::table('proposal')->where('nim', auth()->user()->username)->first();
-        
-        return view('page.mahasiswa.input-judul.index', ['data' => $judul, 'proposal' => $proposal]);
-    }
-
-    public function pilih_judul(Request $request)
-    {
-        $data = DB::table('judul_ta')->where('id', $request->id)->first();
-        
-        //Cek apa mahasiswa sudah ambil judul
-        $proposal = DB::table('proposal')->where('id_judul', $request->id )->where('nim', auth()->user()->username )->first();
-        
-        if(!$proposal){
-            $inputjudul = ModelPilihJudul::Create([
-                'id_judul' => $request->id,
-                'nim' => auth()->user()->username,
-                'waktu_pengajuan' => Carbon::now(),
-                'status' => 'Pengajuan',
-            ]);
-            echo json_encode('Berhasil memilih judul');
-        }
-        else{
-            echo json_encode('Anda sudah memilih judul ini');
-        }
+        return view('page.dosen.revisi.index', ['data' => $data]);
     }
 
     /**
@@ -56,6 +37,7 @@ class PilihJudulController extends Controller
      */
     public function create()
     {
+        // return view('page.dosen.input-judul.create');
     }
 
     /**
@@ -66,7 +48,7 @@ class PilihJudulController extends Controller
      */
     public function store(Request $request)
     {
-       
+        
     }
 
     /**
@@ -88,7 +70,7 @@ class PilihJudulController extends Controller
      */
     public function edit($id)
     {
-
+        
     }
 
     /**
@@ -100,10 +82,12 @@ class PilihJudulController extends Controller
      */
     public function update(Request $request, $id)
     {
+        
     }
 
     public function delete($id)
     {
+        
     }
 
     /**

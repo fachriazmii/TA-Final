@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dosen\InputJudulController;
 use App\Http\Controllers\Dosen\StatusJudulController;
+use App\Http\Controllers\Dosen\RevisiController;
 use App\Http\Controllers\Mahasiswa\PilihJudulController;
+use App\Http\Controllers\Mahasiswa\StatusController;
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DosenController;
@@ -53,6 +55,9 @@ Route::middleware(['auth','ceklevel:dosen'])->group(function () {
     Route::get('/input-judul/edit/{id}', [InputJudulController::class,'edit']);
     Route::post('/input-judul/update/{id}', [InputJudulController::class,'update']);
     Route::delete('/input-judul/delete/{id}', [InputJudulController::class,'delete']);
+    
+    Route::post('/status-judul/approve', [StatusJudulController::class,'approve_judul'])->name('status-judul/approve');
+    Route::post('/status-judul/decline', [StatusJudulController::class,'unapprove_judul'])->name('status-judul/decline');
 
     Route::get('/status-judul', [StatusJudulController::class,'index'])->name('status-judul');
     Route::get('/status-judul/create', [StatusJudulController::class,'create'])->name('status-judul/create');
@@ -60,6 +65,8 @@ Route::middleware(['auth','ceklevel:dosen'])->group(function () {
     Route::get('/status-judul/edit/{id}', [StatusJudulController::class,'edit']);
     Route::post('/status-judul/update/{id}', [StatusJudulController::class,'update']);
     Route::delete('/status-judul/delete/{id}', [StatusJudulController::class,'delete']);
+    
+    Route::get('/revisi', [RevisiController::class,'index'])->name('revisi');
 });
 
 Route::middleware(['auth','ceklevel:mahasiswa'])->group(function () {
@@ -68,4 +75,7 @@ Route::middleware(['auth','ceklevel:mahasiswa'])->group(function () {
     Route::get('/pilih-judul', [PilihJudulController::class,'index'])->name('pilih-judul');
     Route::post('/pilih-judul/pilih', [PilihJudulController::class,'pilih_judul'])->name('pilih-judul/pilih');
     
+    Route::get('/status', [StatusController::class,'index'])->name('status');
+    Route::get('/status/create', [StatusController::class,'create'])->name('status/create');
+    Route::post('/status/store', [StatusController::class,'store'])->name('status/store');
 });
