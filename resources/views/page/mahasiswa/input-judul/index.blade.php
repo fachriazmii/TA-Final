@@ -84,11 +84,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <td><a href="{{url('/input-judul/edit', $d->id)}}">{{ $d->judul}}</a></td>
                                     <td>{{ $d->kuota}}</td>
                                     <td>{{ $d->pbb1}}</td>
-                                    <td class="text-center" style="width:10%;">
+                                    {{-- <td class="text-center" style="width:10%;">
                                         <div class="custom-control custom-checkbox">
-                                            <input class="custom-control-input" type="checkbox" id="check_pilih" value="{{ $d->id}}">
+                                            <input class="custom-control-input" type="checkbox" onclick="klik('{{$d->id}})" value="{{ $d->id}}">
                                             <label for="check_pilih" class="custom-control-label"></label>
                                         </div> 
+                                    </td> --}}
+                                    <td class="text-center">
+                                      <button type="button" class="btn btn-block btn-outline-primary" onclick="hapusguru({{$d->id}})">
+                                        <i class="fas fa-check-square"></i>
+                                      </button>
                                     </td>
                                 </tr>
                             @php
@@ -140,6 +145,30 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Main Footer -->
   @include('template.footer')
   <script>
+    function hapusguru(id){
+      var r = confirm("Yakin memilih judul?");
+                if (r == true) {
+                    $.ajax({
+                        url: "{{ url('pilih-judul/pilih') }}",
+                        data: {'id' : id},
+                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                        type:'POST',
+                        success: function(data) {
+                        alert(data);
+                        location.reload();
+                        // console.log(data);
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) { 
+                            console.log(JSON.stringify(jqXHR));
+                            console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
+                        }
+                    });
+                } else {
+                    alert("Batal memilih judul");
+                    $( "#check_pilih" ).prop( "checked", false );
+                }
+    }
+
     $(function () {
       $("#example1").DataTable({
             "buttons": ["csv", "excel", "pdf", "print"],
@@ -178,6 +207,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
             }
             
         });
+
+        
     });
   </script>
 </body>
