@@ -55,15 +55,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </div>
               <div class="card-body">
                 @foreach ($data as $d)    
-                    @if (($d->status='Disetujui') && empty($d->id_repo))
+                    @if ($d->status=='Pengajuan')
+                      <div class="alert alert-primary fade show" role="alert">
+                        <p>Judul anda belum disetujui</p>
+                      </div>
+                    @elseif (($d->status=='Disetujui') && empty($d->id_repo))
                         <div class="alert alert-success fade show" role="alert">
                             <p>Judul anda sudah disetujui, silakan upload file tugas anda <a href="{{route('status/create')}}">disini</a></p>
                         </div>
-                    @elseif (($d->status='Disetujui') && (!empty($d->id_repo)))
+                    @elseif (($d->status=='Disetujui') && (!empty($d->id_repo)))
                         <div class="alert alert-success text-white fade show" role="alert">
                             <p>Anda telah mengupload file</p> 
                         </div>
-                    @elseif ($d->status='Revisi')
+                    @elseif ($d->status=='Revisi')
                         <div class="alert alert-warning text-white fade show" role="alert">
                             <p>Terdapat revisi pada tugas anda, lihat <a href="#">disini</a></p> 
                         </div>
