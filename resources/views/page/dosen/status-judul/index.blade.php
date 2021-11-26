@@ -87,7 +87,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 {{-- <td><a href="{{url('/input-judul/edit', $d->id)}}">{{ $d->judul}}</a></td> --}}
                                 <td>{{ $d->judul}}</a></td>
                                 <td>{{ $d->nim." - ".$d->nama}}</td>
-                                <td>
+                                {{-- <td>
                                     <form>
                                       <div class="form-group">
                                         <div class="form-check">
@@ -100,6 +100,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         </div>
                                       </div>
                                     </form>
+                                </td> --}}
+                                <td class="text-center">
+                                  <button type="button" class="btn btn-block btn-outline-primary" onclick="terimajudul({{$d->id_judul}})">
+                                    <i class="fas fa-check-square"></i> Terima
+                                  </button>
+                                  <button type="button" class="btn btn-block btn-outline-danger" onclick="tolakjudul({{$d->nim}})">
+                                    <i class="fas fa-check-square"></i> Tidak
+                                  </button>
                                 </td>
                             </tr>
                         @php
@@ -211,6 +219,49 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Main Footer -->
   @include('template.footer')
   <script>
+    function terimajudul(id){
+        $.ajax({
+            url: "{{ url('status-judul/approve') }}",
+            data: {'id' : id},
+            dataType: 'json',
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            type:'POST',
+            success: function(data) {
+              if(data.penuh == 1){
+                alert(data.kuota_penuh);
+              }
+              if(data.tidak_penuh == 1){
+                // $( "#radio1" ).prop( "checked", false );
+                alert(data.setujui);
+                location.reload();
+              }
+              // console.log(data);
+            },
+            error: function(jqXHR, textStatus, errorThrown) { 
+                console.log(JSON.stringify(jqXHR));
+                console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
+            }
+        });
+    }
+
+    function tolakjudul(id){
+      $.ajax({
+          url: "{{ url('status-judul/decline') }}",
+          data: {'id' : id},
+          dataType: 'json',
+          headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+          type:'POST',
+          success: function(data) {
+            alert(data.msg);
+            location.reload()
+          },
+          error: function(jqXHR, textStatus, errorThrown) { 
+              console.log(JSON.stringify(jqXHR));
+              console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
+          }
+      });
+    }
+
     $(function () {
       $("#example1").DataTable({
             "buttons": ["csv", "excel", "pdf", "print"],

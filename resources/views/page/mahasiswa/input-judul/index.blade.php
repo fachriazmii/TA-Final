@@ -91,7 +91,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         </div> 
                                     </td> --}}
                                     <td class="text-center">
-                                      <button type="button" class="btn btn-block btn-outline-primary" onclick="hapusguru({{$d->id}})">
+                                      <button type="button" class="btn btn-block btn-outline-primary" onclick="pilihjudul({{$d->id}})">
                                         <i class="fas fa-check-square"></i>
                                       </button>
                                     </td>
@@ -145,7 +145,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Main Footer -->
   @include('template.footer')
   <script>
-    function hapusguru(id){
+    function pilihjudul(id){
       var r = confirm("Yakin memilih judul?");
                 if (r == true) {
                     $.ajax({
@@ -176,36 +176,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 "<'row'<'col-sm-4'l><'col-sm-6'B><'col-sm-2'f>>" +
                 "<'row'<'col-sm-12'tr>>" +
                 "<'row'<'col-sm-10'i><'col-sm-2'p>>",
-        });
-
-        $("#check_pilih").change(function(event){
-            var check_pilih = $("#check_pilih").val();
-            if (this.checked){
-                var r = confirm("Yakin memilih judul?");
-                if (r == true) {
-                    $.ajax({
-                        url: "{{ url('pilih-judul/pilih') }}",
-                        data: {'id' : check_pilih},
-                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                        type:'POST',
-                        success: function(data) {
-                        alert(data);
-                        location.reload();
-                        // console.log(data);
-                        },
-                        error: function(jqXHR, textStatus, errorThrown) { 
-                            console.log(JSON.stringify(jqXHR));
-                            console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
-                        }
-                    });
-                } else {
-                    alert("Batal memilih judul");
-                    $( "#check_pilih" ).prop( "checked", false );
-                }
-            } else {
-                // alert("turn off checkout history.");
-            }
-            
         });
 
         
