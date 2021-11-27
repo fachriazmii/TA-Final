@@ -81,4 +81,6 @@ Route::middleware(['auth','ceklevel:mahasiswa'])->group(function () {
     Route::get('/status', [StatusController::class,'index'])->name('status');
     Route::get('/status/create', [StatusController::class,'create'])->name('status/create');
     Route::post('/status/store', [StatusController::class,'store'])->name('status/store');
+    Route::get('/status/revisi/{id}', [StatusController::class,'revisi']);
+    Route::post('/status/revisi/save', [StatusController::class,'save'])->name('status/revisi/save');
 });
