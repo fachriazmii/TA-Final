@@ -44,14 +44,12 @@ class InputJudulController extends Controller
         $validatedData = $request->validate([
             'judul' => 'required',
             'pbb1' => 'required',
-            'pbb2' => 'required',
             'kuota' => 'required|numeric',
         ]);
 
         $inputjudul = ModelInputJudul::create([
             'judul' => $request->input('judul'),
             'pbb1' => $request->input('pbb1'),
-            'pbb2' => $request->input('pbb2'),
             'kuota' => $request->input('kuota')
         ]);
 
@@ -93,7 +91,6 @@ class InputJudulController extends Controller
         DB::table('judul_ta')->where('id', $request->id)->update([
             'judul' => $request->input('judul'),
             'pbb1' => $request->input('pbb1'),
-            'pbb2' => $request->input('pbb2'),
             'kuota' => $request->input('kuota')
         ]);
         return redirect('/input-judul')->with('success','Berhasil mengedit data.');

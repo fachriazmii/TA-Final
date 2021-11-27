@@ -93,12 +93,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <td>{{$count."."}}</td>
                                     <td>{{ $d->judul}}</td>
                                     <td>{{ $d->kuota}}</td>
-                                    <td>
-                                        <ul>
-                                            <li>{{ $d->pbb1}}</li>
-                                            <li>{{ $d->pbb2}}</li>
-                                          </ul>
-                                    </td>
+                                    <td>{{ $d->pbb1}}</td>
                                     <td>
                                         @if ($d->status == 'Pengajuan')
                                             <span class="badge badge-primary">Pengajuan</span> 

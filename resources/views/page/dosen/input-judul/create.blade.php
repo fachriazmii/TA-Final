@@ -59,28 +59,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   {{ csrf_field() }}
                     <div class="form-group">
                       <label for="exampleInputEmail1">Judul Penelitian</label>
-                      <input name="judul" type="text" value="{{old('judul')}}" class="form-control @error('username')is-invalid @enderror" id="exampleInputEmail1" placeholder="Judul penelitian" required>
+                      <input name="judul" type="text" value="{{old('judul')}}" class="form-control @error('judul')is-invalid @enderror" id="exampleInputEmail1" placeholder="Judul penelitian">
                       @error('judul')
                         <div class="invalid-feedback">{{ $message }}</div>
                       @enderror
                     </div>
                     <div class="form-group">
-                      <label for="exampleInputEmail1">Pembimbing 1</label>
-                      <input name="pbb1" type="text" value="{{old('pbb1')}}" class="form-control @error('username')is-invalid @enderror" id="exampleInputEmail1" placeholder="Dosen pembimbing satu" required>
+                      <label for="exampleInputEmail1">Kode Dosen</label>
+                      <input name="pbb1" type="text" value="{{old('pbb1')}}" class="form-control @error('pbb1')is-invalid @enderror" id="exampleInputEmail1" placeholder="Dosen pembimbing satu">
                         @error('pbb1')
                           <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="form-group">
-                      <label for="exampleInputEmail1">Pembimbing 2</label>
-                      <input name="pbb2" type="text" value="{{old('pbb2')}}" class="form-control @error('username')is-invalid @enderror" id="exampleInputEmail1" placeholder="Dosen pembimbing dua" required>
-                        @error('pbb2')
-                          <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div class="form-group">
                       <label for="exampleInputEmail1">Kuota</label>
-                      <input name="kuota" type="number" value="{{old('kuota')}}" class="form-control @error('username')is-invalid @enderror" id="exampleInputEmail1" placeholder="Kuota" required>
+                      <input name="kuota" type="number" value="{{old('kuota')}}" class="form-control @error('kuota')is-invalid @enderror" id="exampleInputEmail1" placeholder="Kuota">
                         @error('kuota')
                           <div class="invalid-feedback">{{ $message }}</div>
                         @enderror

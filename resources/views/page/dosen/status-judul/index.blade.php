@@ -102,7 +102,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     </form>
                                 </td> --}}
                                 <td class="text-center">
-                                  <button type="button" class="btn btn-block btn-outline-primary" onclick="terimajudul({{$d->id_judul}})">
+                                  <button type="button" class="btn btn-block btn-outline-primary" onclick="terimajudul({{$d->id_judul}},{{$d->nim}})">
                                     <i class="fas fa-check-square"></i> Terima
                                   </button>
                                   <button type="button" class="btn btn-block btn-outline-danger" onclick="tolakjudul({{$d->nim}})">
@@ -219,10 +219,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Main Footer -->
   @include('template.footer')
   <script>
-    function terimajudul(id){
+    function terimajudul(id, nim){
         $.ajax({
             url: "{{ url('status-judul/approve') }}",
-            data: {'id' : id},
+            data: {
+              'id' : id,
+              'nim' : nim
+            },
             dataType: 'json',
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
             type:'POST',
@@ -277,55 +280,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 "<'row'<'col-sm-12'tr>>" +
                 "<'row'<'col-sm-10'i><'col-sm-2'p>>",
         });
-        
-        //Kondisional status terima judul atau tidak
-          $("#radio1").click(function(){
-              // alert( this.value)
-              var data = $("#radio1").val();
-              $.ajax({
-                  url: "{{ url('status-judul/approve') }}",
-                  data: {'id' : data},
-                  dataType: 'json',
-                  headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                  type:'POST',
-                  success: function(data) {
-                    if(data.penuh == 1){
-                      $( "#radio1" ).prop( "checked", false );
-                      $( "#radio2" ).prop( "checked", true );
-                      alert(data.kuota_penuh);
-                    }
-                    if(data.tidak_penuh == 1){
-                      // $( "#radio1" ).prop( "checked", false );
-                      alert(data.setujui);
-                      location.reload();
-                    }
-                    // console.log(data);
-                  },
-                  error: function(jqXHR, textStatus, errorThrown) { 
-                      console.log(JSON.stringify(jqXHR));
-                      console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
-                  }
-              });
-          });
-          $("#radio2").click(function(){
-              // alert( this.value)
-              var data = $("#radio2").val();
-              $.ajax({
-                  url: "{{ url('status-judul/decline') }}",
-                  data: {'id' : data},
-                  dataType: 'json',
-                  headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                  type:'POST',
-                  success: function(data) {
-                    alert(data.msg);
-                    location.reload()
-                  },
-                  error: function(jqXHR, textStatus, errorThrown) { 
-                      console.log(JSON.stringify(jqXHR));
-                      console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
-                  }
-              });
-          });
     });
   </script>
 </body>

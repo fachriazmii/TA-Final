@@ -42,6 +42,7 @@ class StatusJudulController extends Controller
         $kuota_belum = DB::table('proposal')->where('id_judul', $request->id)->where('approve_by', '=', NULL)->count();
         $kuota_ada = DB::table('proposal')->where('id_judul', $request->id)->where('approve_by', '!=', NULL)->count();
         $kuotas = DB::table('proposal')->where('id_judul', $request->id)->first();
+
         
         //Cek Kuota Judul
         if($kuota_ada>=($data->kuota)){
@@ -52,7 +53,11 @@ class StatusJudulController extends Controller
             echo json_encode($msg);
         }
         else{
-            DB::table('proposal')->where('id', $kuotas->id)->update([
+            // DB::table('proposal')->where('id', $kuotas->id)->update([
+            //     'approve_by' => auth()->user()->username,
+            //     'status' => 'Disetujui',
+            // ]);
+            DB::table('proposal')->where('nim', $request->nim)->update([
                 'approve_by' => auth()->user()->username,
                 'status' => 'Disetujui',
             ]);

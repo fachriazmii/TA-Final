@@ -67,6 +67,9 @@ Route::middleware(['auth','ceklevel:dosen'])->group(function () {
     Route::delete('/status-judul/delete/{id}', [StatusJudulController::class,'delete']);
     
     Route::get('/revisi', [RevisiController::class,'index'])->name('revisi');
+    Route::get('/revisi/lihat-file/{id}', [RevisiController::class,'lihat_revisi']);
+    Route::post('/revisi/lihat-file/store', [RevisiController::class,'store'])->name('revisi/lihat-file/store');
+    Route::post('/revisi/lihat-file/setuju-revisi', [RevisiController::class,'setuju_revisi'])->name('revisi/lihat-file/setuju-revisi');
 });
 
 Route::middleware(['auth','ceklevel:mahasiswa'])->group(function () {

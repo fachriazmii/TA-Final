@@ -70,7 +70,7 @@ class StatusController extends Controller
         $file = $request->file('upload_file');
 
         if($file){
-            $filename = $data->nim."-".$data->nama."-".$data->judul.".pdf";
+            $filename = $data->nim."-".$data->nama."-".$file->getClientOriginalName();
             $request->file('upload_file')->storeAs('repo', $filename);
             $Savefile = ModelFileRepo::create([
                 'nama' => $filename,

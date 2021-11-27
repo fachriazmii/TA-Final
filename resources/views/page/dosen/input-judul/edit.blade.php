@@ -61,12 +61,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <input name="judul" type="text" value="{{$data->judul}}" class="form-control" id="exampleInputEmail1" placeholder="Judul penelitian">
                     </div>
                     <div class="form-group">
-                      <label for="exampleInputEmail1">Pembimbing 1</label>
-                      <input name="pbb1" type="text" value="{{$data->pbb1}}" class="form-control" id="exampleInputEmail1" placeholder="Dosen pembimbing satu">
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputEmail1">Pembimbing 2</label>
-                      <input name="pbb2" type="pbb2" value="{{$data->pbb2}}" class="form-control" id="exampleInputEmail1" placeholder="Dosen pembimbing dua">
+                      <label for="exampleInputEmail1">Kode Dosen</label>
+                      <input name="pbb1" type="text" value="{{$data->pbb1}}" class="form-control" id="exampleInputEmail1" placeholder="Kode dosen">
                     </div>
                     <div class="form-group">
                       <label for="exampleInputEmail1">Kuota</label>
