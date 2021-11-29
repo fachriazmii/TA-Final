@@ -116,22 +116,6 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link {{ $title=='Daftar Sidang' ? 'active' : '' }}">
-                <i class="nav-icon far fa-circle nav-icon"></i>
-                <p>
-                  Daftar Sidang
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link {{ $title=='Jadwal' ? 'active' : '' }}">
-                <i class="nav-icon far fa-circle nav-icon"></i>
-                <p>
-                  Jadwal
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
               <a href="#" class="nav-link {{ $title=='Lihat Revisi' ? 'active' : '' }}">
                 <i class="nav-icon far fa-circle nav-icon"></i>
                 <p>

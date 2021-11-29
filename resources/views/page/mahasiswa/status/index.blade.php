@@ -71,6 +71,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <div class="alert alert-warning text-white fade show" role="alert">
                             <p>Terdapat revisi pada tugas anda, lihat <a href="{{url('status/revisi', auth()->user()->username)}}">disini</a></p> 
                         </div>
+                    @elseif ($d->status=='Peninjauan Revisi')
+                        <div class="alert alert-warning text-white fade show" role="alert">
+                            <p>Revisi sedang ditinjau</p> 
+                        </div>
                     @elseif ($d->status=='Selesai')
                         <div class="alert alert-success text-white fade show" role="alert">
                             <p>Anda telah selesai mengerjakan tugas</a></p> 
@@ -84,7 +88,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <th>No.</th>
                             <th>Judul Penelitian</th>
                             <th>Kuota</th>
-                            <th>Dosen</th>
+                            <th>Dosen Pembimbing</th>
                             <th>Status</th>
                             </tr>
                             </thead>
@@ -105,6 +109,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             <span class="badge badge-success">Disetujui</span> 
                                         @elseif ($d->status == 'Revisi')
                                             <span class="badge badge-warning text-white">Revisi</span> 
+                                        @elseif ($d->status == 'Peninjauan Revisi')
+                                            <span class="badge badge-warning text-white">Peninjauan Revisi</span> 
                                         @elseif ($d->status == 'Selesai')
                                             <span class="badge badge-success">Selesai</span> 
                                         @endif
@@ -120,7 +126,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <th>No.</th>
                                 <th>Judul Penelitian</th>
                                 <th>Kuota</th>
-                                <th>Dosen</th>
+                                <th>Dosen Pembimbing</th>
                                 <th>Pilih</th>
                             </tr>
                             </tfoot>

@@ -17,7 +17,7 @@ class InputJudulController extends Controller
      */
     public function index()
     {
-        $judul = ModelInputJudul::all();
+        $judul = ModelInputJudul::all()->sortByDesc("id");
 
         // dd($judul); exit();
         return view('page.dosen.input-judul.index', ['data' => $judul]);

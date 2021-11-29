@@ -101,12 +101,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                       </div>
                                     </form>
                                 </td> --}}
-                                <td class="text-center">
+                                <td class="text-center" style="width:5%">
                                   <button type="button" class="btn btn-block btn-outline-primary" onclick="terimajudul({{$d->id_judul}},{{$d->nim}})">
-                                    <i class="fas fa-check-square"></i> Terima
+                                    <i class="fas fa-check-square"></i>Terima
                                   </button>
                                   <button type="button" class="btn btn-block btn-outline-danger" onclick="tolakjudul({{$d->nim}})">
-                                    <i class="fas fa-check-square"></i> Tidak
+                                    <i class="fas fa-check-square"></i> Tolak
                                   </button>
                                 </td>
                             </tr>

@@ -90,7 +90,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             <label for="check_pilih" class="custom-control-label"></label>
                                         </div> 
                                     </td> --}}
-                                    <td class="text-center">
+                                    <td class="text-center" style="width:2%">
                                       <button type="button" class="btn btn-block btn-outline-primary" onclick="pilihjudul({{$d->id}})">
                                         <i class="fas fa-check-square"></i>
                                       </button>

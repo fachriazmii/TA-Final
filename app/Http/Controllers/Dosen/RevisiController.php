@@ -25,9 +25,8 @@ class RevisiController extends Controller
                         ->join('judul_ta', 'judul_ta.id', '=', 'proposal.id_judul')
                         ->join('mahasiswa', 'mahasiswa.nim', '=', 'proposal.nim')
                         ->join('file_repo', 'proposal.id_repo', '=', 'file_repo.id')
-                        ->join('revisi_proposal', 'revisi_proposal.nim', '=', 'mahasiswa.nim')
+                        // ->join('revisi_proposal', 'revisi_proposal.nim', '=', 'mahasiswa.nim')
                         ->where('proposal.approve_by', auth()->user()->username)
-                        ->where('revisi_proposal.status_revisi', 'Belum')
                         ->get();
 
         return view('page.dosen.revisi.index', ['data' => $data]);
@@ -68,13 +67,12 @@ class RevisiController extends Controller
 
         $validatedData = $request->validate([
             'revisi_text' => 'required',
-            'status_revisi' => 'required'
         ]);
 
         $inputrevisi = ModelRevisi::create([
             'revisi_text' => $request->input('revisi_text'),
             'revisi_ke' => $data_revisi+1,
-            'status_revisi' => 'Revisi',
+            'status_revisi' => 'Belum',
             'nim' => $request->input('nim'),
             'revisi_by' => auth()->user()->username,
             'id_repo' => $request->input('id_repo'),
