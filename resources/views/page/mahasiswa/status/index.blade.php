@@ -67,11 +67,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <div class="alert alert-success text-white fade show" role="alert">
                             <p>Anda telah mengupload file</p> 
                         </div>
-                    @elseif ($d->status=='Revisi')
+                    @elseif ($d->status=='Revisi' && $d->status_revisi=='Belum')
                         <div class="alert alert-warning text-white fade show" role="alert">
                             <p>Terdapat revisi pada tugas anda, lihat <a href="{{url('status/revisi', auth()->user()->username)}}">disini</a></p> 
                         </div>
-                    @elseif ($d->status=='Peninjauan Revisi')
+                    @elseif ($d->status=='Revisi' && $d->status_revisi=='Tinjau')
                         <div class="alert alert-warning text-white fade show" role="alert">
                             <p>Revisi sedang ditinjau</p> 
                         </div>
@@ -107,9 +107,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             <span class="badge badge-primary">Pengajuan</span> 
                                         @elseif ($d->status == 'Disetujui')
                                             <span class="badge badge-success">Disetujui</span> 
-                                        @elseif ($d->status == 'Revisi')
+                                        @elseif ($d->status=='Revisi' && $d->status_revisi=='Belum')
                                             <span class="badge badge-warning text-white">Revisi</span> 
-                                        @elseif ($d->status == 'Peninjauan Revisi')
+                                        @elseif ($d->status=='Revisi' && $d->status_revisi=='Tinjau')
                                             <span class="badge badge-warning text-white">Peninjauan Revisi</span> 
                                         @elseif ($d->status == 'Selesai')
                                             <span class="badge badge-success">Selesai</span> 

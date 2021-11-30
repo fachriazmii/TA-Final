@@ -26,6 +26,7 @@ class StatusController extends Controller
         $data = DB::table('proposal')
                         ->join('judul_ta', 'judul_ta.id', '=', 'proposal.id_judul')
                         ->join('mahasiswa', 'mahasiswa.nim', '=', 'proposal.nim')
+                        ->join('revisi_proposal', 'revisi_proposal.nim', '=', 'proposal.nim')
                         ->where('proposal.nim', '=', auth()->user()->username)
                         ->get();
 
@@ -79,6 +80,13 @@ class StatusController extends Controller
             ]);
 
             DB::table('proposal')->where('nim', auth()->user()->username)->update([
+                'id_repo' => $Savefile->id
+            ]);
+
+            DB::table('revisi_proposal')->updateOrInsert([
+                'revisi_ke' => 0,
+                'status_revisi' => 'Tinjau',
+                'nim' => auth()->user()->username,
                 'id_repo' => $Savefile->id
             ]);
 
@@ -143,6 +151,10 @@ class StatusController extends Controller
 
             DB::table('proposal')->where('nim', auth()->user()->username)->update([
                 'status' => 'Revisi'
+            ]);
+
+            DB::table('revisi_proposal')->where('nim', auth()->user()->username)->update([
+                'status_revisi' => 'Tinjau'
             ]);
 
             return redirect('/status');

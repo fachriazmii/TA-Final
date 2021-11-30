@@ -25,8 +25,9 @@ class RevisiController extends Controller
                         ->join('judul_ta', 'judul_ta.id', '=', 'proposal.id_judul')
                         ->join('mahasiswa', 'mahasiswa.nim', '=', 'proposal.nim')
                         ->join('file_repo', 'proposal.id_repo', '=', 'file_repo.id')
-                        // ->join('revisi_proposal', 'revisi_proposal.nim', '=', 'mahasiswa.nim')
+                        ->join('revisi_proposal', 'revisi_proposal.nim', '=', 'mahasiswa.nim')
                         ->where('proposal.approve_by', auth()->user()->username)
+                        ->where('revisi_proposal.status_revisi', 'Tinjau')
                         ->get();
 
         return view('page.dosen.revisi.index', ['data' => $data]);
@@ -39,8 +40,11 @@ class RevisiController extends Controller
                         ->join('judul_ta', 'judul_ta.id', '=', 'proposal.id_judul')
                         ->join('mahasiswa', 'mahasiswa.nim', '=', 'proposal.nim')
                         ->join('file_repo', 'proposal.id_repo', '=', 'file_repo.id')
+                        ->join('revisi_proposal', 'revisi_proposal.id_repo', '=', 'file_repo.id')
                         ->where('file_repo.id', $id)
                         ->first();
+
+        // dd($data);
 
         return view('page.dosen.revisi.lihat-file', ['data' => $data]);
     }
@@ -69,13 +73,17 @@ class RevisiController extends Controller
             'revisi_text' => 'required',
         ]);
 
-        $inputrevisi = ModelRevisi::create([
+        DB::table('revisi_proposal')->where('nim', $request->input('nim'))->update([
             'revisi_text' => $request->input('revisi_text'),
             'revisi_ke' => $data_revisi+1,
             'status_revisi' => 'Belum',
             'nim' => $request->input('nim'),
             'revisi_by' => auth()->user()->username,
             'id_repo' => $request->input('id_repo'),
+        ]);
+
+        DB::table('proposal')->where('nim', $request->input('nim'))->update([
+            'status' => 'Revisi',
         ]);
 
         return redirect('/revisi')->with('success','Berhasil menambahkan data');
@@ -88,6 +96,10 @@ class RevisiController extends Controller
             'revisi_ke' => $data_revisi+1,
             'status_revisi' => 'Selesai',
             'revisi_by' => auth()->user()->username
+        ]);
+
+        DB::table('proposal')->where('nim', $request->nim)->update([
+            'status' => 'Selesai',
         ]);
         echo json_encode("Berhasil menambahkan data");
     }

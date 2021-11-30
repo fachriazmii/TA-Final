@@ -52,15 +52,15 @@
               <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
-                  Starter Pages
+                  Monitoring
                   <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="#" class="nav-link">
+                  <a href="{{route('mahasiswa/judul')}}" class="nav-link {{ $title=='Mahasiswa Judul' ? 'active' : '' }}">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Active Page</p>
+                    <p>Mahasiswa Judul</p>
                   </a>
                 </li>
                 <li class="nav-item">

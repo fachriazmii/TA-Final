@@ -44,6 +44,7 @@ Route::middleware(['auth','ceklevel:admin'])->group(function () {
     Route::get('/mahasiswa/edit/{id}', [MahasiswaController::class,'edit']);
     Route::get('/mahasiswa/update/{id}', [MahasiswaController::class,'update']);
     Route::delete('/mahasiswa/delete/{id}', [MahasiswaController::class,'delete']);
+    Route::get('/mahasiswa/judul', [App\Http\Controllers\Admin\MahasiswaController::class,'index'])->name('mahasiswa/judul');
 });
 
 Route::middleware(['auth','ceklevel:dosen'])->group(function () {

@@ -1,17 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Mahasiswa;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
-use Carbon\Carbon;
 
-use App\Models\Dosen\ModelInputJudul;
-use App\Models\Mahasiswa\ModelPilihJudul;
-
-class PilihJudulController extends Controller
+class MahasiswaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,34 +14,13 @@ class PilihJudulController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $judul = ModelInputJudul::all()->sortByDesc("id");
+    { 
+        $data = DB::table('proposal')
+                        ->join('judul_ta', 'judul_ta.id', '=', 'proposal.id_judul')
+                        ->join('mahasiswa', 'mahasiswa.nim', '=', 'proposal.nim')
+                        ->orderBy('proposal.id', 'DESC')->get();
 
-        // Cek apakah mahasiswa sudah mengajukan judul
-        $proposal = DB::table('proposal')->where('nim', auth()->user()->username)->first();
-        
-        return view('page.mahasiswa.input-judul.index', ['data' => $judul, 'proposal' => $proposal]);
-    }
-
-    public function pilih_judul(Request $request)
-    {
-        $data = DB::table('judul_ta')->where('id', $request->id)->first();
-        
-        //Cek apa mahasiswa sudah ambil judul
-        $proposal = DB::table('proposal')->where('id_judul', $request->id )->where('nim', auth()->user()->username )->first();
-        
-        if(!$proposal){
-            $inputjudul = ModelPilihJudul::Create([
-                'id_judul' => $request->id,
-                'nim' => auth()->user()->username,
-                'waktu_pengajuan' => Carbon::now(),
-                'status' => 'Pengajuan',
-            ]);
-            echo json_encode('Berhasil memilih judul');
-        }
-        else{
-            echo json_encode('Anda sudah memilih judul ini');
-        }
+        return view('page.admin.mahasiswa-judul', ['data' => $data]);
     }
 
     /**
@@ -56,6 +30,7 @@ class PilihJudulController extends Controller
      */
     public function create()
     {
+        return view('form.mahasiswa.create');
     }
 
     /**
@@ -66,7 +41,11 @@ class PilihJudulController extends Controller
      */
     public function store(Request $request)
     {
-       
+        $input = $request->all();
+
+        $post = ModelMahasiswa::create($input);
+        
+        return redirect('/mahasiswa')->with('success','Berhasil menambahkan data.');
     }
 
     /**
@@ -88,7 +67,11 @@ class PilihJudulController extends Controller
      */
     public function edit($id)
     {
+        $mhs = DB::table('mahasiswa')->where('id', $id)->first();
 
+        // var_dump($dosen);exit();
+        
+        return view('form.mahasiswa.edit', ['data' => $mhs]);
     }
 
     /**
@@ -100,10 +83,22 @@ class PilihJudulController extends Controller
      */
     public function update(Request $request, $id)
     {
+        DB::table('mahasiswa')->where('id', $request->id)->update([
+            'nama' => $request->nama,
+            'no_hp' => $request->no_hp,
+            'email' => $request->email,
+            'jenkel' => $request->jenkel,
+            'program_studi' => $request->program_studi,
+            'fakultas' => $request->fakultas,
+        ]);
+        return redirect('/mahasiswa')->with('success','Berhasil mengedit data.');
     }
-
+    
     public function delete($id)
     {
+        ModelMahasiswa::destroy($id);
+
+        return redirect('/mahasiswa')->with('success','Berhasil menghapus data.');
     }
 
     /**
