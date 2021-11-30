@@ -71,29 +71,35 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <table id="example1" class="table table-bordered table-striped" >
                         <thead>
                         <tr>
-                          <th>No.</th>
-                          <th>Judul Penelitian</th>
-                          <th>NIM - Mahasiswa</th>
-                          <th>Status</th>
+                            <th>No.</th>
+                            <th>Judul Penelitian</th>
+                            <th>Kuota</th>
+                            <th>Dosen Pembimbing</th>
+                            <th>Status</th>
                         </tr>
                         </thead>
                         <tbody>
                         @php
                             $count = 1;
                         @endphp
-                        @foreach ($data_belum_setuju as $d)    
+                        @foreach ($data as $d)    
                             <tr>
                                 <td>{{$count."."}}</td>
-                                {{-- <td><a href="{{url('/input-judul/edit', $d->id)}}">{{ $d->judul}}</a></td> --}}
-                                <td>{{ $d->judul}}</a></td>
-                                <td>{{ $d->nim." - ".$d->nama}}</td>
+                                <td>{{ $d->judul}}</td>
+                                <td>{{ $d->kuota}}</td>
+                                <td>{{ $d->pbb1}}</td>
                                 <td class="text-center">
-                                  <button type="button" class="btn btn-block btn-outline-primary" onclick="terimajudul({{$d->id_judul}},{{$d->nim}})">
-                                    <i class="fas fa-check-square"></i> Terima
-                                  </button>
-                                  <button type="button" class="btn btn-block btn-outline-danger" onclick="tolakjudul({{$d->nim}})">
-                                    <i class="fas fa-check-square"></i> Tidak
-                                  </button>
+                                  @if ($d->status == 'Pengajuan')
+                                      <span class="badge badge-primary">Pengajuan</span> 
+                                  @elseif ($d->status == 'Disetujui')
+                                      <span class="badge badge-success">Disetujui</span> 
+                                  @elseif ($d->status=='Revisi' && $d->status_revisi=='Belum')
+                                      <a class="btn btn-block btn-outline-primary" href="{{url('status/revisi', auth()->user()->username)}}"><i class="fas fa-file"></i> Lihat Revisi</a>
+                                  @elseif ($d->status=='Revisi' && $d->status_revisi=='Tinjau')
+                                      <span class="badge badge-warning text-white">Peninjauan Revisi</span> 
+                                  @elseif ($d->status == 'Selesai')
+                                      <span class="badge badge-success">Selesai</span> 
+                                  @endif
                                 </td>
                             </tr>
                         @php
@@ -104,9 +110,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <tfoot>
                         <tr>
                           <th>No.</th>
-                          <th>Judul Penelitian</th>
-                          <th>NIM - Mahasiswa</th>
-                          <th>Status</th>
+                            <th>Judul Penelitian</th>
+                            <th>Kuota</th>
+                            <th>Dosen Pembimbing</th>
+                            <th>Status</th>
                         </tr>
                         </tfoot>
                     </table>
@@ -138,20 +145,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <script>
    
     $(function () {
-      $("#example1").DataTable({
-            "buttons": ["csv", "excel", "pdf", "print"],
-            "dom":
-                "<'row'<'col-sm-4'l><'col-sm-6'B><'col-sm-2'f>>" +
-                "<'row'<'col-sm-12'tr>>" +
-                "<'row'<'col-sm-10'i><'col-sm-2'p>>",
-        });
-      $("#example2").DataTable({
-            "buttons": ["csv", "excel", "pdf", "print"],
-            "dom":
-                "<'row'<'col-sm-4'l><'col-sm-6'B><'col-sm-2'f>>" +
-                "<'row'<'col-sm-12'tr>>" +
-                "<'row'<'col-sm-10'i><'col-sm-2'p>>",
-        });
     });
   </script>
 </body>

@@ -116,7 +116,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link {{ $title=='Lihat Revisi' ? 'active' : '' }}">
+              <a href="{{route('lihat-revisi')}}" class="nav-link {{ $title=='Lihat Revisi' ? 'active' : '' }}">
                 <i class="nav-icon far fa-circle nav-icon"></i>
                 <p>
                   Lihat Revisi

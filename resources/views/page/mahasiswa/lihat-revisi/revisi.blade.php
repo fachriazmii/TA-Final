@@ -1,5 +1,5 @@
 @php
-    $title ='Status';
+    $title ='Lihat Revisi';
 @endphp
 <!DOCTYPE html>
 <!--
@@ -60,7 +60,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </div>
             </div>
             <div class="card-body">
-                <form method="POST" enctype="multipart/form-data" action="{{ route('status/revisi/save') }}" class="mt-4">
+                <form method="POST" enctype="multipart/form-data" action="{{ route('lihat-revisi/save') }}" class="mt-4">
                   {{ csrf_field() }}
                   <input name="id_repo" type="text" class="form-control" value="{{$data->id_repo}}">
                   <input name="id_proposal" type="text" class="form-control" value="{{$data->id_proposal}}">

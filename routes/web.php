@@ -6,6 +6,7 @@ use App\Http\Controllers\Dosen\StatusJudulController;
 use App\Http\Controllers\Dosen\RevisiController;
 use App\Http\Controllers\Mahasiswa\PilihJudulController;
 use App\Http\Controllers\Mahasiswa\StatusController;
+use App\Http\Controllers\Mahasiswa\LihatRevisiController;
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DosenController;
@@ -82,6 +83,8 @@ Route::middleware(['auth','ceklevel:mahasiswa'])->group(function () {
     Route::get('/status', [StatusController::class,'index'])->name('status');
     Route::get('/status/create', [StatusController::class,'create'])->name('status/create');
     Route::post('/status/store', [StatusController::class,'store'])->name('status/store');
-    Route::get('/status/revisi/{id}', [StatusController::class,'revisi']);
-    Route::post('/status/revisi/save', [StatusController::class,'save'])->name('status/revisi/save');
+
+    Route::get('/lihat-revisi', [LihatRevisiController::class,'index'])->name('lihat-revisi');
+    Route::get('/lihat-revisi/revisi/{id}', [LihatRevisiController::class,'revisi']);
+    Route::post('/lihat-revisi/save', [LihatRevisiController::class,'save'])->name('lihat-revisi/save');
 });
