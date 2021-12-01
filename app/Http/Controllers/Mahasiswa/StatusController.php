@@ -83,7 +83,7 @@ class StatusController extends Controller
                 'id_repo' => $Savefile->id
             ]);
 
-            DB::table('revisi_proposal')->updateOrInsert([
+            DB::table('revisi_proposal')->where('nim', auth()->user()->username)->update([
                 'revisi_ke' => 0,
                 'status_revisi' => 'Tinjau',
                 'nim' => auth()->user()->username,

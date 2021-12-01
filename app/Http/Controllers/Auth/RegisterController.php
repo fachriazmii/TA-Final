@@ -68,29 +68,30 @@ class RegisterController extends Controller
             'password.required' => 'Password is required'
         ]);
 
-        $User = User::create([
-            'name' => $request->input('name'),
-            'username' => $request->input('username'),
+        // $User = User::create([
+        //     'name' => $request->input('name'),
+        //     'username' => $request->input('username'),
+        //     'email' => $request->input('email'),
+        //     'password' => bcrypt($request->input('password')),
+        //     'level' => null,
+        //     'remember_token' => Str::random(60),
+        // ]);
+        
+        // $user = DB::table('users')->where('username', $request->input('username'))->first();
+        $Mahasiswa = ModelMahasiswa::create([
+            'nim' => $request->input('username'),
+            'nama' => $request->input('name'),
+            'jenkel' => $request->input('jenkel'),
+            'no_hp' => $request->input('no_hp'),
+            'program_studi' => $request->input('program_studi'),
+            'fakultas' => $request->input('fakultas'),
             'email' => $request->input('email'),
-            'password' => bcrypt($request->input('password')),
-            'level' => 'mahasiswa',
-            'remember_token' => Str::random(60),
+            'pas' => bcrypt($request->input('password')),
+            // 'id_role' => $user->id,
         ]);
-
-        if($User){
-            $user = DB::table('users')->where('username', $request->input('username'))->first();
-            $Mahasiswa = ModelMahasiswa::create([
-                'nim' => $request->input('username'),
-                'nama' => $request->input('name'),
-                'jenkel' => $request->input('jenkel'),
-                'no_hp' => $request->input('no_hp'),
-                'program_studi' => $request->input('program_studi'),
-                'fakultas' => $request->input('fakultas'),
-                'email' => $request->input('email'),
-                'id_role' => $user->id,
-            ]);
-        }
-        return redirect('/')->with('success','Berhasil membuat akun, silakan Login.');
+        // if($User){
+        // }
+        return redirect('/')->with('success','Berhasil registrasi');
     }
 
     /**

@@ -69,7 +69,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         </div>
                     @elseif ($d->status=='Revisi' && $d->status_revisi=='Belum')
                         <div class="alert alert-warning text-white fade show" role="alert">
-                            <p>Terdapat revisi pada tugas anda, lihat <a href="{{url('status/revisi', auth()->user()->username)}}">disini</a></p> 
+                            <p>Terdapat revisi pada tugas anda, lihat <a href="{{url('lihat-revisi')}}">disini</a></p> 
                         </div>
                     @elseif ($d->status=='Revisi' && $d->status_revisi=='Tinjau')
                         <div class="alert alert-warning text-white fade show" role="alert">

@@ -15,14 +15,25 @@ class CekLevel
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle(Request $request, Closure $next, ...$levels)
+    public function handle(Request $request, Closure $next, ...$roles)
     {
         // if(in_array($request->user()->level,$levels)){
         //     return $next($request);
         // }
-        if ($request->user()->level) {
+        // if ($request->user()->level) {
+        //     return $next($request);
+        // }
+        // return redirect('/');
+        if ($request->user()->level == 'admin') {
             return $next($request);
         }
-        return redirect('/');;
+        else if ($request->user()->level == 'dosen') {
+            return $next($request);
+        }
+        else if ($request->user()->level == 'mahasiswa') {
+            return $next($request);
+        }
+        return redirect('/');
+
     }
 }

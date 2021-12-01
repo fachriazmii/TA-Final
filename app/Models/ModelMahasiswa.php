@@ -20,6 +20,7 @@ class ModelMahasiswa extends Model
         'jenkel',
         'program_studi',
         'fakultas',
+        'pas',
         'id_role',
     ];
 }

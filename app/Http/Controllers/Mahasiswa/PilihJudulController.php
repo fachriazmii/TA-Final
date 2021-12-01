@@ -10,6 +10,7 @@ use Carbon\Carbon;
 
 use App\Models\Dosen\ModelInputJudul;
 use App\Models\Mahasiswa\ModelPilihJudul;
+use App\Models\Dosen\ModelRevisi;
 
 class PilihJudulController extends Controller
 {
@@ -42,6 +43,13 @@ class PilihJudulController extends Controller
                 'waktu_pengajuan' => Carbon::now(),
                 'status' => 'Pengajuan',
             ]);
+
+            $inputrevisi_proposal = ModelRevisi::Create([
+                'revisi_ke' => 0,
+                'status_revisi' => 'Tinjau',
+                'nim' => auth()->user()->username,
+            ]);
+
             echo json_encode('Berhasil memilih judul');
         }
         else{

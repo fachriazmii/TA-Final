@@ -94,7 +94,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                   @elseif ($d->status == 'Disetujui')
                                       <span class="badge badge-success">Disetujui</span> 
                                   @elseif ($d->status=='Revisi' && $d->status_revisi=='Belum')
-                                      <a class="btn btn-block btn-outline-primary" href="{{url('status/revisi', auth()->user()->username)}}"><i class="fas fa-file"></i> Lihat Revisi</a>
+                                      <a class="btn btn-block btn-outline-primary" href="{{url('lihat-revisi/revisi', auth()->user()->username)}}"><i class="fas fa-file"></i> Lihat Revisi</a>
                                   @elseif ($d->status=='Revisi' && $d->status_revisi=='Tinjau')
                                       <span class="badge badge-warning text-white">Peninjauan Revisi</span> 
                                   @elseif ($d->status == 'Selesai')
@@ -145,6 +145,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <script>
    
     $(function () {
+      $("#example1").DataTable({
+            "buttons": ["csv", "excel", "pdf", "print"],
+            "dom":
+                "<'row'<'col-sm-4'><'col-sm-6'><'col-sm-2'>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-10'><'col-sm-2'>>",
+        });
     });
   </script>
 </body>

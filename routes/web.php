@@ -79,6 +79,8 @@ Route::middleware(['auth','ceklevel:dosen'])->group(function () {
     Route::post('/revisi/lihat-file/setuju-revisi', [RevisiController::class,'setuju_revisi'])->name('revisi/lihat-file/setuju-revisi');
     
     Route::get('/pelaksanaan-sidang', [PelaksanaanSidangController::class,'index'])->name('pelaksanaan-sidang');
+    Route::get('/pelaksanaan-sidang/lihat-file/{id}', [PelaksanaanSidangController::class,'edit'])->name('pelaksanaan-sidang/lihat-file');
+    Route::post('/pelaksanaan-sidang/nilai-sidang', [PelaksanaanSidangController::class,'nilai_sidang'])->name('pelaksanaan-sidang/nilai-sidang');
 });
 
 Route::middleware(['auth','ceklevel:mahasiswa'])->group(function () {
