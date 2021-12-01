@@ -103,6 +103,14 @@
                 </p>
               </a>
             </li>
+            <li class="nav-item">
+              <a href="{{route('pelaksanaan-sidang')}}" class="nav-link {{ $title=='Pelaksanaan Sidang' ? 'active' : '' }}">
+                <i class="nav-icon far fa-circle nav-icon"></i>
+                <p>
+                  Pelaksanaan Sidang
+                </p>
+              </a>
+            </li>
           @endif
           @if (auth()->user()->level=="mahasiswa")
             <li class="nav-item">

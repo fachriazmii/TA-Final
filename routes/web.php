@@ -3,9 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\MonitoringController;
 use App\Http\Controllers\Admin\DosenController;
+
 use App\Http\Controllers\Dosen\InputJudulController;
 use App\Http\Controllers\Dosen\StatusJudulController;
 use App\Http\Controllers\Dosen\RevisiController;
+use App\Http\Controllers\Dosen\PelaksanaanSidangController;
+
 use App\Http\Controllers\Mahasiswa\PilihJudulController;
 use App\Http\Controllers\Mahasiswa\StatusController;
 use App\Http\Controllers\Mahasiswa\LihatRevisiController;
@@ -74,6 +77,8 @@ Route::middleware(['auth','ceklevel:dosen'])->group(function () {
     Route::get('/revisi/lihat-file/{id}', [RevisiController::class,'lihat_revisi']);
     Route::post('/revisi/lihat-file/store', [RevisiController::class,'store'])->name('revisi/lihat-file/store');
     Route::post('/revisi/lihat-file/setuju-revisi', [RevisiController::class,'setuju_revisi'])->name('revisi/lihat-file/setuju-revisi');
+    
+    Route::get('/pelaksanaan-sidang', [PelaksanaanSidangController::class,'index'])->name('pelaksanaan-sidang');
 });
 
 Route::middleware(['auth','ceklevel:mahasiswa'])->group(function () {
