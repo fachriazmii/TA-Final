@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 01, 2021 at 04:47 AM
+-- Generation Time: Dec 01, 2021 at 10:30 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -78,7 +78,8 @@ CREATE TABLE `file_repo` (
 --
 
 INSERT INTO `file_repo` (`id`, `nama`, `cloud_path`, `local_path`) VALUES
-(4, '180102021-odod-CFC3697D61E54C0DB8ALK7XC.pdf', NULL, 'storage/repo/180102021-odod-CFC3697D61E54C0DB8ALK7XC.pdf');
+(5, '9901-Jojoba-5984-22229-1-PB.pdf', NULL, 'storage/repo/9901-Jojoba-5984-22229-1-PB.pdf'),
+(6, '180102021-odod-document.pdf', NULL, 'storage/repo/180102021-odod-document.pdf');
 
 -- --------------------------------------------------------
 
@@ -135,18 +136,20 @@ CREATE TABLE `mahasiswa` (
   `jenkel` varchar(255) DEFAULT NULL,
   `program_studi` varchar(255) DEFAULT NULL,
   `fakultas` varchar(255) DEFAULT NULL,
-  `id_role` int(11) DEFAULT NULL
+  `id_role` int(11) DEFAULT NULL,
+  `pas` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `mahasiswa`
 --
 
-INSERT INTO `mahasiswa` (`id`, `nim`, `nama`, `no_hp`, `email`, `jenkel`, `program_studi`, `fakultas`, `id_role`) VALUES
-(2, '232323', 'Jojo', '08219312', 'jojo@gmail.com', 'L', 'Informatikas', 'Sainteks', NULL),
-(6, '9901', 'Jojoba', NULL, 'jojoba@gmail.com', 'L', 'Informatika', 'Sains dan Teknologi', 11),
-(7, '9090', 'Mahasiswa1', NULL, 'mahasiswa@gmail.com', 'P', 'IF', 'IF', 12),
-(8, '180102021', 'odod', '12345678910213', 'odod@gmail.com', 'L', 'IF', 'IF', 13);
+INSERT INTO `mahasiswa` (`id`, `nim`, `nama`, `no_hp`, `email`, `jenkel`, `program_studi`, `fakultas`, `id_role`, `pas`) VALUES
+(2, '232323', 'Jojo', '08219312', 'jojo@gmail.com', 'L', 'Informatikas', 'Sainteks', NULL, ''),
+(6, '9901', 'Jojoba', NULL, 'jojoba@gmail.com', 'L', 'Informatika', 'Sains dan Teknologi', 11, ''),
+(7, '9090', 'Mahasiswa1', NULL, 'mahasiswa@gmail.com', 'P', 'IF', 'IF', 12, ''),
+(8, '180102021', 'odod', '12345678910213', 'odod@gmail.com', 'L', 'IF', 'IF', 13, ''),
+(12, '321213321', 'Ripat', '082317657262', 'ripat@gmail.com', 'L', 'Informatika', 'Saintek', NULL, '$2y$10$KxjhZ0N./xtSQfb/OLehQucE3znOM2tVoO4mGiiRdlSvtpGDWJtMu');
 
 -- --------------------------------------------------------
 
@@ -237,7 +240,7 @@ CREATE TABLE `proposal` (
   `id_repo` bigint(20) DEFAULT NULL,
   `approve_by` bigint(20) UNSIGNED DEFAULT NULL,
   `waktu_pengajuan` datetime NOT NULL,
-  `status` enum('Pengajuan','Disetujui','Revisi','Selesai') NOT NULL
+  `status` enum('Pengajuan','Disetujui','Revisi','Selesai','Lulus') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -245,9 +248,8 @@ CREATE TABLE `proposal` (
 --
 
 INSERT INTO `proposal` (`id`, `id_judul`, `nim`, `id_repo`, `approve_by`, `waktu_pengajuan`, `status`) VALUES
-(6, 4, '9090', NULL, 1000, '2021-11-24 12:38:58', 'Disetujui'),
-(8, 7, '9901', NULL, NULL, '2021-11-29 08:52:07', 'Pengajuan'),
-(9, 7, '180102021', 4, 1000, '2021-11-30 06:36:52', 'Selesai');
+(14, 4, '9901', 5, 1000, '2021-12-01 05:51:55', 'Selesai'),
+(15, 7, '180102021', 6, 1000, '2021-12-01 09:21:14', 'Selesai');
 
 -- --------------------------------------------------------
 
@@ -259,10 +261,10 @@ CREATE TABLE `revisi_proposal` (
   `id` int(11) NOT NULL,
   `revisi_text` text DEFAULT NULL,
   `revisi_ke` int(11) NOT NULL,
-  `status_revisi` enum('Belum','Selesai','Tinjau') NOT NULL,
+  `status_revisi` enum('Belum','Selesai','Tinjau','Lulus') NOT NULL,
   `nim` int(11) NOT NULL,
   `revisi_by` int(11) DEFAULT NULL,
-  `id_repo` int(11) NOT NULL
+  `id_repo` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -270,7 +272,9 @@ CREATE TABLE `revisi_proposal` (
 --
 
 INSERT INTO `revisi_proposal` (`id`, `revisi_text`, `revisi_ke`, `status_revisi`, `nim`, `revisi_by`, `id_repo`) VALUES
-(4, 'Lagi lagi revisi', 2, 'Selesai', 180102021, 1000, 4);
+(5, 'Revisi paragraf sekian bla bla bla', 2, 'Selesai', 9901, 1000, 5),
+(7, 'revisi disini', 2, 'Selesai', 180102021, 1000, 6),
+(8, NULL, 0, 'Tinjau', 9090, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -292,7 +296,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('y05LmmVg1PdxepuDrcdpSEWAcKHaDJmCDw6Qg1lO', 13, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiY2lpcUlnTU1KMVVPZWttclVRRkpXVTVYT1hVTzc2VHFTYmVFRDJwQSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzM6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9waWxpaC1qdWR1bCI7fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjEzO3M6NDoiYXV0aCI7YToxOntzOjIxOiJwYXNzd29yZF9jb25maXJtZWRfYXQiO2k6MTYzODE3ODY0Nzt9fQ==', 1638178745);
+('Qyq8fp62TJ0rbHOSGIsfsZbr3jOnoUN0QQ3wdduN', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiSTU3YnBZcHdBNlh3ZWt5QnVFanZIY0k4QmcwajRoM1hMbGtEcFEybSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzg6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9tYWhhc2lzd2EvZWRpdC8yIjt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjQ6ImF1dGgiO2E6MTp7czoyMToicGFzc3dvcmRfY29uZmlybWVkX2F0IjtpOjE2MzgzNTA4ODM7fX0=', 1638350916);
 
 -- --------------------------------------------------------
 
@@ -322,7 +326,7 @@ CREATE TABLE `sidang` (
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `level` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `level` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
@@ -337,11 +341,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `level`, `username`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Admin Jaya Jaya Jaya', 'admin', '12345', 'admin@gmail.com', NULL, '$2y$10$bYF6I8jwLeDo/sq/knlwRO7.sfOWL/qlNdFO76ylEtfXe2KYjMIEi', 'HxPFwimTf8QlUf8ZQfdasOWD5GUzPs7JOrKay2Gh4sOoyJdYBzSW7CGPm6vc', '2021-11-23 02:33:27', '2021-11-23 02:33:27'),
+(1, 'Admin Jaya Jaya Jaya', 'admin', '12345', 'admin@gmail.com', NULL, '$2y$10$bYF6I8jwLeDo/sq/knlwRO7.sfOWL/qlNdFO76ylEtfXe2KYjMIEi', 'jdYtFIV5qsDszTRgAHU9rjXryP64IOxpdqxuNDSFJtNIFHvcWHqiddMXXdwy', '2021-11-23 02:33:27', '2021-11-23 02:33:27'),
 (11, 'Jojoba', 'mahasiswa', '9901', 'jojoba@gmail.com', NULL, '$2y$10$MN5GSu29zJTtD.uqIIvHjOQPEffGUns8W7HYmKURiLptp1aoTTy1a', NULL, '2021-11-23 18:02:26', '2021-11-23 18:02:26'),
 (12, 'Mahasiswa1', 'mahasiswa', '9090', 'mahasiswa@gmail.com', NULL, '$2y$10$aIhBpa2pw6L8qJDX9jW/e.qRTBwxoUjMNnLautKsiO2h6Ac/JoV3S', NULL, '2021-11-23 18:05:42', '2021-11-23 18:05:42'),
 (13, 'odod', 'mahasiswa', '180102021', 'odod@gmail.com', NULL, '$2y$10$bYF6I8jwLeDo/sq/knlwRO7.sfOWL/qlNdFO76ylEtfXe2KYjMIEi', NULL, '2021-11-23 18:08:53', '2021-11-23 18:08:53'),
-(14, 'Dadang Konelo', 'dosen', '1000', 'dosen@gmail.com', NULL, '$2y$10$bYF6I8jwLeDo/sq/knlwRO7.sfOWL/qlNdFO76ylEtfXe2KYjMIEi', '2rOgYrmTeMETFxnHSd9CRyk9gyQdPR5k3KCOijqFGhl0hfR1RwI0tEct8b0h', NULL, NULL);
+(14, 'Dadang Konelo', 'dosen', '1000', 'dosen@gmail.com', NULL, '$2y$10$bYF6I8jwLeDo/sq/knlwRO7.sfOWL/qlNdFO76ylEtfXe2KYjMIEi', 'aUCKytz3s3XX3r3cZPYsoeIGSz1FKd6cQjwKvsgxOhtkM8euCtJsTJvYOydY', NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -462,7 +466,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `file_repo`
 --
 ALTER TABLE `file_repo`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `jadwal_ta`
@@ -480,7 +484,7 @@ ALTER TABLE `judul_ta`
 -- AUTO_INCREMENT for table `mahasiswa`
 --
 ALTER TABLE `mahasiswa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -504,19 +508,19 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `proposal`
 --
 ALTER TABLE `proposal`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `revisi_proposal`
 --
 ALTER TABLE `revisi_proposal`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
