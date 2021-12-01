@@ -1,5 +1,5 @@
 @php
-    $title ='Dosen';
+    $title ='Dosen Input Judul';
 @endphp
 <!DOCTYPE html>
 <!--
@@ -28,12 +28,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Dosen</h1>
+            <h1 class="m-0">Input Judul</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item">Dashboard</li>
-                <li class="breadcrumb-item">Dosen</li>
+                <li class="breadcrumb-item">Input Judul</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -50,7 +50,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="card card-primary card-outline">
               <div class="card-header">
                 <div class="col-sm-2">
-                    <a href="{{url('/dosen/create')}}" class="btn btn-block btn-primary"><i class="fas fa-plus pr-2"></i>Tambah Data</a>
                 </div>
               </div>
               <div class="card-body">
@@ -67,10 +66,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <thead>
                         <tr>
                           <th>No.</th>
-                          <th>Nama</th>
-                          <th>Nomor Handphone</th>
-                          <th>Email</th>
-                          <th>Aksi</th>
+                          <th>Nama Dosen</th>
+                          <th>Program Studi - Fakultas</th>
+                          <th>Judul Penelitian</th>
+                          <th>Dosen Pembimbing</th>
+                          <th>Kuota</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -79,31 +79,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         @endphp
                         @foreach ($data as $d)    
                             <tr>
-                                <td>{{$count}}</td>
+                                <td>{{$count."."}}</td>
                                 <td>{{ $d->nama_dosen}}</td>
-                                <td>{{ $d->no_hp}}</td>
-                                <td>{{ $d->email}}</td>
-                                <td class="text-center">
-                                    <a href="{{url('/dosen/edit', $d->id)}}" class="btn btn-sm btn-success"><i class="fas fa-user-edit pr-2"></i>Edit</a>
-                                    <form action="{{url('/dosen/delete', $d->id)}}" method="post" class="d-inline border-0">
-                                        @method('delete')
-                                        @csrf
-                                        <button class="btn btn-sm btn-danger" onclick="return confirm('Yakin Hapus Data?')"><i class="fas fa-trash-alt pr-2"></i>Hapus</button>
-                                    </form>
-                                </td>
+                                <td>{{ $d->jurusan." - ".$d->fakultas}}</td>
+                                <td>{{ $d->judul}}</td>
+                                <td>{{ $d->pbb1}}</td>
+                                <td>{{ $d->kuota}}</td>
                             </tr>
                         @php
-                                $count++;
-                            @endphp
+                            $count++;
+                        @endphp
                         @endforeach
                         </tbody>
                         <tfoot>
                         <tr>
                             <th>No.</th>
-                            <th>Nama</th>
-                            <th>Nomor Handphone</th>
-                            <th>Email</th>
-                            <th>Aksi</th>
+                            <th>Judul Penelitian</th>
+                            <th>Dosen Pembimbing</th>
+                            <th>Kuota</th>
                         </tr>
                         </tfoot>
                     </table>

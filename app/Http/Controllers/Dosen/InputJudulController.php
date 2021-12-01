@@ -41,6 +41,8 @@ class InputJudulController extends Controller
      */
     public function store(Request $request)
     {
+        $id_dosen = DB::table('dosen')->where('no_induk', auth()->user()->username)->first();
+
         $validatedData = $request->validate([
             'judul' => 'required',
             'pbb1' => 'required',
@@ -50,7 +52,8 @@ class InputJudulController extends Controller
         $inputjudul = ModelInputJudul::create([
             'judul' => $request->input('judul'),
             'pbb1' => $request->input('pbb1'),
-            'kuota' => $request->input('kuota')
+            'kuota' => $request->input('kuota'),
+            'id_dosen' => $id_dosen->id
         ]);
 
         return redirect('/input-judul')->with('success','Berhasil menambahkan judul');

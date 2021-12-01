@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class MahasiswaController extends Controller
+use App\Models\Dosen\ModelInputJudul;
+
+class MonitoringController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,6 +23,15 @@ class MahasiswaController extends Controller
                         ->orderBy('proposal.id', 'DESC')->get();
 
         return view('page.admin.mahasiswa-judul', ['data' => $data]);
+    }
+
+    public function dosen_judul()
+    { 
+        $data = DB::table('judul_ta')
+                        ->join('dosen', 'judul_ta.id_dosen', '=', 'dosen.id')
+                        ->orderBy('judul_ta.id', 'DESC')->get();
+
+        return view('page.admin.dosen-input-judul', ['data' => $data]);
     }
 
     /**

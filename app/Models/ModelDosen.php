@@ -13,8 +13,10 @@ class ModelDosen extends Model
     public $timestamps = false;
     
     protected $fillable = [
+        'no_induk',
         'nama_dosen',
-        'no_hp',
+        'jurusan',
+        'fakultas',
         'email',
         'id_role',
     ];

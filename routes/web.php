@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\MonitoringController;
+use App\Http\Controllers\Admin\DosenController;
 use App\Http\Controllers\Dosen\InputJudulController;
 use App\Http\Controllers\Dosen\StatusJudulController;
 use App\Http\Controllers\Dosen\RevisiController;
@@ -9,7 +11,6 @@ use App\Http\Controllers\Mahasiswa\StatusController;
 use App\Http\Controllers\Mahasiswa\LihatRevisiController;
 
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\DosenController;
 use App\Http\Controllers\MahasiswaController;
 
 /*
@@ -45,7 +46,8 @@ Route::middleware(['auth','ceklevel:admin'])->group(function () {
     Route::get('/mahasiswa/edit/{id}', [MahasiswaController::class,'edit']);
     Route::get('/mahasiswa/update/{id}', [MahasiswaController::class,'update']);
     Route::delete('/mahasiswa/delete/{id}', [MahasiswaController::class,'delete']);
-    Route::get('/mahasiswa/judul', [App\Http\Controllers\Admin\MahasiswaController::class,'index'])->name('mahasiswa/judul');
+    Route::get('/mahasiswa/judul', [MonitoringController::class,'index'])->name('mahasiswa/judul');
+    Route::get('/dosen/judul', [MonitoringController::class,'dosen_judul'])->name('dosen/judul');
 });
 
 Route::middleware(['auth','ceklevel:dosen'])->group(function () {

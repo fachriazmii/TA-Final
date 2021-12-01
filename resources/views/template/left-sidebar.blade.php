@@ -49,7 +49,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="#" class="nav-link {{ ($title=='Mahasiswa Judul' || $title=='Dosen Input Judul') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
                   Monitoring
@@ -61,6 +61,12 @@
                   <a href="{{route('mahasiswa/judul')}}" class="nav-link {{ $title=='Mahasiswa Judul' ? 'active' : '' }}">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Mahasiswa Judul</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{route('dosen/judul')}}" class="nav-link {{ $title=='Dosen Input Judul' ? 'active' : '' }}">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Dosen Input Judul</p>
                   </a>
                 </li>
                 <li class="nav-item">
