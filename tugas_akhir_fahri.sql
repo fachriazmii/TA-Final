@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 29, 2021 at 11:09 AM
+-- Generation Time: Dec 01, 2021 at 04:47 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -31,6 +31,8 @@ CREATE TABLE `dosen` (
   `id` int(255) NOT NULL,
   `no_induk` varchar(255) NOT NULL,
   `nama_dosen` text NOT NULL,
+  `jurusan` varchar(255) NOT NULL,
+  `fakultas` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `id_role` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -39,9 +41,8 @@ CREATE TABLE `dosen` (
 -- Dumping data for table `dosen`
 --
 
-INSERT INTO `dosen` (`id`, `no_induk`, `nama_dosen`, `email`, `id_role`) VALUES
-(2, '', 'Dadang Konelo', 'dadang@agmail.com', 14),
-(3, '', 'Jan', 'jan@mail.com', NULL);
+INSERT INTO `dosen` (`id`, `no_induk`, `nama_dosen`, `jurusan`, `fakultas`, `email`, `id_role`) VALUES
+(2, '1000', 'Dadang Konelo', 'Informatika', 'Saintek', 'dosen@gmail.com', 14);
 
 -- --------------------------------------------------------
 
@@ -77,7 +78,7 @@ CREATE TABLE `file_repo` (
 --
 
 INSERT INTO `file_repo` (`id`, `nama`, `cloud_path`, `local_path`) VALUES
-(2, '9090-Mahasiswa1-8684-1-62944-1-10-20210302.pdf', NULL, 'storage/repo/9090-Mahasiswa1-8684-1-62944-1-10-20210302.pdf');
+(4, '180102021-odod-CFC3697D61E54C0DB8ALK7XC.pdf', NULL, 'storage/repo/180102021-odod-CFC3697D61E54C0DB8ALK7XC.pdf');
 
 -- --------------------------------------------------------
 
@@ -115,8 +116,9 @@ CREATE TABLE `judul_ta` (
 --
 
 INSERT INTO `judul_ta` (`id`, `pbb1`, `pbb2`, `judul`, `kuota`, `aktif`, `id_dosen`) VALUES
-(4, 'PPA', 'Dospem dua', 'Penelitian Cyber Security', 1, 1, NULL),
-(7, 'RDP', NULL, 'Penelitian Machine Learning', 5, 1, NULL);
+(4, 'PPA', 'Dospem dua', 'Penelitian Cyber Security', 1, 1, 2),
+(7, 'RDP', NULL, 'Penelitian Machine Learning', 5, 1, 2),
+(8, 'PPA', NULL, 'Komunikasi Jaringan Data', 6, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -243,8 +245,9 @@ CREATE TABLE `proposal` (
 --
 
 INSERT INTO `proposal` (`id`, `id_judul`, `nim`, `id_repo`, `approve_by`, `waktu_pengajuan`, `status`) VALUES
-(6, 4, '9090', 2, 1000, '2021-11-24 12:38:58', 'Disetujui'),
-(8, 7, '9901', NULL, NULL, '2021-11-29 08:52:07', 'Pengajuan');
+(6, 4, '9090', NULL, 1000, '2021-11-24 12:38:58', 'Disetujui'),
+(8, 7, '9901', NULL, NULL, '2021-11-29 08:52:07', 'Pengajuan'),
+(9, 7, '180102021', 4, 1000, '2021-11-30 06:36:52', 'Selesai');
 
 -- --------------------------------------------------------
 
@@ -254,11 +257,11 @@ INSERT INTO `proposal` (`id`, `id_judul`, `nim`, `id_repo`, `approve_by`, `waktu
 
 CREATE TABLE `revisi_proposal` (
   `id` int(11) NOT NULL,
-  `revisi_text` text NOT NULL,
+  `revisi_text` text DEFAULT NULL,
   `revisi_ke` int(11) NOT NULL,
-  `status_revisi` enum('Belum','Selesai') NOT NULL,
+  `status_revisi` enum('Belum','Selesai','Tinjau') NOT NULL,
   `nim` int(11) NOT NULL,
-  `revisi_by` int(11) NOT NULL,
+  `revisi_by` int(11) DEFAULT NULL,
   `id_repo` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -267,7 +270,7 @@ CREATE TABLE `revisi_proposal` (
 --
 
 INSERT INTO `revisi_proposal` (`id`, `revisi_text`, `revisi_ke`, `status_revisi`, `nim`, `revisi_by`, `id_repo`) VALUES
-(2, 'Revisi perbaikan', 1, 'Belum', 9090, 1000, 2);
+(4, 'Lagi lagi revisi', 2, 'Selesai', 180102021, 1000, 4);
 
 -- --------------------------------------------------------
 
@@ -334,11 +337,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `level`, `username`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Admin Jaya Jaya Jaya', 'admin', '12345', 'admin@gmail.com', NULL, '$2y$10$bYF6I8jwLeDo/sq/knlwRO7.sfOWL/qlNdFO76ylEtfXe2KYjMIEi', 'N73adk9gsZpZrWFQy3ZSI1bt5ufE83tLmKU6pPxDllo2hQkDd9dGcP7rOdSx', '2021-11-23 02:33:27', '2021-11-23 02:33:27'),
+(1, 'Admin Jaya Jaya Jaya', 'admin', '12345', 'admin@gmail.com', NULL, '$2y$10$bYF6I8jwLeDo/sq/knlwRO7.sfOWL/qlNdFO76ylEtfXe2KYjMIEi', 'HxPFwimTf8QlUf8ZQfdasOWD5GUzPs7JOrKay2Gh4sOoyJdYBzSW7CGPm6vc', '2021-11-23 02:33:27', '2021-11-23 02:33:27'),
 (11, 'Jojoba', 'mahasiswa', '9901', 'jojoba@gmail.com', NULL, '$2y$10$MN5GSu29zJTtD.uqIIvHjOQPEffGUns8W7HYmKURiLptp1aoTTy1a', NULL, '2021-11-23 18:02:26', '2021-11-23 18:02:26'),
 (12, 'Mahasiswa1', 'mahasiswa', '9090', 'mahasiswa@gmail.com', NULL, '$2y$10$aIhBpa2pw6L8qJDX9jW/e.qRTBwxoUjMNnLautKsiO2h6Ac/JoV3S', NULL, '2021-11-23 18:05:42', '2021-11-23 18:05:42'),
 (13, 'odod', 'mahasiswa', '180102021', 'odod@gmail.com', NULL, '$2y$10$bYF6I8jwLeDo/sq/knlwRO7.sfOWL/qlNdFO76ylEtfXe2KYjMIEi', NULL, '2021-11-23 18:08:53', '2021-11-23 18:08:53'),
-(14, 'Dadang Konelo', 'dosen', '1000', 'dosen@gmail.com', NULL, '$2y$10$bYF6I8jwLeDo/sq/knlwRO7.sfOWL/qlNdFO76ylEtfXe2KYjMIEi', '4thrdxzn7TjWcjnvNYSuv20JBH3pCOZJXxyq6A9MnRPttvpIxZzfpqrzBSqu', NULL, NULL);
+(14, 'Dadang Konelo', 'dosen', '1000', 'dosen@gmail.com', NULL, '$2y$10$bYF6I8jwLeDo/sq/knlwRO7.sfOWL/qlNdFO76ylEtfXe2KYjMIEi', '2rOgYrmTeMETFxnHSd9CRyk9gyQdPR5k3KCOijqFGhl0hfR1RwI0tEct8b0h', NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -447,7 +450,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `dosen`
 --
 ALTER TABLE `dosen`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -459,7 +462,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `file_repo`
 --
 ALTER TABLE `file_repo`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `jadwal_ta`
@@ -471,7 +474,7 @@ ALTER TABLE `jadwal_ta`
 -- AUTO_INCREMENT for table `judul_ta`
 --
 ALTER TABLE `judul_ta`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `mahasiswa`
@@ -501,19 +504,19 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `proposal`
 --
 ALTER TABLE `proposal`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `revisi_proposal`
 --
 ALTER TABLE `revisi_proposal`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
