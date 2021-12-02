@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\MonitoringController;
 use App\Http\Controllers\Admin\DosenController;
+use App\Http\Controllers\Admin\MahasiswaController;
+use App\Http\Controllers\Admin\AkunMahasiswaController;
+use App\Http\Controllers\Admin\AkunDosenController;
 
 use App\Http\Controllers\Dosen\InputJudulController;
 use App\Http\Controllers\Dosen\StatusJudulController;
@@ -14,7 +17,6 @@ use App\Http\Controllers\Mahasiswa\StatusController;
 use App\Http\Controllers\Mahasiswa\LihatRevisiController;
 
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\MahasiswaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,6 +53,17 @@ Route::middleware(['auth','ceklevel:admin'])->group(function () {
     Route::delete('/mahasiswa/delete/{id}', [MahasiswaController::class,'delete']);
     Route::get('/mahasiswa/judul', [MonitoringController::class,'index'])->name('mahasiswa/judul');
     Route::get('/dosen/judul', [MonitoringController::class,'dosen_judul'])->name('dosen/judul');
+
+    Route::get('/akun/mahasiswa', [AkunMahasiswaController::class,'index'])->name('akun/mahasiswa');
+    Route::post('/akun/mahasiswa/approve', [AkunMahasiswaController::class,'approve'])->name('akun/mahasiswa/approve');
+    Route::get('/akun/mahasiswa/edit/{id}', [AkunMahasiswaController::class,'edit']);
+    Route::post('/akun/mahasiswa/update/{id}', [AkunMahasiswaController::class,'update']);
+
+    Route::get('/akun/dosen', [AkunDosenController::class,'index'])->name('akun/dosen');
+    Route::get('/akun/dosen/approve/{id}', [AkunDosenController::class,'approve']);
+    Route::get('/akun/dosen/approve/store', [AkunDosenController::class,'store'])->name('akun/dosen/approve/store');
+    Route::get('/akun/dosen/edit/{id}', [AkunDosenController::class,'edit']);
+    Route::get('/akun/dosen/update/{id}', [AkunDosenController::class,'update']);
 });
 
 Route::middleware(['auth','ceklevel:dosen'])->group(function () {

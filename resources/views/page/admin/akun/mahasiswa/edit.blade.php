@@ -1,5 +1,5 @@
 @php
-    $title ='Mahasiswa';
+    $title ='Akun Mahasiswa';
 @endphp
 <!DOCTYPE html>
 <!--
@@ -50,67 +50,73 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="col-lg-12">
             <div class="card card-primary card-outline">
               <div class="card-header">
-                  <h4 class="m-0">Tambah Data Mahasiswa</h4>
+                  <h4 class="m-0">Edit Akun Mahasiswa</h4>
                 <div class="col-sm-2">
                 </div>
               </div>
               <div class="card-body">
-                <form method="POST" action="{{ route('/mahasiswa/store') }}">
+                <form method="POST" action="{{ url('/akun/mahasiswa/update', $data->id) }}">
                     {{ csrf_field() }}
+                    <input readonly name="id_role" type="hidden" value="{{$data->id_role}}" class="form-control" id="exampleInputEmail1" placeholder="Masukan NIM" required>
                     <div class="row">
                         <div class="col-sm-2">
                             <div class="form-group">
                               <label for="exampleInputEmail1">NIM</label>
-                              <input name="nim" type="text" class="form-control" id="exampleInputEmail1" placeholder="Masukan NIM" required>
+                              <input readonly name="nim" type="text" value="{{$data->nim}}" class="form-control" id="exampleInputEmail1" placeholder="Masukan NIM" required>
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
                               <label for="exampleInputEmail1">Nama</label>
-                              <input name="nama" type="text" class="form-control" id="exampleInputEmail1" placeholder="Masukan Nama lengkap" required>
+                              <input readonly name="nama" type="text" value="{{$data->nama}}" class="form-control" id="exampleInputEmail1" placeholder="Masukan Nama lengkap" required>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                              <label>Jenis Kelamin</label>
-                              <select name="jenkel" class="form-control select2" style="width: 100%;">
-                                <option selected="selected" disabled>Pilih jenis kelamin</option>
-                                <option value="L">Laki-laki</option>
-                                <option value="P">Perempuan</option>
-                              </select>
+                                <label for="exampleInputEmail1">Jenis Kelamin</label>
+                                <input readonly name="nama" type="text" value="{{$data->jenkel=='L' ? 'Laki - laki' : 'Perempuan'}}" class="form-control" id="exampleInputEmail1" placeholder="Masukan Nama lengkap" required>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-2">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Program Studi</label>
-                                <input name="program_studi" type="text" class="form-control" id="exampleInputEmail1" placeholder="Masukan Nama lengkap" required>
+                                <input readonly name="program_studi" value="{{$data->program_studi}}" type="text" class="form-control" id="exampleInputEmail1" placeholder="Masukan Nama lengkap" required>
                               </div>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Fakultas</label>
-                                <input name="fakultas" type="text" class="form-control" id="exampleInputEmail1" placeholder="Masukan Nama lengkap" required>
+                                <input readonly name="fakultas" value="{{$data->fakultas}}" type="text" class="form-control" id="exampleInputEmail1" placeholder="Masukan Nama lengkap" required>
                               </div>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Nomor Handphone</label>
-                                <input name="no_hp" type="number" class="form-control" id="exampleInputEmail1" placeholder="Masukan nomor handphone" required>
-                              </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Email</label>
-                                <input name="email" type="email" class="form-control" id="exampleInputEmail1" placeholder="Alamat email" required>
+                                <input readonly name="no_hp" value="{{$data->no_hp}}" type="number" class="form-control" id="exampleInputEmail1" placeholder="Masukan nomor handphone" required>
                               </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Email</label>
+                                <input name="email" readonly value="{{$data->email}}" type="email" class="form-control" id="exampleInputEmail1" placeholder="Alamat email" required>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Password</label>
+                                <input name="password" type="password" class="form-control  @error('password')is-invalid @enderror" id="exampleInputEmail1" placeholder="Isi untuk merubah password, kosongkan jika tidak">
+                                @error('password')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror  
+                            </div>
+                        </div>
+                    </div>
                     <div class="float-right">
-                      <button type="submit" class="btn btn-primary"><i class="fas fa-save pr-2" aria-hidden="true"></i>Simpan</button>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-user-edit pr-2"></i>Edit Data</button>
                     </div>
                   </form>
               </div>

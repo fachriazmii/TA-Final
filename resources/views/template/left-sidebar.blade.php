@@ -77,6 +77,29 @@
                 </li>
               </ul>
             </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link {{ ($title=='Akun Mahasiswa' || $title=='Akun Dosen') ? 'active' : '' }}">
+                <i class="fa fa-users nav-icon"></i>
+                <p>
+                  Akun
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{route('akun/mahasiswa')}}" class="nav-link {{ $title=='Akun Mahasiswa' ? 'active' : '' }}">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Akun Mahasiswa</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{route('akun/dosen')}}" class="nav-link {{ $title=='Akun Dosen' ? 'active' : '' }}">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Akun Dosen</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
           @endif
           @if (auth()->user()->level=="dosen")
             <li class="nav-item">

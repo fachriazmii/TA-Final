@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 01, 2021 at 10:30 AM
+-- Generation Time: Dec 02, 2021 at 06:53 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -137,7 +137,7 @@ CREATE TABLE `mahasiswa` (
   `program_studi` varchar(255) DEFAULT NULL,
   `fakultas` varchar(255) DEFAULT NULL,
   `id_role` int(11) DEFAULT NULL,
-  `pas` varchar(255) NOT NULL
+  `pas` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -149,7 +149,8 @@ INSERT INTO `mahasiswa` (`id`, `nim`, `nama`, `no_hp`, `email`, `jenkel`, `progr
 (6, '9901', 'Jojoba', NULL, 'jojoba@gmail.com', 'L', 'Informatika', 'Sains dan Teknologi', 11, ''),
 (7, '9090', 'Mahasiswa1', NULL, 'mahasiswa@gmail.com', 'P', 'IF', 'IF', 12, ''),
 (8, '180102021', 'odod', '12345678910213', 'odod@gmail.com', 'L', 'IF', 'IF', 13, ''),
-(12, '321213321', 'Ripat', '082317657262', 'ripat@gmail.com', 'L', 'Informatika', 'Saintek', NULL, '$2y$10$KxjhZ0N./xtSQfb/OLehQucE3znOM2tVoO4mGiiRdlSvtpGDWJtMu');
+(12, '321213321', 'Ripat Gege', '082317657262', 'ripaldi@gmail.com', 'P', 'Informatika', 'Saintek', 22, '$2y$10$pNcQjLXy9hq71ub2kVv1a.WpDwwptpWRrKv1sRCE.QNDH9jrx.fQi'),
+(14, '180102022', 'Rinaldi Munirs', '082317657262', 'munir@gmail.com', 'L', 'Informatika', 'Humaniora', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -296,7 +297,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('Qyq8fp62TJ0rbHOSGIsfsZbr3jOnoUN0QQ3wdduN', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiSTU3YnBZcHdBNlh3ZWt5QnVFanZIY0k4QmcwajRoM1hMbGtEcFEybSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzg6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9tYWhhc2lzd2EvZWRpdC8yIjt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjQ6ImF1dGgiO2E6MTp7czoyMToicGFzc3dvcmRfY29uZmlybWVkX2F0IjtpOjE2MzgzNTA4ODM7fX0=', 1638350916);
+('fLdcvAzlTtDNDH4mbBr1b50rXCyODe4GvBPOQfK1', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiaWxDOHJSVjZ1N3RIU1V0UTlWbGJPYWJ2QXJLR2NndG1mZ3hIWEp4RiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9tYWhhc2lzd2EiO31zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6NDoiYXV0aCI7YToxOntzOjIxOiJwYXNzd29yZF9jb25maXJtZWRfYXQiO2k6MTYzODQyMTE5NTt9fQ==', 1638424367);
 
 -- --------------------------------------------------------
 
@@ -341,11 +342,12 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `level`, `username`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Admin Jaya Jaya Jaya', 'admin', '12345', 'admin@gmail.com', NULL, '$2y$10$bYF6I8jwLeDo/sq/knlwRO7.sfOWL/qlNdFO76ylEtfXe2KYjMIEi', 'jdYtFIV5qsDszTRgAHU9rjXryP64IOxpdqxuNDSFJtNIFHvcWHqiddMXXdwy', '2021-11-23 02:33:27', '2021-11-23 02:33:27'),
+(1, 'Admin Jaya Jaya Jaya', 'admin', '12345', 'admin@gmail.com', NULL, '$2y$10$bYF6I8jwLeDo/sq/knlwRO7.sfOWL/qlNdFO76ylEtfXe2KYjMIEi', 'yhb3sDQyYmI3CVpD0he1IKwGppJgUFYrCmJPXGOs8hJMWNjfWrDBdsJxWQgk', '2021-11-23 02:33:27', '2021-11-23 02:33:27'),
 (11, 'Jojoba', 'mahasiswa', '9901', 'jojoba@gmail.com', NULL, '$2y$10$MN5GSu29zJTtD.uqIIvHjOQPEffGUns8W7HYmKURiLptp1aoTTy1a', NULL, '2021-11-23 18:02:26', '2021-11-23 18:02:26'),
 (12, 'Mahasiswa1', 'mahasiswa', '9090', 'mahasiswa@gmail.com', NULL, '$2y$10$aIhBpa2pw6L8qJDX9jW/e.qRTBwxoUjMNnLautKsiO2h6Ac/JoV3S', NULL, '2021-11-23 18:05:42', '2021-11-23 18:05:42'),
 (13, 'odod', 'mahasiswa', '180102021', 'odod@gmail.com', NULL, '$2y$10$bYF6I8jwLeDo/sq/knlwRO7.sfOWL/qlNdFO76ylEtfXe2KYjMIEi', NULL, '2021-11-23 18:08:53', '2021-11-23 18:08:53'),
-(14, 'Dadang Konelo', 'dosen', '1000', 'dosen@gmail.com', NULL, '$2y$10$bYF6I8jwLeDo/sq/knlwRO7.sfOWL/qlNdFO76ylEtfXe2KYjMIEi', 'aUCKytz3s3XX3r3cZPYsoeIGSz1FKd6cQjwKvsgxOhtkM8euCtJsTJvYOydY', NULL, NULL);
+(14, 'Dadang Konelo', 'dosen', '1000', 'dosen@gmail.com', NULL, '$2y$10$bYF6I8jwLeDo/sq/knlwRO7.sfOWL/qlNdFO76ylEtfXe2KYjMIEi', 'aUCKytz3s3XX3r3cZPYsoeIGSz1FKd6cQjwKvsgxOhtkM8euCtJsTJvYOydY', NULL, NULL),
+(22, 'Ripat', 'mahasiswa', '321213321', 'ripaldi@gmail.com', NULL, '$2y$10$FCbUvX.DTDo0s/NdlocLJe32SUH2TZ9txvAa/.FP1y7gSbAHX92F2', NULL, '2021-12-01 21:11:54', '2021-12-01 21:11:54');
 
 --
 -- Indexes for dumped tables
@@ -484,7 +486,7 @@ ALTER TABLE `judul_ta`
 -- AUTO_INCREMENT for table `mahasiswa`
 --
 ALTER TABLE `mahasiswa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -520,7 +522,7 @@ ALTER TABLE `revisi_proposal`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

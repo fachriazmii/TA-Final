@@ -50,67 +50,88 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="col-lg-12">
             <div class="card card-primary card-outline">
               <div class="card-header">
-                  <h4 class="m-0">Edit Data Mahasiswa</h4>
+                  <h4 class="m-0">Tambah Data Mahasiswa</h4>
                 <div class="col-sm-2">
                 </div>
               </div>
               <div class="card-body">
-                <form method="GET" action="{{ url('/mahasiswa/update', $data->id) }}">
+                <form method="POST" action="{{ route('/mahasiswa/store') }}">
                     {{ csrf_field() }}
                     <div class="row">
                         <div class="col-sm-2">
                             <div class="form-group">
                               <label for="exampleInputEmail1">NIM</label>
-                              <input disabled name="nim" type="text" value="{{$data->nim}}" class="form-control" id="exampleInputEmail1" placeholder="Masukan NIM" required>
+                              <input name="nim" type="text" value="{{old('nim')}}" class="form-control @error('nim')is-invalid @enderror" id="exampleInputEmail1" placeholder="Masukan NIM">
+                              @error('nim')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                              @enderror
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
                               <label for="exampleInputEmail1">Nama</label>
-                              <input name="nama" type="text" value="{{$data->nama}}" class="form-control" id="exampleInputEmail1" placeholder="Masukan Nama lengkap" required>
+                              <input name="nama" type="text" value="{{old('nama')}}" class="form-control @error('nama')is-invalid @enderror" id="exampleInputEmail1" placeholder="Masukan Nama lengkap">
+                              @error('nama')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                              @enderror
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
                               <label>Jenis Kelamin</label>
-                              <select name="jenkel" class="form-control select2" style="width: 100%;">
-                                <option disabled>Pilih jenis kelamin</option>
-                                <option value="L" {{ $data->jenkel=='L' ? 'selected' : '' }}>Laki-laki</option>
-                                <option value="P" {{ $data->jenkel=='P' ? 'selected' : '' }}>Perempuan</option>
+                              <select name="jenkel" class="form-control select2 @error('jenkel')is-invalid @enderror" style="width: 100%;">
+                                <option selected="selected" disabled>Pilih jenis kelamin</option>
+                                <option value="L">Laki-laki</option>
+                                <option value="P">Perempuan</option>
                               </select>
+                              @error('jenkel')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                              @enderror
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Program Studi</label>
-                                <input name="program_studi" value="{{$data->program_studi}}" type="text" class="form-control" id="exampleInputEmail1" placeholder="Masukan Nama lengkap" required>
-                              </div>
+                              <label for="exampleInputEmail1">Program Studi</label>
+                              <input name="program_studi" value="{{old('program_studi')}}" type="text" class="form-control @error('program_studi')is-invalid @enderror" id="exampleInputEmail1" placeholder="Masukan Nama lengkap">
+                              @error('program_studi')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                              @enderror
+                            </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Fakultas</label>
-                                <input name="fakultas" value="{{$data->fakultas}}" type="text" class="form-control" id="exampleInputEmail1" placeholder="Masukan Nama lengkap" required>
-                              </div>
+                              <label for="exampleInputEmail1">Fakultas</label>
+                              <input name="fakultas" value="{{old('fakultas')}}" type="text" class="form-control @error('fakultas')is-invalid @enderror" id="exampleInputEmail1" placeholder="Masukan Nama lengkap">
+                              @error('fakultas')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                              @enderror
+                            </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Nomor Handphone</label>
-                                <input name="no_hp" value="{{$data->no_hp}}" type="number" class="form-control" id="exampleInputEmail1" placeholder="Masukan nomor handphone" required>
-                              </div>
+                              <label for="exampleInputEmail1">Nomor Handphone</label>
+                              <input name="no_hp" value="{{old('no_hp')}}" type="number" class="form-control @error('no_hp')is-invalid @enderror" id="exampleInputEmail1" placeholder="Masukan nomor handphone">
+                              @error('no_hp')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                              @enderror
+                            </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Email</label>
-                                <input name="email" value="{{$data->email}}" type="email" class="form-control" id="exampleInputEmail1" placeholder="Alamat email" required>
-                              </div>
+                              <label for="exampleInputEmail1">Email</label>
+                              <input name="email" value="{{old('email')}}" type="email" class="form-control @error('email')is-invalid @enderror" id="exampleInputEmail1" placeholder="Alamat email">
+                              @error('email')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                              @enderror
+                            </div>
                         </div>
                     </div>
                     <div class="float-right">
-                        <button type="submit" class="btn btn-primary"><i class="fas fa-user-edit pr-2"></i>Edit Data</button>
+                      <button type="submit" class="btn btn-primary"><i class="fas fa-save pr-2" aria-hidden="true"></i>Simpan</button>
                     </div>
                   </form>
               </div>

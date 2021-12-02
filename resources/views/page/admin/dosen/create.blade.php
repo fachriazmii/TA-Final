@@ -61,7 +61,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <div class="col-sm-6">
                         <div class="form-group">
                           <label for="exampleInputEmail1">Nomor Induk Kepegawaian</label>
-                          <input name="no_induk" type="number" class="form-control @error('no_induk')is-invalid @enderror" id="exampleInputEmail1" placeholder="Nomor induk kepegawaian">
+                          <input name="no_induk" type="number" value="{{old('no_induk')}}" class="form-control @error('no_induk')is-invalid @enderror" id="exampleInputEmail1" placeholder="Nomor induk kepegawaian">
                             @error('no_induk')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -70,7 +70,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <div class="col-sm-6">
                         <div class="form-group">
                           <label for="exampleInputEmail1">Nama Dosen</label>
-                          <input name="nama_dosen" type="text" class="form-control @error('nama_dosen')is-invalid @enderror" id="exampleInputEmail1" placeholder="Nama lengkap dosen dengan gelar">
+                          <input name="nama_dosen" type="text" value="{{old('nama_dosen')}}" class="form-control @error('nama_dosen')is-invalid @enderror" id="exampleInputEmail1" placeholder="Nama lengkap dosen dengan gelar">
                             @error('nama_dosen')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -81,7 +81,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <div class="col-sm-6">
                         <div class="form-group">
                           <label for="exampleInputEmail1">Program Studi</label>
-                          <input name="program_studi" type="text" class="form-control @error('program_studi')is-invalid @enderror" id="exampleInputEmail1" placeholder="Program Studi">
+                          <input name="program_studi" type="text" value="{{old('program_studi')}}" class="form-control @error('program_studi')is-invalid @enderror" id="exampleInputEmail1" placeholder="Program Studi">
                             @error('program_studi')
                               <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -90,7 +90,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <div class="col-sm-6">
                         <div class="form-group">
                           <label for="exampleInputEmail1">Fakultas</label>
-                          <input name="fakultas" type="text" class="form-control @error('fakultas')is-invalid @enderror" id="exampleInputEmail1" placeholder="Fakultas">
+                          <input name="fakultas" type="text" value="{{old('fakultas')}}" class="form-control @error('fakultas')is-invalid @enderror" id="exampleInputEmail1" placeholder="Fakultas">
                             @error('fakultas')
                               <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -101,7 +101,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <div class="col-sm-6">
                         <div class="form-group">
                           <label for="exampleInputEmail1">Email</label>
-                          <input name="email" type="email" class="form-control @error('email')is-invalid @enderror" id="exampleInputEmail1" placeholder="Alamat email">
+                          <input name="email" type="email" value="{{old('email')}}" class="form-control @error('email')is-invalid @enderror" id="exampleInputEmail1" placeholder="Alamat email">
                             @error('email')
                               <div class="invalid-feedback">{{ $message }}</div>
                             @enderror

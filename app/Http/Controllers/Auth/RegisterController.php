@@ -56,16 +56,13 @@ class RegisterController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required',
-            'username' => 'required|min:5|unique:users',
-            'email' => 'required|email|unique:users',
+            'username' => 'required|min:5|unique:mahasiswa,nim',
+            'email' => 'required|email|unique:mahasiswa,email',
             'password' => 'required',
             'jenkel' => 'required',
             'no_hp' => 'required|numeric',
             'program_studi' => 'required',
             'fakultas' => 'required',
-        ], [
-            'name.required' => 'Name is required',
-            'password.required' => 'Password is required'
         ]);
 
         // $User = User::create([
