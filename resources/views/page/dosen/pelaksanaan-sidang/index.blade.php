@@ -84,7 +84,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         @foreach ($data as $d)    
                             <tr>
                                 <td>{{$count."."}}</td>
-                                <td><a href="{{url('/input-judul/edit', $d->id_proposal)}}">{{ $d->judul}}</a></td>
+                                <td>{{ $d->judul}}</td>
                                 <td>{{ $d->nim." - ".$d->nama}}</td>
                                 <td style="width:25%;">
                                   <div class="row">
@@ -92,9 +92,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                       <a href="{{url('/pelaksanaan-sidang/lihat-file', $d->id_repo)}}" target="_blank" class="btn btn-sm btn-warning text-white"><i class="fas fa-file pr-2"></i>Lihat File</a></a>
                                     </div>
                                     <div class="col-sm-6">
-                                      <button type="button" class="btn btn-sm btn-success" onclick="nilai_sidang({{$d->nim}})">
+                                      <a href="{{url('/pelaksanaan-sidang/nilai-sidang', $d->nim)}}" class="btn btn-sm btn-success"><i class="fas fa-check-square pr-2"></i>Nilai Sidang</a></a>
+                                      {{-- <button type="button" class="btn btn-sm btn-success" onclick="nilai_sidang({{$d->nim}})">
                                         <i class="fas fa-check-square pr-2"></i>Nilai Sidang
-                                      </button>
+                                      </button> --}}
                                     </div>
                                   </div>
                                 </td>

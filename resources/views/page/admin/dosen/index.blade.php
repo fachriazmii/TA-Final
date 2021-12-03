@@ -87,15 +87,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <td>{{ $d->email}}</td>
                                 <td>
                                   <div class="row text-center">
-                                    <div class="col-sm-6">
-                                      <a href="{{url('/dosen/edit', $d->id)}}" class="btn btn-sm btn-success"><i class="fas fa-user-edit pr-2"></i>Edit</a>
-                                    </div>
-                                    <div class="col-sm-6">
-                                      <form action="{{url('/dosen/delete', $d->id)}}" method="post" class="d-inline border-0">
-                                          @method('delete')
-                                          @csrf
-                                          <button class="btn btn-sm btn-danger" onclick="return confirm('Yakin Hapus Data?')"><i class="fas fa-trash-alt pr-2"></i>Hapus</button>
-                                      </form>
+                                    <div class="row">
+                                      <div class="col-sm-6">
+                                        <a href="{{url('/dosen/edit', $d->id)}}" class="btn btn-sm btn-success"><i class="fas fa-user-edit pr-2"></i>Edit</a>
+                                      </div>
+                                      <div class="col-sm-6">
+                                        <form action="{{url('/dosen/delete', $d->id)}}" method="post" class="d-inline border-0">
+                                            @method('delete')
+                                            @csrf
+                                            <button class="btn btn-sm btn-danger" onclick="return confirm('Yakin Hapus Data?')"><i class="fas fa-trash-alt pr-2"></i>Hapus</button>
+                                        </form>
+                                      </div>
                                     </div>
                                   </div>
                                 </td>

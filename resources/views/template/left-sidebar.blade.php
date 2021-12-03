@@ -69,12 +69,6 @@
                     <p>Dosen Input Judul</p>
                   </a>
                 </li>
-                <li class="nav-item">
-                  <a href="#" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Inactive Page</p>
-                  </a>
-                </li>
               </ul>
             </li>
             <li class="nav-item">
@@ -131,6 +125,14 @@
                 <i class="nav-icon far fa-circle nav-icon"></i>
                 <p>
                   Pelaksanaan Sidang
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{route('penilaian-sidang')}}" class="nav-link {{ $title=='Cetak Hasil Sidang' ? 'active' : '' }}">
+                <i class="nav-icon far fa-circle nav-icon"></i>
+                <p>
+                  Cetak Hasil Sidang
                 </p>
               </a>
             </li>

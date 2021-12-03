@@ -46,18 +46,23 @@ class PelaksanaanSidangController extends Controller
         return view('page.dosen.pelaksanaan-sidang.lihat-file', ['data' => $data]);
     }
 
-    public function nilai_sidang(Request $request){
-        // $proposal = DB::table('proposal')->where('nim', $request->id)->first();
-        // $revisi_proposal = DB::table('revisi_proposal')->where('nim', $request->id)->first();
+    public function nilai_pembimbing_create($id){
+        $mahasiswa = DB::table('mahasiswa')->where('nim', $id)->first();
 
-        DB::table('proposal')->where('nim', $request->id)->update([
-            'status' => 'Lulus'
-        ]);
+        return view('page.dosen.pelaksanaan-sidang.nilai-pembimbing.create', ['data'=> $mahasiswa]);
 
-        DB::table('revisi_proposal')->where('nim', $request->id)->update([
-            'status_revisi' => 'Lulus'
-        ]);
+        // dd($revisi_proposal);
 
-        return json_encode('Mahasiswa dinyatakan lulus sidang');
+        // DB::table('proposal')->where('nim', $request->id)->update([
+        //     'status' => 'Lulus'
+        // ]);
+
+        // DB::table('revisi_proposal')->where('nim', $request->id)->update([
+        //     'status_revisi' => 'Lulus'
+        // ]);
+
+        // return json_encode('Mahasiswa dinyatakan lulus sidang');
     }
+
+    public function nilai_pembimbing_store(Request $request){}
 }

@@ -1,5 +1,5 @@
 @php
-    $title ='Dosen';
+    $title ='Akun Dosen';
 @endphp
 <!DOCTYPE html>
 <!--
@@ -34,7 +34,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item">Dashboard</li>
               <li class="breadcrumb-item">Dosen</li>
-              <li class="breadcrumb-item active">Tambah Data</li>
+              <li class="breadcrumb-item active">Akun Dosen</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -50,18 +50,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="col-lg-12">
             <div class="card card-primary card-outline">
               <div class="card-header">
-                  <h4 class="m-0">Tambah Data Dosen</h4>
+                  <h4 class="m-0">Tambah Akun Dosen</h4>
                 <div class="col-sm-2">
                 </div>
               </div>
               <div class="card-body">
-                <form method="POST" action="{{ route('/dosen/store') }}">
+                <form method="POST" action="{{ route('akun/dosen/approve/store') }}">
                   {{ csrf_field() }}
                     <div class="row">
                       <div class="col-sm-6">
                         <div class="form-group">
                           <label for="exampleInputEmail1">Nomor Induk Kepegawaian</label>
-                          <input name="no_induk" type="number" value="{{old('no_induk')}}" class="form-control @error('no_induk')is-invalid @enderror" id="exampleInputEmail1" placeholder="Nomor induk kepegawaian">
+                          <input name="id_dosen" type="hidden" value="{{$data->id}}" class="form-control @error('no_induk')is-invalid @enderror" id="exampleInputEmail1" placeholder="Nomor induk kepegawaian">
+                          <input readonly name="no_induk" type="number" value="{{$data->no_induk}}" class="form-control @error('no_induk')is-invalid @enderror" id="exampleInputEmail1" placeholder="Nomor induk kepegawaian">
                             @error('no_induk')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -70,7 +71,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <div class="col-sm-6">
                         <div class="form-group">
                           <label for="exampleInputEmail1">Nama Dosen</label>
-                          <input name="nama_dosen" type="text" value="{{old('nama_dosen')}}" class="form-control @error('nama_dosen')is-invalid @enderror" id="exampleInputEmail1" placeholder="Nama lengkap dosen dengan gelar">
+                          <input readonly name="nama_dosen" type="text" value="{{$data->nama_dosen}}" class="form-control @error('nama_dosen')is-invalid @enderror" id="exampleInputEmail1" placeholder="Nama lengkap dosen dengan gelar">
                             @error('nama_dosen')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -81,7 +82,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <div class="col-sm-6">
                         <div class="form-group">
                           <label for="exampleInputEmail1">Program Studi</label>
-                          <input name="program_studi" type="text" value="{{old('program_studi')}}" class="form-control @error('program_studi')is-invalid @enderror" id="exampleInputEmail1" placeholder="Program Studi">
+                          <input readonly name="program_studi" type="text" value="{{$data->jurusan}}" class="form-control @error('program_studi')is-invalid @enderror" id="exampleInputEmail1" placeholder="Program Studi">
                             @error('program_studi')
                               <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -90,7 +91,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <div class="col-sm-6">
                         <div class="form-group">
                           <label for="exampleInputEmail1">Fakultas</label>
-                          <input name="fakultas" type="text" value="{{old('fakultas')}}" class="form-control @error('fakultas')is-invalid @enderror" id="exampleInputEmail1" placeholder="Fakultas">
+                          <input readonly name="fakultas" type="text" value="{{$data->fakultas}}" class="form-control @error('fakultas')is-invalid @enderror" id="exampleInputEmail1" placeholder="Fakultas">
                             @error('fakultas')
                               <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -98,16 +99,41 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-sm-12">
-                        <div class="form-group">
-                          <label for="exampleInputEmail1">Email</label>
-                          <input name="email" type="email" value="{{old('email')}}" class="form-control @error('email')is-invalid @enderror" id="exampleInputEmail1" placeholder="Alamat email">
-                            @error('email')
-                              <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Email</label>
+                                <input readonly name="email" type="email" value="{{$data->email}}" class="form-control @error('email')is-invalid @enderror" id="exampleInputEmail1" placeholder="Alamat email">
+                                @error('email')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
                         </div>
-                      </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Password</label>
+                                <input name="password" type="password" value="{{old('password')}}" class="form-control @error('password')is-invalid @enderror" id="exampleInputEmail1" placeholder="Masukan Password">
+                                @error('password')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
                     </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                          <div class="input-group mb-3">
+                            <label for="exampleInputEmail1">Pilih Role</label>
+                            <select name="role" class="form-control select2 @error('role')is-invalid @enderror" style="width: 100%;">
+                              <option selected="selected" disabled>Role</option>
+                              <option value="dosen">Dosen</option>
+                              <option value="dosen_fungsional">Dosen Fungsional</option>
+                            </select>
+                          @error('role')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                          @enderror
+                        </div>
+                        </div>
+                    </div>
+
                     <div class="float-right">
                       <button type="submit" class="btn btn-primary"><i class="fas fa-save pr-2" aria-hidden="true"></i>Simpan</button>
                     </div>
@@ -137,6 +163,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Main Footer -->
   @include('template.footer')
   <script>
+  $(function () {
+  //Initialize Select2 Elements
+  $('.select2').select2()
+  });
   </script>
 </body>
 </html>

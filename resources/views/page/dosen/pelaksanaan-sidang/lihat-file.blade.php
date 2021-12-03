@@ -66,13 +66,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </div>
                 </div>
               </div>
-              <div class="row mb-4 mr-2">
-                <div class="col-sm-12">
-                  <div class="float-right">
-                    <button onclick="selesairevisi({{$data->nim}})" id="selesai_revisi" type="submit" class="btn btn-success"><i class="fas fa-save pr-2" aria-hidden="true"></i>Selesai Revisi</button>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
           <!-- /.col-md-6 -->

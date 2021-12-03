@@ -60,10 +60,10 @@ Route::middleware(['auth','ceklevel:admin'])->group(function () {
     Route::post('/akun/mahasiswa/update/{id}', [AkunMahasiswaController::class,'update']);
 
     Route::get('/akun/dosen', [AkunDosenController::class,'index'])->name('akun/dosen');
-    Route::get('/akun/dosen/approve/{id}', [AkunDosenController::class,'approve']);
-    Route::get('/akun/dosen/approve/store', [AkunDosenController::class,'store'])->name('akun/dosen/approve/store');
+    Route::get('/akun/dosen/approve/{id}', [AkunDosenController::class,'create']);
+    Route::post('/akun/dosen/approve/store', [AkunDosenController::class,'store'])->name('akun/dosen/approve/store');
     Route::get('/akun/dosen/edit/{id}', [AkunDosenController::class,'edit']);
-    Route::get('/akun/dosen/update/{id}', [AkunDosenController::class,'update']);
+    Route::post('/akun/dosen/update/{id}', [AkunDosenController::class,'update']);
 });
 
 Route::middleware(['auth','ceklevel:dosen'])->group(function () {
@@ -93,7 +93,10 @@ Route::middleware(['auth','ceklevel:dosen'])->group(function () {
     
     Route::get('/pelaksanaan-sidang', [PelaksanaanSidangController::class,'index'])->name('pelaksanaan-sidang');
     Route::get('/pelaksanaan-sidang/lihat-file/{id}', [PelaksanaanSidangController::class,'edit'])->name('pelaksanaan-sidang/lihat-file');
-    Route::post('/pelaksanaan-sidang/nilai-sidang', [PelaksanaanSidangController::class,'nilai_sidang'])->name('pelaksanaan-sidang/nilai-sidang');
+    Route::get('/pelaksanaan-sidang/nilai-sidang/{id}', [PelaksanaanSidangController::class,'nilai_pembimbing_create']);
+    Route::post('/pelaksanaan-sidang/nilai-sidang/store', [PelaksanaanSidangController::class,'nilai_pembimbing_store']);
+    
+    Route::get('/penilaian-sidang', [PelaksanaanSidangController::class,'index'])->name('penilaian-sidang');
 });
 
 Route::middleware(['auth','ceklevel:mahasiswa'])->group(function () {

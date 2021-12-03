@@ -50,29 +50,15 @@ class DosenController extends Controller
             'program_studi' => 'required',
             'fakultas' => 'required',
             'email' => 'required|email|unique:users',
-            'password' => 'required',
         ]);
 
-        $User = User::create([
-            'name' => $request->input('nama_dosen'),
-            'username' => $request->input('no_induk'),
-            'email' => $request->input('email'),
-            'password' => bcrypt($request->input('password')),
-            'level' => 'dosen',
-            'remember_token' => Str::random(60),
+        $dosen = ModelDosen::create([
+            'no_induk' => $request->input('no_induk'),
+            'nama_dosen' => $request->input('nama_dosen'),
+            'jurusan' => $request->input('program_studi'),
+            'fakultas' => $request->input('fakultas'),
+            'email' => $request->input('email')
         ]);
-
-        if($User){
-            $user = DB::table('users')->where('username', $request->input('no_induk'))->first();
-            $dosen = ModelDosen::create([
-                'no_induk' => $request->input('no_induk'),
-                'nama_dosen' => $request->input('nama_dosen'),
-                'jurusan' => $request->input('program_studi'),
-                'fakultas' => $request->input('fakultas'),
-                'email' => $request->input('email'),
-                'id_role' => $user->id,
-            ]);
-        }
         
         return redirect('/dosen')->with('success','Berhasil menambahkan data.');
     }
@@ -109,20 +95,67 @@ class DosenController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $User = DB::table('users')->where('username', $request->input('no_induk'))->update([
-            'name' => $request->input('nama_dosen'),
-            'email' => $request->input('email'),
-        ]);
+        
+        // $User = DB::table('users')->where('username', $request->input('no_induk'))->update([
+        //     'name' => $request->input('nama_dosen'),
+        //     'email' => $request->input('email'),
+        // ]);
 
-        if($User){
-            DB::table('dosen')->where('id', $request->id)->update([
-                'nama_dosen' => $request->input('nama_dosen'),
-                'jurusan' => $request->input('program_studi'),
-                'fakultas' => $request->input('fakultas'),
-                'email' => $request->input('email'),
+        // if($User){
+        //     DB::table('dosen')->where('id', $request->id)->update([
+        //         'nama_dosen' => $request->input('nama_dosen'),
+        //         'jurusan' => $request->input('program_studi'),
+        //         'fakultas' => $request->input('fakultas'),
+        //         'email' => $request->input('email'),
+        //     ]);
+
+        $users = DB::table('users')->where('username', $request->no_induk)->first();
+        $dosen = DB::table('dosen')->where('email', $request->email)->where('no_induk', $request->no_induk)->first();
+
+        if(($users == null) && (!$dosen)){
+            $validatedData = $request->validate([
+                'nama_dosen' => 'required',
+                'program_studi' => 'required',
+                'fakultas' => 'required',
+                'email' => 'required|email|unique:users',
             ]);
+
+            DB::table('dosen')->where('id', $request->id)->update([
+                'nama_dosen' => $request->nama_dosen,
+                'jurusan' => $request->program_studi,
+                'fakultas' => $request->fakultas,
+                'email' => $request->email,
+            ]);
+            return redirect('/dosen')->with('success','Berhasil mengedit data.');
         }
-        return redirect('/dosen')->with('success','Berhasil mengedit data.');
+        else if(($users != null) && (!$dosen)){
+            $validatedData = $request->validate([
+                'nama_dosen' => 'required',
+                'program_studi' => 'required',
+                'fakultas' => 'required',
+                'email' => 'required|email|unique:users',
+            ]);
+
+            DB::table('users')->where('username', $request->no_induk)->update([
+                'email' => $request->email,
+            ]);
+            DB::table('dosen')->where('id', $request->id)->update([
+                'nama_dosen' => $request->nama_dosen,
+                'jurusan' => $request->program_studi,
+                'fakultas' => $request->fakultas,
+                'email' => $request->email,
+            ]);
+            return redirect('/dosen')->with('success','Berhasil mengedit data.');
+        }
+        else if($dosen){
+            DB::table('dosen')->where('id', $request->id)->update([
+                'nama_dosen' => $request->nama_dosen,
+                'jurusan' => $request->program_studi,
+                'fakultas' => $request->fakultas,
+            ]);
+            return redirect('/dosen')->with('success','Berhasil mengedit data.');
+        }
+
     }
 
     public function delete($id)

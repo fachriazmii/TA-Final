@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 02, 2021 at 06:53 AM
+-- Generation Time: Dec 03, 2021 at 02:34 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -42,7 +42,8 @@ CREATE TABLE `dosen` (
 --
 
 INSERT INTO `dosen` (`id`, `no_induk`, `nama_dosen`, `jurusan`, `fakultas`, `email`, `id_role`) VALUES
-(2, '1000', 'Dadang Konelo', 'Informatika', 'Saintek', 'dosen@gmail.com', 14);
+(2, '1000', 'Dadang Konelo', 'Elektro', 'Saintek', 'dadangdosen@gmail.com', 14),
+(6, '1994', 'Rizal Dwi Prayogo S.St, M.Kom', 'Informatika', 'Sains dan Teknologi', 'yogo@gmail.com', 25);
 
 -- --------------------------------------------------------
 
@@ -174,6 +175,52 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (3, '2019_08_19_000000_create_failed_jobs_table', 1),
 (4, '2019_12_14_000001_create_personal_access_tokens_table', 1),
 (5, '2021_11_25_021805_create_sessions_table', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `nilai_pembimbing`
+--
+
+CREATE TABLE `nilai_pembimbing` (
+  `id` int(11) NOT NULL,
+  `nim` varchar(255) NOT NULL,
+  `pbb1` varchar(255) NOT NULL,
+  `pbb2` varchar(255) NOT NULL,
+  `nilai_pbb1` float NOT NULL,
+  `nilai_pbb2` float NOT NULL,
+  `rata_rata` float NOT NULL,
+  `nilai_akhir` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `nilai_penguji`
+--
+
+CREATE TABLE `nilai_penguji` (
+  `id` int(11) NOT NULL,
+  `nim` varchar(255) NOT NULL,
+  `penguji_1` varchar(255) NOT NULL,
+  `penguji_2` varchar(255) NOT NULL,
+  `penguji_3` varchar(255) NOT NULL,
+  `pemaparan_p1` float NOT NULL,
+  `pemaparan_p2` float NOT NULL,
+  `pemaparan_p3` float NOT NULL,
+  `materi_pokok_p1` float NOT NULL,
+  `materi_pokok_p2` float NOT NULL,
+  `materi_pokok_p3` float NOT NULL,
+  `masalah_p1` float NOT NULL,
+  `masalah_p2` float NOT NULL,
+  `masalah_p3` float NOT NULL,
+  `jumlah_p1` float NOT NULL,
+  `jumlah_p2` float NOT NULL,
+  `jumlah_p3` float NOT NULL,
+  `rata_rata` float NOT NULL,
+  `nilai_akhir` float NOT NULL,
+  `tanggal` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -346,8 +393,9 @@ INSERT INTO `users` (`id`, `name`, `level`, `username`, `email`, `email_verified
 (11, 'Jojoba', 'mahasiswa', '9901', 'jojoba@gmail.com', NULL, '$2y$10$MN5GSu29zJTtD.uqIIvHjOQPEffGUns8W7HYmKURiLptp1aoTTy1a', NULL, '2021-11-23 18:02:26', '2021-11-23 18:02:26'),
 (12, 'Mahasiswa1', 'mahasiswa', '9090', 'mahasiswa@gmail.com', NULL, '$2y$10$aIhBpa2pw6L8qJDX9jW/e.qRTBwxoUjMNnLautKsiO2h6Ac/JoV3S', NULL, '2021-11-23 18:05:42', '2021-11-23 18:05:42'),
 (13, 'odod', 'mahasiswa', '180102021', 'odod@gmail.com', NULL, '$2y$10$bYF6I8jwLeDo/sq/knlwRO7.sfOWL/qlNdFO76ylEtfXe2KYjMIEi', NULL, '2021-11-23 18:08:53', '2021-11-23 18:08:53'),
-(14, 'Dadang Konelo', 'dosen', '1000', 'dosen@gmail.com', NULL, '$2y$10$bYF6I8jwLeDo/sq/knlwRO7.sfOWL/qlNdFO76ylEtfXe2KYjMIEi', 'aUCKytz3s3XX3r3cZPYsoeIGSz1FKd6cQjwKvsgxOhtkM8euCtJsTJvYOydY', NULL, NULL),
-(22, 'Ripat', 'mahasiswa', '321213321', 'ripaldi@gmail.com', NULL, '$2y$10$FCbUvX.DTDo0s/NdlocLJe32SUH2TZ9txvAa/.FP1y7gSbAHX92F2', NULL, '2021-12-01 21:11:54', '2021-12-01 21:11:54');
+(14, 'Dadang Konelo', 'dosen', '1000', 'dadangdosen@gmail.com', NULL, '$2y$10$bYF6I8jwLeDo/sq/knlwRO7.sfOWL/qlNdFO76ylEtfXe2KYjMIEi', 'aUCKytz3s3XX3r3cZPYsoeIGSz1FKd6cQjwKvsgxOhtkM8euCtJsTJvYOydY', NULL, NULL),
+(22, 'Ripat', 'mahasiswa', '321213321', 'ripaldi@gmail.com', NULL, '$2y$10$FCbUvX.DTDo0s/NdlocLJe32SUH2TZ9txvAa/.FP1y7gSbAHX92F2', NULL, '2021-12-01 21:11:54', '2021-12-01 21:11:54'),
+(25, 'Rizal Dwi Prayogo S.St, M.Kom', 'dosen', '1994', 'yogo@gmail.com', NULL, '$2y$10$pfVMlI5sM5nEanwFIIb7neJuOp783qaDAQOrV1gMRXfIeHMCnl0o2', NULL, '2021-12-03 01:54:13', '2021-12-03 01:54:13');
 
 --
 -- Indexes for dumped tables
@@ -397,6 +445,18 @@ ALTER TABLE `mahasiswa`
 -- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `nilai_pembimbing`
+--
+ALTER TABLE `nilai_pembimbing`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `nilai_penguji`
+--
+ALTER TABLE `nilai_penguji`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -456,7 +516,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `dosen`
 --
 ALTER TABLE `dosen`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -495,6 +555,18 @@ ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT for table `nilai_pembimbing`
+--
+ALTER TABLE `nilai_pembimbing`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `nilai_penguji`
+--
+ALTER TABLE `nilai_penguji`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `pendaftaran_sidang`
 --
 ALTER TABLE `pendaftaran_sidang`
@@ -522,7 +594,7 @@ ALTER TABLE `revisi_proposal`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
