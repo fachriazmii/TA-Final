@@ -70,7 +70,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </div>
                 @endif
                 <div class="table-responsive">
-                  <form id="form_nilai" method="POST" action="{{ route('input-judul/store') }}">
+                  <form id="form_nilai" method="POST" action="{{ route('pelaksanaan-sidang/nilai-sidang/store') }}">
                   {{ csrf_field() }}
                   <input name="nim" type="hidden" value="{{$data->nim}}" class="form-control @error('pbb1')is-invalid @enderror" id="exampleInputEmail1" placeholder="Judul penelitian">
                     <table id="example1" class="table table-bordered table-striped" >
@@ -101,7 +101,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </td>
                                 <td>
                                   <div class="form-group">
-                                      <input name="nilai_pbb1" type="number" value="{{old('nilai_pbb1')}}" class="form-control @error('nilai_pbb1')is-invalid @enderror" id="nilai_pbb1" placeholder="Nilai Pembimbing-I">
+                                      <input name="nilai_pbb1" type="text" value="{{old('nilai_pbb1')}}" class="form-control @error('nilai_pbb1')is-invalid @enderror" id="nilai_pbb1" placeholder="Nilai Pembimbing-I">
                                       @error('nilai_pbb1')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                       @enderror
@@ -144,7 +144,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </td>
                                 <td>
                                   <div class="form-group">
-                                      <input name="nilai_pbb2" type="number" value="{{old('nilai_pbb2')}}" class="form-control @error('nilai_pbb2')is-invalid @enderror" id="nilai_pbb2" placeholder="Nilai Pembimbing-II">
+                                      <input name="nilai_pbb2" type="text" value="{{old('nilai_pbb2')}}" class="form-control @error('nilai_pbb2')is-invalid @enderror" id="nilai_pbb2" placeholder="Nilai Pembimbing-II">
                                       @error('nilai_pbb2')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                       @enderror
@@ -183,16 +183,37 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Main Footer -->
   @include('template.footer')
   <script>
-    var pbb1 = $('#pbb1').val();
-    var nilai_pbb1 = $('#nilai_pbb1').val();
-    var pbb2 = $('#pbb2').val();
-    var nilai_pbb2 = $('#nilai_pbb2').val();
+    $(document).ready(function() {
+      $('#nilai_pbb1').keyup(function (evt) {
+        var self = $(this);
+        self.val(self.val().replace(/[^0-9\.]/g, ''));
+        if ((evt.which != 46 || self.val().indexOf('.') != -1) && (evt.which < 48 || evt.which > 57)) 
+        {
+          evt.preventDefault();
+        }
+      });
+      $('#nilai_pbb2').keyup(function (evt) {
+        var self = $(this);
+        self.val(self.val().replace(/[^0-9\.]/g, ''));
+        if ((evt.which != 46 || self.val().indexOf('.') != -1) && (evt.which < 48 || evt.which > 57)) 
+        {
+          evt.preventDefault();
+        }
+      });
 
-    $("#nilai_pbb2").keyup(function() {
-      var nilai_rata = (nilai_pbb1+nilai_pbb2)/2;
-      var nilai_akhir = (nilai_pbb1+nilai_pbb2)/2;
+      $("#nilai_pbb1, #nilai_pbb2").keyup(function() {
+        var pbb1 = $('#pbb1').val();
+        var nilai_pbb1 = $('#nilai_pbb1').val();
+        var pbb2 = $('#pbb2').val();
+        var nilai_pbb2 = $('#nilai_pbb2').val();
+        
+        var nilai_rata = ((parseFloat(nilai_pbb1)+parseFloat(nilai_pbb2))/2).toFixed(2);
+        var nilai_akhir = ((parseFloat(nilai_pbb1)+parseFloat(nilai_pbb2))).toFixed(2);
 
-      console.log(nilai_rata);
+        $("#rata_rata").val(nilai_rata);
+        $("#nilai_akhir").val(nilai_akhir);
+        // console.log(nilai_pbb1);
+      });
     });
   </script>
 </body>

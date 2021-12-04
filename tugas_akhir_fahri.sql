@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 03, 2021 at 02:34 PM
+-- Generation Time: Dec 04, 2021 at 09:27 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -43,7 +43,8 @@ CREATE TABLE `dosen` (
 
 INSERT INTO `dosen` (`id`, `no_induk`, `nama_dosen`, `jurusan`, `fakultas`, `email`, `id_role`) VALUES
 (2, '1000', 'Dadang Konelo', 'Elektro', 'Saintek', 'dadangdosen@gmail.com', 14),
-(6, '1994', 'Rizal Dwi Prayogo S.St, M.Kom', 'Informatika', 'Sains dan Teknologi', 'yogo@gmail.com', 25);
+(6, '1994', 'Rizal Dwi Prayogo S.St, M.Kom', 'Informatika', 'Sains dan Teknologi', 'yogo@gmail.com', 25),
+(7, '4456716', 'Sutadi', 'Informatika', 'Sains dan Teknologi', 'sutadi@gmail.com', 27);
 
 -- --------------------------------------------------------
 
@@ -146,11 +147,11 @@ CREATE TABLE `mahasiswa` (
 --
 
 INSERT INTO `mahasiswa` (`id`, `nim`, `nama`, `no_hp`, `email`, `jenkel`, `program_studi`, `fakultas`, `id_role`, `pas`) VALUES
-(2, '232323', 'Jojo', '08219312', 'jojo@gmail.com', 'L', 'Informatikas', 'Sainteks', NULL, ''),
+(2, '232323', 'Jojo', '08219312', 'jojo@gmail.com', 'L', 'Informatikas', 'Sainteks', 26, ''),
 (6, '9901', 'Jojoba', NULL, 'jojoba@gmail.com', 'L', 'Informatika', 'Sains dan Teknologi', 11, ''),
 (7, '9090', 'Mahasiswa1', NULL, 'mahasiswa@gmail.com', 'P', 'IF', 'IF', 12, ''),
 (8, '180102021', 'odod', '12345678910213', 'odod@gmail.com', 'L', 'IF', 'IF', 13, ''),
-(12, '321213321', 'Ripat Gege', '082317657262', 'ripaldi@gmail.com', 'P', 'Informatika', 'Saintek', 22, '$2y$10$pNcQjLXy9hq71ub2kVv1a.WpDwwptpWRrKv1sRCE.QNDH9jrx.fQi'),
+(12, '321213321', 'Ripat Gege', '082317657262', 'ripaldi@gmail.com', 'P', 'Informatika', 'Saintek', 22, '$2y$10$85oTU6fPxtqsv4jfLcJIROx2xafUVHnuXPsrM.RvAUbWpLS92pGJi'),
 (14, '180102022', 'Rinaldi Munirs', '082317657262', 'munir@gmail.com', 'L', 'Informatika', 'Humaniora', NULL, NULL);
 
 -- --------------------------------------------------------
@@ -309,7 +310,7 @@ CREATE TABLE `revisi_proposal` (
   `id` int(11) NOT NULL,
   `revisi_text` text DEFAULT NULL,
   `revisi_ke` int(11) NOT NULL,
-  `status_revisi` enum('Belum','Selesai','Tinjau','Lulus') NOT NULL,
+  `status_revisi` enum('Belum','Selesai','Tinjau','Penilaian','Lulus') NOT NULL,
   `nim` int(11) NOT NULL,
   `revisi_by` int(11) DEFAULT NULL,
   `id_repo` int(11) DEFAULT NULL
@@ -389,13 +390,15 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `level`, `username`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Admin Jaya Jaya Jaya', 'admin', '12345', 'admin@gmail.com', NULL, '$2y$10$bYF6I8jwLeDo/sq/knlwRO7.sfOWL/qlNdFO76ylEtfXe2KYjMIEi', 'yhb3sDQyYmI3CVpD0he1IKwGppJgUFYrCmJPXGOs8hJMWNjfWrDBdsJxWQgk', '2021-11-23 02:33:27', '2021-11-23 02:33:27'),
+(1, 'Admin Jaya Jaya Jaya', 'admin', '12345', 'admin@gmail.com', NULL, '$2y$10$bYF6I8jwLeDo/sq/knlwRO7.sfOWL/qlNdFO76ylEtfXe2KYjMIEi', 'sc6kqdxKL5lQac2dKWkfFbAVgiecfKapnG311Ap9oIBVo0sOelfWGW9PIGBm', '2021-11-23 02:33:27', '2021-11-23 02:33:27'),
 (11, 'Jojoba', 'mahasiswa', '9901', 'jojoba@gmail.com', NULL, '$2y$10$MN5GSu29zJTtD.uqIIvHjOQPEffGUns8W7HYmKURiLptp1aoTTy1a', NULL, '2021-11-23 18:02:26', '2021-11-23 18:02:26'),
 (12, 'Mahasiswa1', 'mahasiswa', '9090', 'mahasiswa@gmail.com', NULL, '$2y$10$aIhBpa2pw6L8qJDX9jW/e.qRTBwxoUjMNnLautKsiO2h6Ac/JoV3S', NULL, '2021-11-23 18:05:42', '2021-11-23 18:05:42'),
 (13, 'odod', 'mahasiswa', '180102021', 'odod@gmail.com', NULL, '$2y$10$bYF6I8jwLeDo/sq/knlwRO7.sfOWL/qlNdFO76ylEtfXe2KYjMIEi', NULL, '2021-11-23 18:08:53', '2021-11-23 18:08:53'),
-(14, 'Dadang Konelo', 'dosen', '1000', 'dadangdosen@gmail.com', NULL, '$2y$10$bYF6I8jwLeDo/sq/knlwRO7.sfOWL/qlNdFO76ylEtfXe2KYjMIEi', 'aUCKytz3s3XX3r3cZPYsoeIGSz1FKd6cQjwKvsgxOhtkM8euCtJsTJvYOydY', NULL, NULL),
-(22, 'Ripat', 'mahasiswa', '321213321', 'ripaldi@gmail.com', NULL, '$2y$10$FCbUvX.DTDo0s/NdlocLJe32SUH2TZ9txvAa/.FP1y7gSbAHX92F2', NULL, '2021-12-01 21:11:54', '2021-12-01 21:11:54'),
-(25, 'Rizal Dwi Prayogo S.St, M.Kom', 'dosen', '1994', 'yogo@gmail.com', NULL, '$2y$10$pfVMlI5sM5nEanwFIIb7neJuOp783qaDAQOrV1gMRXfIeHMCnl0o2', NULL, '2021-12-03 01:54:13', '2021-12-03 01:54:13');
+(14, 'Dadang Konelo', 'dosen', '1000', 'dadangdosen@gmail.com', NULL, '$2y$10$bYF6I8jwLeDo/sq/knlwRO7.sfOWL/qlNdFO76ylEtfXe2KYjMIEi', 'sK2LzzRsWSogkMz9d2oCjPHyre0dyN3qxJjAE88Ru3RrMR0YgMb5SEp51cDP', NULL, NULL),
+(22, 'Ripat', 'mahasiswa', '321213321', 'ripaldi@gmail.com', NULL, '$2y$10$/iAQtMYnCpjYSa0P6o5fs.CDey9BE/X1vDTiNF6eQQ0e6vPePbGUy', NULL, '2021-12-01 21:11:54', '2021-12-01 21:11:54'),
+(25, 'Rizal Dwi Prayogo S.St, M.Kom', 'dosen', '1994', 'yogo@gmail.com', NULL, '$2y$10$pfVMlI5sM5nEanwFIIb7neJuOp783qaDAQOrV1gMRXfIeHMCnl0o2', NULL, '2021-12-03 01:54:13', '2021-12-03 01:54:13'),
+(26, 'Jojo', 'mahasiswa', '232323', 'jojo@gmail.com', NULL, '', NULL, '2021-12-04 01:16:11', '2021-12-04 01:16:11'),
+(27, 'Sutadi', 'dosen_fungsional', '4456716', 'sutadi@gmail.com', NULL, '$2y$10$hidC1X86mBuF10hfvLdK8enTGFsBx2uBdRxmytW/NEQaUo4k3ntPG', NULL, '2021-12-04 01:17:51', '2021-12-04 01:17:51');
 
 --
 -- Indexes for dumped tables
@@ -516,7 +519,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `dosen`
 --
 ALTER TABLE `dosen`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -558,7 +561,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `nilai_pembimbing`
 --
 ALTER TABLE `nilai_pembimbing`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `nilai_penguji`
@@ -594,7 +597,7 @@ ALTER TABLE `revisi_proposal`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

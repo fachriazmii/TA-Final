@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Dosen\ModelInputJudul;
 use App\Models\Mahasiswa\ModelPilihJudul;
 use App\Models\Dosen\ModelRevisi;
+use App\Models\Dosen\ModelNilaiPembimbing;
 
 class PelaksanaanSidangController extends Controller
 {
@@ -50,19 +51,32 @@ class PelaksanaanSidangController extends Controller
         $mahasiswa = DB::table('mahasiswa')->where('nim', $id)->first();
 
         return view('page.dosen.pelaksanaan-sidang.nilai-pembimbing.create', ['data'=> $mahasiswa]);
-
-        // dd($revisi_proposal);
-
-        // DB::table('proposal')->where('nim', $request->id)->update([
-        //     'status' => 'Lulus'
-        // ]);
-
-        // DB::table('revisi_proposal')->where('nim', $request->id)->update([
-        //     'status_revisi' => 'Lulus'
-        // ]);
-
-        // return json_encode('Mahasiswa dinyatakan lulus sidang');
     }
 
-    public function nilai_pembimbing_store(Request $request){}
+    public function nilai_pembimbing_store(Request $request){
+        $validatedData = $request->validate([
+            'pbb1' => 'required',
+            'pbb2' => 'required',
+            'nilai_pbb1' => 'required',
+            'nilai_pbb2' => 'required',
+            'rata_rata' => 'required',
+            'nilai_akhir' => 'required',
+        ]);
+
+        $input = ModelNilaiPembimbing::create([
+            'nim' => $request->nim,
+            'pbb1' => $request->pbb1,
+            'pbb2' => $request->pbb2,
+            'nilai_pbb1' => $request->nilai_pbb1,
+            'nilai_pbb2' => $request->nilai_pbb2,
+            'rata_rata' => $request->rata_rata,
+            'nilai_akhir' => $request->nilai_akhir
+        ]);
+
+        DB::table('revisi_proposal')->where('nim', $request->nim)->update([
+            'status_revisi' => 'Penilaian'
+        ]);
+
+        return redirect('/pelaksanaan-sidang')->with('success','Berhasil menambahkan data');
+    }
 }
