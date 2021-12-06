@@ -51,7 +51,7 @@ class PelaksanaanSidangController extends Controller
     public function nilai_pembimbing_create($id){
         $mahasiswa = DB::table('mahasiswa')->where('nim', $id)->first();
 
-        return view('page.dosen.pelaksanaan-sidang..create', ['data'=> $mahasiswa]);
+        return view('page.dosen.pelaksanaan-sidang.nilai-pembimbing.create', ['data'=> $mahasiswa]);
     }
 
     public function nilai_pembimbing_store(Request $request){

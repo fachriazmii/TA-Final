@@ -105,8 +105,10 @@ Route::middleware(['auth','ceklevel:dosen'])->group(function () {
     Route::get('/jadwal-sidang', [JadwalSidangController::class,'index'])->name('jadwal-sidang');
     Route::get('/jadwal-sidang/{id}', [JadwalSidangController::class,'create']);
     Route::post('/jadwal-sidang/store', [JadwalSidangController::class,'store'])->name('jadwal-sidang/store');
+
     Route::get('/lihat-jadwal-sidang', [JadwalSidangController::class,'lihat_jadwal_sidang'])->name('lihat-jadwal-sidang');
     Route::get('/lihat-hasil-sidang', [JadwalSidangController::class,'lihat_hasil_sidang'])->name('lihat-hasil-sidang');
+    Route::get('/pelaksanaan-sidang/cetak-hasil/{id}', [JadwalSidangController::class,'cetak_hasil_sidang']);
     
 });
 

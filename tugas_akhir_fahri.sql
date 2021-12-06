@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 06, 2021 at 05:03 AM
+-- Generation Time: Dec 06, 2021 at 07:50 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -106,8 +106,8 @@ CREATE TABLE `jadwal_ta` (
 --
 
 INSERT INTO `jadwal_ta` (`id`, `id_sidang`, `nim`, `penguji_1`, `penguji_2`, `datetime`, `jam`, `link_zoom`) VALUES
-(1, NULL, '9901', NULL, NULL, '2021-12-10', '17:35', NULL),
-(2, NULL, '180102021', NULL, NULL, '2021-12-05', '17:35', NULL);
+(2, NULL, '180102021', NULL, NULL, '2021-12-05', '17:35', NULL),
+(4, NULL, '9901', NULL, NULL, '2021-12-02', '11:54', NULL);
 
 -- --------------------------------------------------------
 
@@ -210,7 +210,8 @@ CREATE TABLE `nilai_pembimbing` (
 --
 
 INSERT INTO `nilai_pembimbing` (`id`, `nim`, `pbb1`, `pbb2`, `nilai_pbb1`, `nilai_pbb2`, `rata_rata`, `nilai_akhir`) VALUES
-(3, '9901', 'Dadang', 'Joni', 90, 80, 85, 170);
+(3, '180102021', 'Dadang', 'Joni', 90, 80, 85, 170),
+(4, '9901', '90', '80', 90, 80, 85, 170);
 
 -- --------------------------------------------------------
 
@@ -345,7 +346,7 @@ CREATE TABLE `revisi_proposal` (
 --
 
 INSERT INTO `revisi_proposal` (`id`, `revisi_text`, `revisi_ke`, `status_revisi`, `nim`, `revisi_by`, `id_repo`) VALUES
-(5, 'Revisi paragraf sekian bla bla bla', 2, 'Sidang', 9901, 1000, 5),
+(5, 'Revisi paragraf sekian bla bla bla', 2, 'Penilaian', 9901, 1000, 5),
 (7, 'revisi disini', 2, 'Lulus', 180102021, 1000, 6),
 (8, NULL, 0, 'Tinjau', 9090, NULL, NULL);
 
@@ -369,7 +370,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('e0fFm2D127kIVMekBA75zTogXxH6c7V2MjF8iOEy', 27, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiNm11TjJEbE1lZncxTFpkYkhNRkN0VWxKQ3ZQZEowY1VWd0Ftc3dOeiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mjk6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9wZW5ndWppIjt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6Mjc7czo0OiJhdXRoIjthOjE6e3M6MjE6InBhc3N3b3JkX2NvbmZpcm1lZF9hdCI7aToxNjM4NzU2NjQxO319', 1638757137);
+('MNQGTLEwqyhK9FtlUWiOxiny73qIY7Z1Ewrx8DJy', 27, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoieE01ZERuamE2bENrZTZWTmptZmRtTjI1VXkwSFVhMm5hN1JiektIbyI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NjI6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9wZWxha3NhbmFhbi1zaWRhbmcvY2V0YWstaGFzaWwvMTgwMTAyMDIxIjt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6Mjc7czo0OiJhdXRoIjthOjE6e3M6MjE6InBhc3N3b3JkX2NvbmZpcm1lZF9hdCI7aToxNjM4NzY2NTg3O319', 1638773097);
 
 -- --------------------------------------------------------
 
@@ -418,7 +419,7 @@ INSERT INTO `users` (`id`, `name`, `level`, `username`, `email`, `email_verified
 (11, 'Jojoba', 'mahasiswa', '9901', 'jojoba@gmail.com', NULL, '$2y$10$MN5GSu29zJTtD.uqIIvHjOQPEffGUns8W7HYmKURiLptp1aoTTy1a', NULL, '2021-11-23 18:02:26', '2021-11-23 18:02:26'),
 (12, 'Mahasiswa1', 'mahasiswa', '9090', 'mahasiswa@gmail.com', NULL, '$2y$10$aIhBpa2pw6L8qJDX9jW/e.qRTBwxoUjMNnLautKsiO2h6Ac/JoV3S', NULL, '2021-11-23 18:05:42', '2021-11-23 18:05:42'),
 (13, 'odod', 'mahasiswa', '180102021', 'odod@gmail.com', NULL, '$2y$10$bYF6I8jwLeDo/sq/knlwRO7.sfOWL/qlNdFO76ylEtfXe2KYjMIEi', NULL, '2021-11-23 18:08:53', '2021-11-23 18:08:53'),
-(14, 'Dadang Konelo', 'dosen', '1000', 'dadangdosen@gmail.com', NULL, '$2y$10$bYF6I8jwLeDo/sq/knlwRO7.sfOWL/qlNdFO76ylEtfXe2KYjMIEi', '1hkofV643uFkrZx8DqzfCtlZpIMKxipkpWdTKaWXXJIpoz45WydTEQKdg8qR', NULL, NULL),
+(14, 'Dadang Konelo', 'dosen', '1000', 'dadangdosen@gmail.com', NULL, '$2y$10$bYF6I8jwLeDo/sq/knlwRO7.sfOWL/qlNdFO76ylEtfXe2KYjMIEi', 'R7PKfAPTGloOi2UXvTWtw9dMEKgPR4xkpC1EIUb7fIQdlmdBE1TL8YIwIKbF', NULL, NULL),
 (22, 'Ripat', 'mahasiswa', '321213321', 'ripaldi@gmail.com', NULL, '$2y$10$/iAQtMYnCpjYSa0P6o5fs.CDey9BE/X1vDTiNF6eQQ0e6vPePbGUy', NULL, '2021-12-01 21:11:54', '2021-12-01 21:11:54'),
 (25, 'Rizal Dwi Prayogo S.St, M.Kom', 'dosen_fungsional', '1994', 'yogo@gmail.com', NULL, '$2y$10$bYF6I8jwLeDo/sq/knlwRO7.sfOWL/qlNdFO76ylEtfXe2KYjMIEi', NULL, '2021-12-03 01:54:13', '2021-12-03 01:54:13'),
 (26, 'Jojo', 'mahasiswa', '232323', 'jojo@gmail.com', NULL, '', NULL, '2021-12-04 01:16:11', '2021-12-04 01:16:11'),
@@ -561,7 +562,7 @@ ALTER TABLE `file_repo`
 -- AUTO_INCREMENT for table `jadwal_ta`
 --
 ALTER TABLE `jadwal_ta`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `judul_ta`
@@ -585,7 +586,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `nilai_pembimbing`
 --
 ALTER TABLE `nilai_pembimbing`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `nilai_penguji`
