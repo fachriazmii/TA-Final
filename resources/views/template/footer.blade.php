@@ -23,6 +23,8 @@
 <!-- Select2 -->
 <script src="{{asset('admin-lte-3/plugins/select2/js/select2.full.min.js')}}"></script>
 
+<!-- date-range-picker -->
+<script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
 
 <!-- DataTables  & Plugins -->
 <script src="{{asset('admin-lte-3/plugins/datatables/jquery.dataTables.min.js')}}"></script>

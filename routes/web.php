@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\AkunDosenController;
 use App\Http\Controllers\Dosen\InputJudulController;
 use App\Http\Controllers\Dosen\StatusJudulController;
 use App\Http\Controllers\Dosen\RevisiController;
+use App\Http\Controllers\Dosen\JadwalSidangController;
 use App\Http\Controllers\Dosen\PelaksanaanSidangController;
 
 use App\Http\Controllers\Mahasiswa\PilihJudulController;
@@ -96,7 +97,17 @@ Route::middleware(['auth','ceklevel:dosen'])->group(function () {
     Route::get('/pelaksanaan-sidang/nilai-sidang/{id}', [PelaksanaanSidangController::class,'nilai_pembimbing_create']);
     Route::post('/pelaksanaan-sidang/nilai-sidang/store', [PelaksanaanSidangController::class,'nilai_pembimbing_store'])->name('pelaksanaan-sidang/nilai-sidang/store');
     
-    Route::get('/penilaian-sidang', [PelaksanaanSidangController::class,'index'])->name('penilaian-sidang');
+    Route::get('/penguji', [PelaksanaanSidangController::class,'penguji_index'])->name('penguji');
+    Route::get('/penguji/lihat-file/{id}', [PelaksanaanSidangController::class,'edit'])->name('penguji/lihat-file');
+    Route::get('/penguji/nilai-sidang/{id}', [PelaksanaanSidangController::class,'nilai_penguji_create']);
+    Route::post('/penguji/nilai-sidang/store', [PelaksanaanSidangController::class,'nilai_penguji_store'])->name('penguji/nilai-sidang/store');
+    
+    Route::get('/jadwal-sidang', [JadwalSidangController::class,'index'])->name('jadwal-sidang');
+    Route::get('/jadwal-sidang/{id}', [JadwalSidangController::class,'create']);
+    Route::post('/jadwal-sidang/store', [JadwalSidangController::class,'store'])->name('jadwal-sidang/store');
+    Route::get('/lihat-jadwal-sidang', [JadwalSidangController::class,'lihat_jadwal_sidang'])->name('lihat-jadwal-sidang');
+    Route::get('/lihat-hasil-sidang', [JadwalSidangController::class,'lihat_hasil_sidang'])->name('lihat-hasil-sidang');
+    
 });
 
 Route::middleware(['auth','ceklevel:mahasiswa'])->group(function () {

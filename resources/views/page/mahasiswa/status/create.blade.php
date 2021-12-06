@@ -100,7 +100,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="float-right">
                       <button type="submit" class="btn btn-primary"><i class="fas fa-save pr-2" aria-hidden="true"></i>Upload</button>
                     </div>
-                  </form>
+                </form>
               </div>
             </div>
           </div>

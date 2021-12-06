@@ -142,6 +142,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <th>Email</th>
                             <th>Program Studi</th>
                             <th>Fakultas</th>
+                            <th>Role</th>
                             <th>Aksi</th>
                           </tr>
                           </thead>
@@ -157,6 +158,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                   <td>{{ $d->email}}</td>
                                   <td>{{ $d->jurusan}}</td>
                                   <td>{{ $d->fakultas}}</td>
+                                  <td>
+                                    @if ($d->level == 'dosen')
+                                            <span class="badge badge-primary">Dosen Pembimbing</span> 
+                                    @elseif ($d->level == 'dosen_penguji')
+                                        <span class="badge badge-success">Dosen Penguji</span> 
+                                    @elseif ($d->level=='dosen_fungsional')
+                                        <span class="badge badge-warning text-white">Dosen Fungsional</span>
+                                    @endif
+                                  </td>
                                   <td class="text-center">
                                       <a href="{{url('/akun/dosen/edit', $d->id)}}" class="btn btn-sm btn-success"><i class="fas fa-user-edit pr-2"></i>Edit</a>
                                   </td>
@@ -174,6 +184,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <th>Email</th>
                             <th>Program Studi</th>
                             <th>Fakultas</th>
+                            <th>Role</th>
                             <th>Aksi</th>
                           </tr>
                           </tfoot>

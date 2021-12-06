@@ -128,11 +128,47 @@
                 </p>
               </a>
             </li>
+          @endif
+          @if (auth()->user()->level=="dosen_penguji")
             <li class="nav-item">
-              <a href="{{route('penilaian-sidang')}}" class="nav-link {{ $title=='Cetak Hasil Sidang' ? 'active' : '' }}">
+              <a href="{{route('penguji')}}" class="nav-link {{ $title=='Pelaksanaan Sidang' ? 'active' : '' }}">
                 <i class="nav-icon far fa-circle nav-icon"></i>
                 <p>
-                  Cetak Hasil Sidang
+                  Pelaksanaan Sidang
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{route('lihat-hasil-sidang')}}" class="nav-link {{ $title=='Hasil Sidang' ? 'active' : '' }}">
+                <i class="nav-icon far fa-circle nav-icon"></i>
+                <p>
+                  Lihat Hasil Sidang
+                </p>
+              </a>
+            </li>
+          @endif
+          @if (auth()->user()->level=="dosen_fungsional")
+            <li class="nav-item">
+              <a href="{{route('jadwal-sidang')}}" class="nav-link {{ $title=='Pelaksanaan Sidang' ? 'active' : '' }}">
+                <i class="nav-icon far fa-circle nav-icon"></i>
+                <p>
+                  Pelaksanaan Sidang
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{route('lihat-jadwal-sidang')}}" class="nav-link {{ $title=='Jadwal Sidang' ? 'active' : '' }}">
+                <i class="nav-icon far fa-circle nav-icon"></i>
+                <p>
+                  Lihat Jadwal Sidang
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{route('lihat-hasil-sidang')}}" class="nav-link {{ $title=='Hasil Sidang' ? 'active' : '' }}">
+                <i class="nav-icon far fa-circle nav-icon"></i>
+                <p>
+                  Lihat Hasil Sidang
                 </p>
               </a>
             </li>

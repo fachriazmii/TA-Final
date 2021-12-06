@@ -124,8 +124,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <label for="exampleInputEmail1">Pilih Role</label>
                             <select name="role" class="form-control select2 @error('role')is-invalid @enderror" style="width: 100%;">
                               <option selected="selected" disabled>Role</option>
-                              <option value="dosen">Dosen</option>
+                              <option value="dosen">Dosen Pembimbing</option>
                               <option value="dosen_fungsional">Dosen Fungsional</option>
+                              <option value="dosen_penguji">Dosen Penguji</option>
                             </select>
                           @error('role')
                             <div class="invalid-feedback">{{ $message }}</div>

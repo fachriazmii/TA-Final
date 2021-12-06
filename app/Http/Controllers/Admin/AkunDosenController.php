@@ -16,7 +16,10 @@ class AkunDosenController extends Controller
     public function index()
     {
         $dosen = DB::table('dosen')->where('id_role', null)->orderByDesc("id")->get();
-        $dosen_akun = DB::table('dosen')->where('id_role','!=', null)->orderByDesc("id")->get();
+        // $dosen_akun = DB::table('dosen')->where('id_role','!=', null)->orderByDesc("id")->get();
+        $dosen_akun = DB::table('dosen')
+                        ->join('users', 'users.id', '=', 'dosen.id_role')
+                        ->orderByDesc("dosen.id")->get();
         
         // dd($dosen_akun);
         return view('page.admin.akun.dosen.index', ['data' => $dosen,'data_akun' => $dosen_akun]);

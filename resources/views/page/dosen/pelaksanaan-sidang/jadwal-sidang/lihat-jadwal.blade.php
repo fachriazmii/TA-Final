@@ -1,5 +1,5 @@
 @php
-    $title ='Pelaksanaan Sidang';
+    $title ='Jadwal Sidang';
 @endphp
 <!DOCTYPE html>
 <!--
@@ -51,7 +51,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <div class="card-header">
                 <div class="row">
                   <div class="col-sm-10">
-                      <h4 class="m-0"> Pelaksanaan Sidang</h4>
+                      <h4 class="m-0"> Lihat Jadwal Sidang</h4>
                   </div>
                   <div class="col-sm-2">
                       {{-- <a href="{{route('status-judul/create')}}" class="btn btn-block btn-primary"><i class="fas fa-plus pr-2"></i>Tambah Data</a> --}}
@@ -74,6 +74,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                           <th>No.</th>
                           <th>Daftar Judul Penelitian</th>
                           <th>NIM - Mahasiswa</th>
+                          <th>Tanggal Sidang</th>
+                          <th>Jam Sidang</th>
                           <th>Aksi</th>
                         </tr>
                         </thead>
@@ -86,16 +88,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <td>{{$count."."}}</td>
                                 <td>{{ $d->judul}}</td>
                                 <td>{{ $d->nim." - ".$d->nama}}</td>
+                                <td>{{ $d->tanggal_sidang}}</td>
+                                <td>{{ $d->jam_sidang}}</td>
                                 <td style="width:25%;">
                                   <div class="row">
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-12">
                                       <a href="{{url('/pelaksanaan-sidang/lihat-file', $d->id_repo)}}" target="_blank" class="btn btn-sm btn-warning text-white"><i class="fas fa-file pr-2"></i>Lihat File</a></a>
-                                    </div>
-                                    <div class="col-sm-6">
-                                      <a href="{{url('/pelaksanaan-sidang/nilai-sidang', $d->nim)}}" class="btn btn-sm btn-success"><i class="fas fa-check-square pr-2"></i>Nilai Sidang</a></a>
-                                      {{-- <button type="button" class="btn btn-sm btn-success" onclick="nilai_sidang({{$d->nim}})">
-                                        <i class="fas fa-check-square pr-2"></i>Nilai Sidang
-                                      </button> --}}
                                     </div>
                                   </div>
                                 </td>
@@ -140,24 +138,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Main Footer -->
   @include('template.footer')
   <script>
-    function nilai_sidang(nim){
-        $.ajax({
-            url: "{{ url('pelaksanaan-sidang/nilai-sidang') }}",
-            data: {
-              'id' : nim
-            },
-            dataType: 'json',
-            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-            type:'POST',
-            success: function(data) {
-              console.log(data);
-            },
-            error: function(jqXHR, textStatus, errorThrown) { 
-                console.log(JSON.stringify(jqXHR));
-                console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
-            }
-        });
-    }
 
     $(function () {
       $("#example1").DataTable({
