@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 04, 2021 at 09:27 AM
+-- Generation Time: Dec 06, 2021 at 05:03 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -44,7 +44,8 @@ CREATE TABLE `dosen` (
 INSERT INTO `dosen` (`id`, `no_induk`, `nama_dosen`, `jurusan`, `fakultas`, `email`, `id_role`) VALUES
 (2, '1000', 'Dadang Konelo', 'Elektro', 'Saintek', 'dadangdosen@gmail.com', 14),
 (6, '1994', 'Rizal Dwi Prayogo S.St, M.Kom', 'Informatika', 'Sains dan Teknologi', 'yogo@gmail.com', 25),
-(7, '4456716', 'Sutadi', 'Informatika', 'Sains dan Teknologi', 'sutadi@gmail.com', 27);
+(7, '4456716', 'Sutadi', 'Informatika', 'Sains dan Teknologi', 'sutadi@gmail.com', 27),
+(8, '555666', 'Rinando', 'Teknik ELektro', 'Elektro', 'rinan@gmail.com', NULL);
 
 -- --------------------------------------------------------
 
@@ -91,12 +92,22 @@ INSERT INTO `file_repo` (`id`, `nama`, `cloud_path`, `local_path`) VALUES
 
 CREATE TABLE `jadwal_ta` (
   `id` int(11) NOT NULL,
-  `id_sidang` int(11) NOT NULL,
-  `penguji_1` bigint(20) NOT NULL,
-  `penguji_2` bigint(20) NOT NULL,
-  `datetime` datetime NOT NULL,
-  `link_zoom` text NOT NULL
+  `id_sidang` int(11) DEFAULT NULL,
+  `nim` varchar(255) NOT NULL,
+  `penguji_1` bigint(20) DEFAULT NULL,
+  `penguji_2` bigint(20) DEFAULT NULL,
+  `datetime` date NOT NULL,
+  `jam` varchar(255) NOT NULL,
+  `link_zoom` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `jadwal_ta`
+--
+
+INSERT INTO `jadwal_ta` (`id`, `id_sidang`, `nim`, `penguji_1`, `penguji_2`, `datetime`, `jam`, `link_zoom`) VALUES
+(1, NULL, '9901', NULL, NULL, '2021-12-10', '17:35', NULL),
+(2, NULL, '180102021', NULL, NULL, '2021-12-05', '17:35', NULL);
 
 -- --------------------------------------------------------
 
@@ -194,6 +205,13 @@ CREATE TABLE `nilai_pembimbing` (
   `nilai_akhir` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `nilai_pembimbing`
+--
+
+INSERT INTO `nilai_pembimbing` (`id`, `nim`, `pbb1`, `pbb2`, `nilai_pbb1`, `nilai_pbb2`, `rata_rata`, `nilai_akhir`) VALUES
+(3, '9901', 'Dadang', 'Joni', 90, 80, 85, 170);
+
 -- --------------------------------------------------------
 
 --
@@ -219,9 +237,15 @@ CREATE TABLE `nilai_penguji` (
   `jumlah_p2` float NOT NULL,
   `jumlah_p3` float NOT NULL,
   `rata_rata` float NOT NULL,
-  `nilai_akhir` float NOT NULL,
-  `tanggal` date NOT NULL
+  `nilai_akhir` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `nilai_penguji`
+--
+
+INSERT INTO `nilai_penguji` (`id`, `nim`, `penguji_1`, `penguji_2`, `penguji_3`, `pemaparan_p1`, `pemaparan_p2`, `pemaparan_p3`, `materi_pokok_p1`, `materi_pokok_p2`, `materi_pokok_p3`, `masalah_p1`, `masalah_p2`, `masalah_p3`, `jumlah_p1`, `jumlah_p2`, `jumlah_p3`, `rata_rata`, `nilai_akhir`) VALUES
+(1, '180102021', 'DADA', 'DEDE', 'DIDI', 90, 90, 90, 90, 90, 90, 90, 90, 90, 270, 270, 270, 90, 810);
 
 -- --------------------------------------------------------
 
@@ -289,7 +313,7 @@ CREATE TABLE `proposal` (
   `id_repo` bigint(20) DEFAULT NULL,
   `approve_by` bigint(20) UNSIGNED DEFAULT NULL,
   `waktu_pengajuan` datetime NOT NULL,
-  `status` enum('Pengajuan','Disetujui','Revisi','Selesai','Lulus') NOT NULL
+  `status` enum('Pengajuan','Disetujui','Revisi','Selesai','Sidang','Lulus') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -297,8 +321,8 @@ CREATE TABLE `proposal` (
 --
 
 INSERT INTO `proposal` (`id`, `id_judul`, `nim`, `id_repo`, `approve_by`, `waktu_pengajuan`, `status`) VALUES
-(14, 4, '9901', 5, 1000, '2021-12-01 05:51:55', 'Selesai'),
-(15, 7, '180102021', 6, 1000, '2021-12-01 09:21:14', 'Selesai');
+(14, 4, '9901', 5, 1000, '2021-12-01 05:51:55', 'Sidang'),
+(15, 7, '180102021', 6, 1000, '2021-12-01 09:21:14', 'Sidang');
 
 -- --------------------------------------------------------
 
@@ -310,7 +334,7 @@ CREATE TABLE `revisi_proposal` (
   `id` int(11) NOT NULL,
   `revisi_text` text DEFAULT NULL,
   `revisi_ke` int(11) NOT NULL,
-  `status_revisi` enum('Belum','Selesai','Tinjau','Penilaian','Lulus') NOT NULL,
+  `status_revisi` enum('Belum','Selesai','Tinjau','Penilaian','Sidang','Lulus') NOT NULL,
   `nim` int(11) NOT NULL,
   `revisi_by` int(11) DEFAULT NULL,
   `id_repo` int(11) DEFAULT NULL
@@ -321,8 +345,8 @@ CREATE TABLE `revisi_proposal` (
 --
 
 INSERT INTO `revisi_proposal` (`id`, `revisi_text`, `revisi_ke`, `status_revisi`, `nim`, `revisi_by`, `id_repo`) VALUES
-(5, 'Revisi paragraf sekian bla bla bla', 2, 'Selesai', 9901, 1000, 5),
-(7, 'revisi disini', 2, 'Selesai', 180102021, 1000, 6),
+(5, 'Revisi paragraf sekian bla bla bla', 2, 'Sidang', 9901, 1000, 5),
+(7, 'revisi disini', 2, 'Lulus', 180102021, 1000, 6),
 (8, NULL, 0, 'Tinjau', 9090, NULL, NULL);
 
 -- --------------------------------------------------------
@@ -345,7 +369,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('fLdcvAzlTtDNDH4mbBr1b50rXCyODe4GvBPOQfK1', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiaWxDOHJSVjZ1N3RIU1V0UTlWbGJPYWJ2QXJLR2NndG1mZ3hIWEp4RiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9tYWhhc2lzd2EiO31zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6NDoiYXV0aCI7YToxOntzOjIxOiJwYXNzd29yZF9jb25maXJtZWRfYXQiO2k6MTYzODQyMTE5NTt9fQ==', 1638424367);
+('e0fFm2D127kIVMekBA75zTogXxH6c7V2MjF8iOEy', 27, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiNm11TjJEbE1lZncxTFpkYkhNRkN0VWxKQ3ZQZEowY1VWd0Ftc3dOeiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mjk6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9wZW5ndWppIjt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6Mjc7czo0OiJhdXRoIjthOjE6e3M6MjE6InBhc3N3b3JkX2NvbmZpcm1lZF9hdCI7aToxNjM4NzU2NjQxO319', 1638757137);
 
 -- --------------------------------------------------------
 
@@ -390,15 +414,15 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `level`, `username`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Admin Jaya Jaya Jaya', 'admin', '12345', 'admin@gmail.com', NULL, '$2y$10$bYF6I8jwLeDo/sq/knlwRO7.sfOWL/qlNdFO76ylEtfXe2KYjMIEi', 'sc6kqdxKL5lQac2dKWkfFbAVgiecfKapnG311Ap9oIBVo0sOelfWGW9PIGBm', '2021-11-23 02:33:27', '2021-11-23 02:33:27'),
+(1, 'Admin Jaya Jaya Jaya', 'admin', '12345', 'admin@gmail.com', NULL, '$2y$10$bYF6I8jwLeDo/sq/knlwRO7.sfOWL/qlNdFO76ylEtfXe2KYjMIEi', 'CLBINDy52Y6WkYwrYlVC6VF86YbwemXb8zHDGOARnwL9LdRAAPnQxMROfBZH', '2021-11-23 02:33:27', '2021-11-23 02:33:27'),
 (11, 'Jojoba', 'mahasiswa', '9901', 'jojoba@gmail.com', NULL, '$2y$10$MN5GSu29zJTtD.uqIIvHjOQPEffGUns8W7HYmKURiLptp1aoTTy1a', NULL, '2021-11-23 18:02:26', '2021-11-23 18:02:26'),
 (12, 'Mahasiswa1', 'mahasiswa', '9090', 'mahasiswa@gmail.com', NULL, '$2y$10$aIhBpa2pw6L8qJDX9jW/e.qRTBwxoUjMNnLautKsiO2h6Ac/JoV3S', NULL, '2021-11-23 18:05:42', '2021-11-23 18:05:42'),
 (13, 'odod', 'mahasiswa', '180102021', 'odod@gmail.com', NULL, '$2y$10$bYF6I8jwLeDo/sq/knlwRO7.sfOWL/qlNdFO76ylEtfXe2KYjMIEi', NULL, '2021-11-23 18:08:53', '2021-11-23 18:08:53'),
-(14, 'Dadang Konelo', 'dosen', '1000', 'dadangdosen@gmail.com', NULL, '$2y$10$bYF6I8jwLeDo/sq/knlwRO7.sfOWL/qlNdFO76ylEtfXe2KYjMIEi', 'sK2LzzRsWSogkMz9d2oCjPHyre0dyN3qxJjAE88Ru3RrMR0YgMb5SEp51cDP', NULL, NULL),
+(14, 'Dadang Konelo', 'dosen', '1000', 'dadangdosen@gmail.com', NULL, '$2y$10$bYF6I8jwLeDo/sq/knlwRO7.sfOWL/qlNdFO76ylEtfXe2KYjMIEi', '1hkofV643uFkrZx8DqzfCtlZpIMKxipkpWdTKaWXXJIpoz45WydTEQKdg8qR', NULL, NULL),
 (22, 'Ripat', 'mahasiswa', '321213321', 'ripaldi@gmail.com', NULL, '$2y$10$/iAQtMYnCpjYSa0P6o5fs.CDey9BE/X1vDTiNF6eQQ0e6vPePbGUy', NULL, '2021-12-01 21:11:54', '2021-12-01 21:11:54'),
-(25, 'Rizal Dwi Prayogo S.St, M.Kom', 'dosen', '1994', 'yogo@gmail.com', NULL, '$2y$10$pfVMlI5sM5nEanwFIIb7neJuOp783qaDAQOrV1gMRXfIeHMCnl0o2', NULL, '2021-12-03 01:54:13', '2021-12-03 01:54:13'),
+(25, 'Rizal Dwi Prayogo S.St, M.Kom', 'dosen_fungsional', '1994', 'yogo@gmail.com', NULL, '$2y$10$bYF6I8jwLeDo/sq/knlwRO7.sfOWL/qlNdFO76ylEtfXe2KYjMIEi', NULL, '2021-12-03 01:54:13', '2021-12-03 01:54:13'),
 (26, 'Jojo', 'mahasiswa', '232323', 'jojo@gmail.com', NULL, '', NULL, '2021-12-04 01:16:11', '2021-12-04 01:16:11'),
-(27, 'Sutadi', 'dosen_fungsional', '4456716', 'sutadi@gmail.com', NULL, '$2y$10$hidC1X86mBuF10hfvLdK8enTGFsBx2uBdRxmytW/NEQaUo4k3ntPG', NULL, '2021-12-04 01:17:51', '2021-12-04 01:17:51');
+(27, 'Sutadi', 'dosen_penguji', '4456716', 'sutadi@gmail.com', NULL, '$2y$10$hidC1X86mBuF10hfvLdK8enTGFsBx2uBdRxmytW/NEQaUo4k3ntPG', NULL, '2021-12-04 01:17:51', '2021-12-04 01:17:51');
 
 --
 -- Indexes for dumped tables
@@ -519,7 +543,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `dosen`
 --
 ALTER TABLE `dosen`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -537,7 +561,7 @@ ALTER TABLE `file_repo`
 -- AUTO_INCREMENT for table `jadwal_ta`
 --
 ALTER TABLE `jadwal_ta`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `judul_ta`
@@ -561,13 +585,13 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `nilai_pembimbing`
 --
 ALTER TABLE `nilai_pembimbing`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `nilai_penguji`
 --
 ALTER TABLE `nilai_penguji`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `pendaftaran_sidang`
