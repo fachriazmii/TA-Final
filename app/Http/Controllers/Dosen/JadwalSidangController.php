@@ -13,6 +13,7 @@ use App\Models\Dosen\ModelRevisi;
 use App\Models\Dosen\ModelNilaiPembimbing;
 use App\Models\Dosen\ModelJadwalSidang;
 
+use Carbon\Carbon;
 use PDF;
 
 class JadwalSidangController extends Controller
@@ -113,19 +114,71 @@ class JadwalSidangController extends Controller
                     
     public function cetak_hasil_sidang($id)
     {
-        $data =  DB::table('mahasiswa')
-                    ->select('mahasiswa.nim','mahasiswa.nama','nilai_pembimbing.pbb1', 'nilai_pembimbing.pbb2', 'nilai_pembimbing.nilai_pbb1', 'nilai_pembimbing.nilai_pbb2', 'nilai_pembimbing.rata_rata as nilai_pembimbing_rata_rata', 'nilai_pembimbing.nilai_akhir as nilai_pembimbing_nilai_akhir', 'jadwal_ta.datetime as tanggal_sidang', 'jadwal_ta.jam as jam_sidang')
+        $nilai_penguji =  DB::table('mahasiswa')
                     ->join('nilai_penguji', 'nilai_penguji.nim', '=', 'mahasiswa.nim')
-                    ->join('nilai_pembimbing', 'nilai_pembimbing.nim', '=', 'mahasiswa.nim')
-                    ->join('jadwal_ta', 'jadwal_ta.nim', '=', 'mahasiswa.nim')
                     ->where('mahasiswa.nim','=', $id)
                     ->first();
+        
+        $nilai_pembimbing =  DB::table('mahasiswa')
+                    ->join('nilai_pembimbing', 'nilai_pembimbing.nim', '=', 'mahasiswa.nim')
+                    ->where('mahasiswa.nim','=', $id)
+                    ->first();
+
+        $jadwal_sidang =  DB::table('mahasiswa')
+                            ->join('jadwal_ta', 'jadwal_ta.nim', '=', 'mahasiswa.nim')  
+                            ->where('mahasiswa.nim','=', $id)                  
+                            ->first();
         
         $data_judul = DB::table('proposal')
                         ->join('judul_ta', 'judul_ta.id', '=', 'proposal.id_judul')
                         ->where('proposal.nim','=', $id)
                         ->first();
 
+        $data = ([
+            'nim' => $nilai_penguji->nim,
+            'nama' => $nilai_penguji->nama,
+            'program_studi' => $nilai_penguji->program_studi,
+            'fakultas' => $nilai_penguji->fakultas,
+
+            'pbb1' => $nilai_pembimbing->pbb1,
+            'pbb2' => $nilai_pembimbing->pbb2,
+            'nilai_pbb1' => $nilai_pembimbing->nilai_pbb1,
+            'nilai_pbb2' => $nilai_pembimbing->nilai_pbb2,
+            'nilai_rata_pbb' => $nilai_pembimbing->rata_rata,
+            'nilai_akhir_pbb' => $nilai_pembimbing->nilai_akhir,
+            
+            'penguji_1' => $nilai_penguji->penguji_1,
+            'penguji_2' => $nilai_penguji->penguji_2,
+            'penguji_3' => $nilai_penguji->penguji_3,
+            'pemaparan_p1' => $nilai_penguji->pemaparan_p1,
+            'pemaparan_p2' => $nilai_penguji->pemaparan_p2,
+            'pemaparan_p3' => $nilai_penguji->pemaparan_p3,
+            'materi_pokok_p1' => $nilai_penguji->materi_pokok_p1,
+            'materi_pokok_p2' => $nilai_penguji->materi_pokok_p2,
+            'materi_pokok_p3' => $nilai_penguji->materi_pokok_p3,
+            'masalah_p1' => $nilai_penguji->masalah_p1,
+            'masalah_p2' => $nilai_penguji->masalah_p2,
+            'masalah_p3' => $nilai_penguji->masalah_p3,
+            'jumlah_p1' => $nilai_penguji->jumlah_p1,
+            'jumlah_p2' => $nilai_penguji->jumlah_p2,
+            'jumlah_p3' => $nilai_penguji->jumlah_p3,
+            'rata_rata_penguji' => $nilai_penguji->rata_rata,
+            'nilai_akhir_penguji' => $nilai_penguji->nilai_akhir,
+            
+            'total_nilai_bimbingan_sidang' => $nilai_penguji->nilai_akhir+$nilai_pembimbing->nilai_akhir,
+
+            'datetime' => $jadwal_sidang->datetime,
+            'hari' => Carbon::parse($jadwal_sidang->datetime)->translatedFormat('l'),
+            'tanggal' => Carbon::parse($jadwal_sidang->datetime)->translatedFormat('d'),
+            'bulan' => Carbon::parse($jadwal_sidang->datetime)->translatedFormat('F'),
+            'tahun' => Carbon::parse($jadwal_sidang->datetime)->translatedFormat('Y'),
+            'jam' => $jadwal_sidang->jam,
+
+            'tanggal_hari_ini' =>Carbon::today()->translatedFormat('d F Y'),
+
+        ]);
+
+        // return $data;
         return view('page.dosen.pelaksanaan-sidang.hasil-sidang.cetak',['data'=>$data, 'data_judul'=>$data_judul]);
 
         // $pdf = PDF::loadview('page.dosen.pelaksanaan-sidang.hasil-sidang.cetak',['data'=>$data, 'data_judul'=>$data_judul]);

@@ -93,7 +93,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <td style="width:25%;">
                                   <div class="row">
                                     <div class="col-sm-12">
-                                      <a href="{{url('/pelaksanaan-sidang/cetak-hasil', $d->nim)}}" class="btn btn-sm btn-primary text-white"><i class="fas fa-file pr-2"></i>Cetak Hasil</a></a>
+                                      <a href="{{url('/pelaksanaan-sidang/cetak-hasil', $d->nim)}}" target="_blank" class="btn btn-sm btn-primary text-white"><i class="fas fa-file pr-2"></i>Cetak Hasil</a></a>
                                     </div>
                                   </div>
                                 </td>
