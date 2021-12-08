@@ -30,8 +30,18 @@ class StatusController extends Controller
                         ->where('proposal.nim', '=', auth()->user()->username)
                         ->get();
 
-        // dd($data); exit();
-        return view('page.mahasiswa.status.index', ['data' => $data]);
+        $jadwal = DB::table('proposal')
+                ->join('jadwal_ta', 'jadwal_ta.nim', '=', 'proposal.nim')
+                ->where('proposal.nim', '=', auth()->user()->username)
+                ->first();
+
+        $data_jadwal = ([
+            'tanggal_sidang' => Carbon::parse($jadwal->datetime)->translatedFormat('d F Y'),
+            'jam_sidang' => $jadwal->jam
+        ]);
+
+        // dd($data_jadwal); exit();
+        return view('page.mahasiswa.status.index', ['data' => $data, 'data_jadwal'=>$data_jadwal]);
     }
 
     /**
@@ -159,6 +169,22 @@ class StatusController extends Controller
 
             return redirect('/status');
         }
+    }
+
+    public function hasil_sidang_mahasiswa()
+    {
+        $data = DB::table('proposal')
+                        ->select('file_repo.id as id_repo','proposal.id as id_proposal','judul_ta.judul','mahasiswa.nim','mahasiswa.nama','file_repo.nama as nama_file','file_repo.local_path','proposal.status', 'jadwal_ta.datetime as tanggal_sidang', 'jadwal_ta.jam as jam_sidang')
+                        ->join('judul_ta', 'judul_ta.id', '=', 'proposal.id_judul')
+                        ->join('mahasiswa', 'mahasiswa.nim', '=', 'proposal.nim')
+                        ->join('file_repo', 'proposal.id_repo', '=', 'file_repo.id')
+                        ->join('revisi_proposal', 'revisi_proposal.nim', '=', 'mahasiswa.nim')
+                        ->join('jadwal_ta', 'jadwal_ta.nim', '=', 'mahasiswa.nim')
+                        ->where('revisi_proposal.status_revisi', 'Lulus')
+                        ->where('mahasiswa.nim', auth()->user()->username)
+                        ->get();
+                        
+                        return view('page.mahasiswa.hasil-sidang.index', ['data' => $data]);
     }
 
     /**

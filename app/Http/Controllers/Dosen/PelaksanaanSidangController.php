@@ -157,6 +157,10 @@ class PelaksanaanSidangController extends Controller
         DB::table('revisi_proposal')->where('nim', $request->nim)->update([
             'status_revisi' => 'Lulus'
         ]);
+        
+        DB::table('proposal')->where('nim', $request->nim)->update([
+            'status' => 'Lulus'
+        ]);
 
         return redirect('/penguji')->with('success','Berhasil menambahkan data');
     }

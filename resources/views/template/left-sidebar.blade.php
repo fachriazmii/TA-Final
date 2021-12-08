@@ -199,7 +199,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link {{ $title=='Hasil Sidang' ? 'active' : '' }}">
+              <a href="{{route('hasil-sidang-mahasiswa')}}" class="nav-link {{ $title=='Hasil Sidang' ? 'active' : '' }}">
                 <i class="nav-icon far fa-circle nav-icon"></i>
                 <p>
                   Hasil Sidang

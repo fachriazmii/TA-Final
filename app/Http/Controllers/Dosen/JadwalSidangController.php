@@ -110,7 +110,7 @@ class JadwalSidangController extends Controller
                         ->get();
                         
                         return view('page.dosen.pelaksanaan-sidang.hasil-sidang.index', ['data' => $data]);
-                    }
+    }
                     
     public function cetak_hasil_sidang($id)
     {

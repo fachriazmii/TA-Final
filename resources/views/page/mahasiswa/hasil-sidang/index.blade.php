@@ -68,48 +68,52 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </div>
                 @endif
                 <div class="table-responsive">
-                    <table id="example1" class="table table-bordered table-striped" >
-                        <thead>
+                  <table id="example1" class="table table-bordered table-striped" >
+                    <thead>
+                    <tr>
+                      <th>No.</th>
+                      <th>Daftar Judul Penelitian</th>
+                      <th>NIM - Mahasiswa</th>
+                      <th>Tanggal Sidang</th>
+                      <th>Jam Sidang</th>
+                      <th>Aksi</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @php
+                        $count = 1;
+                    @endphp
+                    @foreach ($data as $d)    
                         <tr>
-                          <th>No.</th>
-                          <th>Judul Penelitian</th>
-                          <th>NIM - Mahasiswa</th>
-                          <th>Status</th>
+                            <td>{{$count."."}}</td>
+                            <td>{{ $d->judul}}</td>
+                            <td>{{ $d->nim." - ".$d->nama}}</td>
+                            <td>{{ $d->tanggal_sidang}}</td>
+                            <td>{{ $d->jam_sidang}}</td>
+                            <td style="width:25%;">
+                              <div class="row">
+                                <div class="col-sm-12">
+                                  <a href="{{url('/pelaksanaan-sidang/cetak-hasil', $d->nim)}}" target="_blank" class="btn btn-sm btn-primary text-white"><i class="fas fa-file pr-2"></i>Cetak Hasil</a></a>
+                                </div>
+                              </div>
+                            </td>
                         </tr>
-                        </thead>
-                        <tbody>
-                        @php
-                            $count = 1;
-                        @endphp
-                        @foreach ($data_belum_setuju as $d)    
-                            <tr>
-                                <td>{{$count."."}}</td>
-                                {{-- <td><a href="{{url('/input-judul/edit', $d->id)}}">{{ $d->judul}}</a></td> --}}
-                                <td>{{ $d->judul}}</a></td>
-                                <td>{{ $d->nim." - ".$d->nama}}</td>
-                                <td class="text-center">
-                                  <button type="button" class="btn btn-block btn-outline-primary" onclick="terimajudul({{$d->id_judul}},{{$d->nim}})">
-                                    <i class="fas fa-check-square"></i> Terima
-                                  </button>
-                                  <button type="button" class="btn btn-block btn-outline-danger" onclick="tolakjudul({{$d->nim}})">
-                                    <i class="fas fa-check-square"></i> Tidak
-                                  </button>
-                                </td>
-                            </tr>
-                        @php
-                            $count++;
-                        @endphp
-                        @endforeach
-                        </tbody>
-                        <tfoot>
-                        <tr>
-                          <th>No.</th>
-                          <th>Judul Penelitian</th>
-                          <th>NIM - Mahasiswa</th>
-                          <th>Status</th>
-                        </tr>
-                        </tfoot>
-                    </table>
+                    @php
+                        $count++;
+                    @endphp
+                    @endforeach
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <th>No.</th>
+                        <th>Daftar Judul Penelitian</th>
+                        <th>NIM - Mahasiswa</th>
+                        <th>Tanggal Sidang</th>
+                        <th>Jam Sidang</th>
+                        <th>Aksi</th>
+                    </tr>
+                    </tfoot>
+                </table>
                 </div>
               </div>
             </div>

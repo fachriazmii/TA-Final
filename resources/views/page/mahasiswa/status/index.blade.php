@@ -79,6 +79,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <div class="alert alert-success text-white fade show" role="alert">
                             <p>Anda telah selesai mengerjakan tugas</a></p> 
                         </div>
+                    @elseif ($d->status=='Sidang')
+                        <div class="alert alert-success text-white fade show" role="alert">
+                            <p>Sidang pada tanggal {{$data_jadwal['tanggal_sidang']}} pukul {{$data_jadwal['jam_sidang']}}</a></p> 
+                        </div>
+                    @elseif ($d->status=='Lulus')
+                        <div class="alert alert-success text-white fade show" role="alert">
+                            <p>Anda dinyatakan lulus</a></p> 
+                        </div>
                     @endif
                 @endforeach
                     <div class="table-responsive">
@@ -113,6 +121,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             <span class="badge badge-warning text-white">Peninjauan Revisi</span> 
                                         @elseif ($d->status == 'Selesai')
                                             <span class="badge badge-success">Selesai</span> 
+                                        @elseif ($d->status == 'Sidang')
+                                            <span class="badge badge-success">Sidang</span> 
+                                        @elseif ($d->status == 'Lulus')
+                                            <span class="badge badge-success">Lulus</span> 
                                         @endif
                                     </td>
                                 </tr>
