@@ -82,6 +82,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             <span class="badge badge-primary">Pengerjaan Proposal</span> 
                                         @elseif ($d->status == 'Selesai')
                                             <span class="badge badge-primary">Daftar Sidang</span> 
+                                        @elseif ($d->status == 'Sidang')
+                                            <span class="badge badge-primary">Sidang</span> 
                                         @elseif ($d->status == 'Lulus')
                                             <span class="badge badge-primary">Lulus</span> 
                                         @endif
