@@ -66,7 +66,11 @@ class AkunDosenController extends Controller
 
     public function edit($id)
     {
-        $dosen = DB::table('dosen')->where('id', $id)->first();
+        $dosen = DB::table('users')
+            ->join('dosen', 'users.id', '=', 'dosen.id_role')
+            ->where('users.id', $id)->first();
+        
+        // return $dosen;
 
         return view('page.admin.akun.dosen.edit',['data' => $dosen]);
     }
