@@ -35,10 +35,14 @@ class StatusController extends Controller
                 ->where('proposal.nim', '=', auth()->user()->username)
                 ->first();
 
-        $data_jadwal = ([
-            'tanggal_sidang' => Carbon::parse($jadwal->datetime)->translatedFormat('d F Y'),
-            'jam_sidang' => $jadwal->jam
-        ]);
+        $data_jadwal="";
+        if(!empty($jadwal)){
+            $data_jadwal = ([
+                'tanggal_sidang' => Carbon::parse($jadwal->datetime)->translatedFormat('d F Y'),
+                'jam_sidang' => $jadwal->jam
+            ]);
+            return view('page.mahasiswa.status.index', ['data' => $data, 'data_jadwal'=>$data_jadwal]);
+        }
 
         // dd($data_jadwal); exit();
         return view('page.mahasiswa.status.index', ['data' => $data, 'data_jadwal'=>$data_jadwal]);
