@@ -23,12 +23,14 @@ class StatusJudulController extends Controller
         $belum_approve_judul = DB::table('proposal')
                         ->join('judul_ta', 'judul_ta.id', '=', 'proposal.id_judul')
                         ->join('mahasiswa', 'mahasiswa.nim', '=', 'proposal.nim')
+                        ->join('file_repo', 'proposal.id_repo', '=', 'file_repo.id')
                         ->where('proposal.approve_by', '=', NULL)
                         ->get();
         
         $approve_judul = DB::table('proposal')
                         ->join('judul_ta', 'judul_ta.id', '=', 'proposal.id_judul')
                         ->join('mahasiswa', 'mahasiswa.nim', '=', 'proposal.nim')
+                        ->join('file_repo', 'proposal.id_repo', '=', 'file_repo.id')
                         ->where('proposal.approve_by', '!=', NULL)
                         ->get();
 

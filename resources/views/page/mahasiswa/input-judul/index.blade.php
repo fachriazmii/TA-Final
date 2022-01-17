@@ -112,6 +112,54 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </tfoot>
                         </table>
                     </div>
+                @elseif(!$status_acc)
+                <div class="table-responsive">
+                        <table id="example1" class="table table-bordered table-striped" >
+                            <thead>
+                            <tr>
+                            <th>No.</th>
+                            <th>Judul Penelitian</th>
+                            <th>Kuota</th>
+                            <th>Dosen</th>
+                            <th>Pilih</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @php
+                                $count = 1;
+                            @endphp
+                            @foreach ($proposal as $prop)    
+                                <tr>
+                                    <td>{{$count."."}}</td>
+                                    <td><a href="{{url('/input-judul/edit', $prop->id)}}">{{ $prop->judul}}</a></td>
+                                    <td>{{ $prop->kuota}}</td>
+                                    <td>{{ $prop->pbb1}}</td>
+                                    {{-- <td class="text-center" style="width:10%;">
+                                        <div class="custom-control custom-checkbox">
+                                            <input class="custom-control-input" type="checkbox" onclick="klik('{{$prop->id}})" value="{{ $prop->id}}">
+                                            <label for="check_pilih" class="custom-control-label"></label>
+                                        </div> 
+                                    </td> --}}
+                                    <td class="text-center" style="width:2%">
+                                    <a class="btn btn-block btn-outline-primary" href="{{url('lihat-revisi/pengajuan', auth()->user()->username)}}"><i class="fas fa-file"></i> Lihat Revisi</a>
+                                    </td>
+                                </tr>
+                            @php
+                                $count++;
+                            @endphp
+                            @endforeach
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <th>No.</th>
+                                <th>Judul Penelitian</th>
+                                <th>Kuota</th>
+                                <th>Dosen</th>
+                                <th>Pilih</th>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
                 @else
                 <div class="alert alert-primary fade show" role="alert">
                     <h5>Anda sudah memilih judul.</h5>

@@ -124,7 +124,9 @@ Route::middleware(['auth','ceklevel:mahasiswa'])->group(function () {
 
     Route::get('/lihat-revisi', [LihatRevisiController::class,'index'])->name('lihat-revisi');
     Route::get('/lihat-revisi/revisi/{id}', [LihatRevisiController::class,'revisi']);
+    Route::get('/lihat-revisi/pengajuan/{id}', [LihatRevisiController::class,'pengajuan']);
     Route::post('/lihat-revisi/save', [LihatRevisiController::class,'save'])->name('lihat-revisi/save');
+    Route::post('/lihat-revisi/save_pertama', [LihatRevisiController::class,'save_pertama'])->name('lihat-revisi/save_pertama');
 
     Route::get('/hasil-sidang-mahasiswa', [StatusController::class,'hasil_sidang_mahasiswa'])->name('hasil-sidang-mahasiswa');
 });

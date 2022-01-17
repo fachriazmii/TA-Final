@@ -1,5 +1,5 @@
 @php
-    $title ='Revisi';
+    $title ='Lihat Revisi';
 @endphp
 <!DOCTYPE html>
 <!--
@@ -53,22 +53,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="row">
                   <div class="col-sm-10">
                       <h4 class="m-0"> Lihat File</h4>
-                  </div>
-                  <div class="col-sm-2">
-                      {{-- <a href="{{route('status-judul/create')}}" class="btn btn-block btn-primary"><i class="fas fa-plus pr-2"></i>Tambah Data</a> --}}
-                  </div>
+                    </div>
+                    <div class="col-sm-2">
+                        {{-- <a href="{{route('status-judul/create')}}" class="btn btn-block btn-primary"><i class="fas fa-plus pr-2"></i>Tambah Data</a> --}}
+                    </div>
                 </div>
-              </div>
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-sm-12">
-                    <iframe src="{{asset('storage/repo/'.$data->nama_file)}}" frameborder="0" width="100%" height="800px;"></iframe>
-                  </div>
-                </div>
-                <form method="POST" action="{{ route('revisi/lihat-file/store') }}" class="mt-4">
+            </div>
+            <div class="card-body">
+                <form method="POST" enctype="multipart/form-data" action="{{ route('lihat-revisi/save_pertama') }}" class="mt-4">
                   {{ csrf_field() }}
-                  <input name="nim" type="hidden" value="{{$data->nim}}">
-                  <input name="id_repo" type="hidden" value="{{$data->id_repo}}">
+                  <input name="id_repo" type="hidden" class="form-control" value="{{$data->id_repo}}">
+                  <input name="id_proposal" type="hidden" class="form-control" value="{{$data->id_proposal}}">
+                  <input name="file_path" type="hidden" class="form-control" value="{{$data->local_path}}">
                     <div class="row">
                       <div class="col-sm-6">
                         <div class="form-group">
@@ -93,26 +89,37 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <div class="col-sm-12">
                         <div class="form-group">
                           <label>Revisi</label>
-                          <textarea name="revisi_text" class="form-control @error('revisi_text')is-invalid @enderror" rows="5" placeholder="Masukan detail revisi ..."></textarea>
-                          @error('revisi_text')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                          @enderror
+                          <textarea name="revisi_text" class="form-control" rows="5" placeholder="Masukan detail revisi ..." readonly>{{$data->revisi_text}}</textarea>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="form-group">
+                            <label for="customFile">Upload File</label>
+                            <div class="custom-file">
+                              <input type="file" name="upload_file" class="custom-file-input @error('upload_file')is-invalid @enderror" id="upload_file">
+                              <label class="custom-file-label" for="customFile">Choose file</label>
+                                @error('upload_file')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
                         </div>
                       </div>
                     </div>
                     
                   <div class="float-right">
-                    <button type="submit" class="btn btn-primary"><i class="fas fa-save pr-2" aria-hidden="true"></i>Revisi</button>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-save pr-2" aria-hidden="true"></i>Upload File Revisi</button>
                   </div>
                 </form>
               </div>
-              <!-- <div class="row mb-4 mr-2">
+              <div class="row mb-4 mr-2">
                 <div class="col-sm-12">
                   <div class="float-right">
-                    <button onclick="selesairevisi({{$data->nim}})" id="selesai_revisi" type="submit" class="btn btn-success"><i class="fas fa-save pr-2" aria-hidden="true"></i>Selesai Revisi</button>
+                    {{-- <button onclick="selesairevisi({{$data->nim}})" id="selesai_revisi" type="submit" class="btn btn-success"><i class="fas fa-save pr-2" aria-hidden="true"></i>Selesai Revisi</button> --}}
                   </div>
                 </div>
-              </div> -->
+              </div>
             </div>
           </div>
           <!-- /.col-md-6 -->
@@ -137,31 +144,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Main Footer -->
   @include('template.footer')
   <script>
-    function selesairevisi(nim){
-      var r = confirm("Selesai Revisi?");
-      if (r == true) {
-          $.ajax({
-              url: "{{ url('revisi/lihat-file/setuju-revisi') }}",
-              data: {
-                'nim' : nim
-              },
-              headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-              type:'POST',
-              success: function(data) {
-              alert(data);
-              console.log(data);
-              window.location = ('{{url("/revisi")}}');
-              },
-              error: function(jqXHR, textStatus, errorThrown) { 
-                  console.log(JSON.stringify(jqXHR));
-                  console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
-              }
-          });
-      }
-    }
     $(function () {
     //Initialize Select2 Elements
-    $('.select2').select2()
+    $('.select2').select2();
+    bsCustomFileInput.init();
     });
   </script>
 </body>

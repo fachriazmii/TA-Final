@@ -74,6 +74,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                           <th>No.</th>
                           <th>Judul Penelitian</th>
                           <th>NIM - Mahasiswa</th>
+                          <th>File</th>
                           <th>Status</th>
                         </tr>
                         </thead>
@@ -87,6 +88,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 {{-- <td><a href="{{url('/input-judul/edit', $d->id)}}">{{ $d->judul}}</a></td> --}}
                                 <td>{{ $d->judul}}</a></td>
                                 <td>{{ $d->nim." - ".$d->nama}}</td>
+                                <td>
+                                  <a href="{{url('/revisi/lihat-file', $d->id_repo)}}" target="_blank" class="btn btn-sm btn-success"><i class="fas fa-upload pr-2"></i>File</a></a>
+                                </td>
                                 {{-- <td>
                                     <form>
                                       <div class="form-group">
