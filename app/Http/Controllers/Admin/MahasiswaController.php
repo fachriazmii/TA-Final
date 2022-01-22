@@ -160,7 +160,9 @@ class MahasiswaController extends Controller
     
     public function delete($id)
     {
+        $nim = DB::table('mahasiswa')->where('id',$id)->first()['nim'];
         ModelMahasiswa::destroy($id);
+        DB::table('user')->where('nim', $nim)->delete();
 
         return redirect('/mahasiswa')->with('success','Berhasil menghapus data.');
     }

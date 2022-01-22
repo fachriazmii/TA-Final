@@ -27,15 +27,20 @@ class PilihJudulController extends Controller
         // Cek apakah mahasiswa sudah mengajukan judul
         $proposal = DB::table('proposal')
         ->join('judul_ta','proposal.id_judul','judul_ta.id')
-        ->join('revisi_proposal','proposal.id_repo','revisi_proposal.id')
+        // ->join('revisi_proposal','proposal.id_repo','revisi_proposal.id')
         ->where('proposal.nim', auth()->user()->username)
         ->get();
 
-        foreach ($proposal as $item) {
-            if($item->status != 'Pengajuan') {
-                $status_acc = true;
-            }
+        if (count($proposal) != 0) {
+            $status_acc = true;
         }
+
+        // dd(count($proposal));
+        // foreach ($proposal as $item) {
+        //     if($item->status != 'Pengajuan') {
+        //         $status_acc = true;
+        //     }
+        // }
         
         return view('page.mahasiswa.input-judul.index', ['data' => $judul, 'proposal' => $proposal, 'status_acc' => $status_acc]);
     }

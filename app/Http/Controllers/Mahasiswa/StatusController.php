@@ -29,7 +29,7 @@ class StatusController extends Controller
                         ->join('revisi_proposal', 'revisi_proposal.nim', '=', 'proposal.nim')
                         ->where('proposal.nim', '=', auth()->user()->username)
                         ->get();
-
+                        
         $jadwal = DB::table('proposal')
                 ->join('jadwal_ta', 'jadwal_ta.nim', '=', 'proposal.nim')
                 ->where('proposal.nim', '=', auth()->user()->username)

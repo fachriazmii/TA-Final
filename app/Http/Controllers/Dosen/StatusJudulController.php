@@ -74,7 +74,8 @@ class StatusJudulController extends Controller
     public function unapprove_judul(Request $request)
     {
             DB::table('proposal')->where('nim', $request->id)->delete();
-            
+            DB::table('file_repo')->where('nim', $request->id)->delete();
+            DB::table('revisi_proposal')->where('nim', $request->id)->delete();
             $msg =[
                 'status' => 1,
                 'msg' => 'Judul tidak disetujui'
