@@ -73,8 +73,10 @@ class StatusJudulController extends Controller
 
     public function unapprove_judul(Request $request)
     {
+            $proposal = DB::table('proposal')->where('nim', $request->id);
+            $id_repo= $proposal->first()->id_repo;
+            DB::table('file_repo')->where('id', $id_repo)->delete();
             DB::table('proposal')->where('nim', $request->id)->delete();
-            DB::table('file_repo')->where('nim', $request->id)->delete();
             DB::table('revisi_proposal')->where('nim', $request->id)->delete();
             $msg =[
                 'status' => 1,

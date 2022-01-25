@@ -78,8 +78,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <td>
                                         @if ($d->status == 'Pengajuan')
                                             <span class="badge badge-warning">Pengajuan Proposal</span>
-                                        @elseif (($d->status == 'Disetujui') || ($d->status == 'Revisi'))
-                                            <span class="badge badge-primary">Pengerjaan Proposal</span> 
+                                        @elseif ($d->status == 'Disetujui')
+                                            <span class="badge badge-primary">Proposal Disetujui</span> 
+                                        @elseif ($d->status == 'Revisi')
+                                            <span class="badge badge-primary">Sedang Direvisi</span> 
                                         @elseif ($d->status == 'Selesai')
                                             <span class="badge badge-primary">Daftar Sidang</span> 
                                         @elseif ($d->status == 'Sidang')

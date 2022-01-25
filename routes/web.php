@@ -92,6 +92,15 @@ Route::middleware(['auth','ceklevel:dosen'])->group(function () {
     Route::post('/revisi/lihat-file/store', [RevisiController::class,'store'])->name('revisi/lihat-file/store');
     Route::post('/revisi/lihat-file/setuju-revisi', [RevisiController::class,'setuju_revisi'])->name('revisi/lihat-file/setuju-revisi');
     
+    Route::get('pdf/{file}', function($file){
+        $path = base_path('storage/app/public/repo/'.$file);
+        $header = [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="'.$file.'"'
+        ];
+        return response()->file($path, $header);
+    })->name('pdf');
+
     Route::get('/pelaksanaan-sidang', [PelaksanaanSidangController::class,'index'])->name('pelaksanaan-sidang');
     Route::get('/pelaksanaan-sidang/lihat-file/{id}', [PelaksanaanSidangController::class,'edit'])->name('pelaksanaan-sidang/lihat-file');
     Route::get('/pelaksanaan-sidang/nilai-sidang/{id}', [PelaksanaanSidangController::class,'nilai_pembimbing_create']);

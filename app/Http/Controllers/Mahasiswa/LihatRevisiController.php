@@ -67,7 +67,7 @@ class LihatRevisiController extends Controller
 
         if(asset($request->file_path)){
             // unlink($request->file_path);
-            unlink(public_path($request->file_path));
+            unlink($request->file_path);
         }else{
             return "Gaada";
         }

@@ -57,7 +57,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 @foreach ($data as $d)   
                     @if (($d->status=='Pengajuan') && empty($d->id_repo))
                         <div class="alert alert-success fade show" role="alert">
-                            <p>Judul anda sudah disetujui, silakan upload file tugas anda <a href="{{route('status/create')}}">disini</a></p>
+                            <p>Judul anda sedang di ajukan, silakan upload file tugas anda <a href="{{route('status/create')}}">disini</a></p>
                         </div>
                     @elseif (($d->status=='Pengajuan') && (!empty($d->id_repo)))
                         <div class="alert alert-success text-white fade show" role="alert">

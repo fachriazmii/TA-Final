@@ -64,7 +64,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   {{ csrf_field() }}
                   <input name="id_repo" type="hidden" class="form-control" value="{{$data->id_repo}}">
                   <input name="id_proposal" type="hidden" class="form-control" value="{{$data->id_proposal}}">
-                  <input name="file_path" type="hidden" class="form-control" value="{{$data->local_path}}">
+                  <input name="file_path" type="hidden" class="form-control" value="{{base_path('storage/app/public/repo/'.$data->nama_file)}}">
                     <div class="row">
                       <div class="col-sm-6">
                         <div class="form-group">

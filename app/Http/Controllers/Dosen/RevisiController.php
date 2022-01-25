@@ -44,7 +44,7 @@ class RevisiController extends Controller
                         ->where('file_repo.id', $id)
                         ->first();
 
-        // dd($data);
+        // dd(asset('storage/repo/1102164778-Fadel Diva-BUKU TUGAS AKHIR RIFDAN ZULFARHAN.pdf'));
 
         return view('page.dosen.revisi.lihat-file', ['data' => $data]);
     }

@@ -62,7 +62,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <div class="card-body">
                 <div class="row">
                   <div class="col-sm-12">
-                    <iframe src="{{asset('storage/repo/'.$data->nama_file)}}" frameborder="0" width="100%" height="800px;"></iframe>
+                    <iframe src="{{URL::to('pdf/'.$data->nama_file)}}" frameborder="0" width="100%" height="800px;"></iframe>
                   </div>
                 </div>
                 <form method="POST" action="{{ route('revisi/lihat-file/store') }}" class="mt-4">
